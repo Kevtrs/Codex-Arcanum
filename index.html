@@ -6634,5 +6634,292 @@ renderQuests();
 })();
 </script>
 
+
+
+<style>
+/* =========================================================
+   VISUAL DUEL UPDATE — plateau animé en 3 rounds
+   ========================================================= */
+.ca-vduel-wrap{position:relative;z-index:2;width:100%;min-height:560px;display:flex;flex-direction:column;gap:12px;}
+.ca-vduel-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(235,246,255,.72));border:1px solid rgba(180,210,240,.75);box-shadow:0 8px 24px rgba(26,56,100,.10);}
+.ca-vduel-kicker{font-family:var(--T);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.ca-vduel-title{font-family:var(--T);font-size:20px;font-weight:700;color:var(--navy);letter-spacing:1.4px;margin-top:2px;}
+.ca-vduel-round{font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;margin-top:2px;}
+.ca-vduel-bastions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(360px,48%);}
+.ca-bastion{position:relative;padding:10px 10px;border-radius:14px;background:rgba(255,255,255,.82);border:1px solid rgba(180,210,240,.7);overflow:hidden;}
+.ca-bastion-label{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;display:flex;justify-content:space-between;gap:8px;}
+.ca-bastion-hp{font-family:var(--T);font-size:20px;font-weight:700;color:var(--navy);margin-top:2px;}
+.ca-bastion.enemy .ca-bastion-hp{color:#8b2020;}
+.ca-bastion-bar{height:5px;border-radius:999px;background:rgba(180,210,240,.55);overflow:hidden;margin-top:6px;}
+.ca-bastion-fill{height:100%;width:100%;border-radius:inherit;background:linear-gradient(90deg,#2d7a30,var(--gold));transition:width .55s ease;}
+.ca-bastion.enemy .ca-bastion-fill{background:linear-gradient(90deg,#8b2020,#d0a72a);}
+.ca-vduel-board{position:relative;flex:1;min-height:390px;display:grid;grid-template-columns:1fr 86px 1fr;gap:10px;align-items:stretch;padding:14px;border-radius:22px;background:radial-gradient(circle at 50% 44%,rgba(224,184,64,.16),transparent 30%),linear-gradient(155deg,rgba(255,255,255,.72),rgba(225,240,252,.56));border:1px solid rgba(180,210,240,.7);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.7);}
+.ca-vduel-board::before{content:'';position:absolute;left:50%;top:8%;bottom:8%;width:1px;background:linear-gradient(180deg,transparent,rgba(154,112,16,.45),transparent);}
+.ca-vduel-side{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-content:center;}
+.ca-vduel-center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.ca-vduel-vs{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#fff,rgba(216,232,248,.84));border:1px solid rgba(154,112,16,.34);box-shadow:0 10px 28px rgba(26,56,100,.14),0 0 28px rgba(224,184,64,.18);font-family:var(--T);font-size:14px;font-weight:700;color:var(--gold);letter-spacing:2px;}
+.ca-vduel-phase{font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;text-align:center;line-height:1.3;min-height:30px;}
+.ca-vcard{position:relative;min-height:108px;border-radius:14px;background:rgba(255,255,255,.92);border:1px solid rgba(180,210,240,.72);box-shadow:0 7px 20px rgba(26,56,100,.11);overflow:hidden;padding:8px;display:flex;gap:8px;align-items:center;transform:translateY(8px);opacity:0;animation:caVCardIn .45s ease forwards;}
+@keyframes caVCardIn{to{transform:translateY(0);opacity:1}}
+.ca-vcard.enemy{background:rgba(255,255,255,.84);}
+.ca-vcard.active{animation:caVCardStrike .62s ease both;box-shadow:0 10px 30px rgba(154,112,16,.22),0 0 0 2px rgba(224,184,64,.25);}
+.ca-vcard.hit{animation:caVCardHit .38s ease both;}
+@keyframes caVCardStrike{0%{transform:translateX(0) scale(1)}42%{transform:translateX(var(--strike,18px)) scale(1.045)}100%{transform:translateX(0) scale(1)}}
+@keyframes caVCardHit{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}60%{transform:translateX(5px)}}
+.ca-vcard-art{width:46px;height:58px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,rgba(255,255,255,.9),rgba(226,240,252,.7));border:1px solid rgba(180,210,240,.7);font-size:24px;}
+.ca-vcard-name{font-family:var(--T);font-size:11px;line-height:1.08;font-weight:700;color:var(--navy);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ca-vcard-meta{font-family:var(--B);font-size:9px;color:var(--muted);font-style:italic;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ca-vcard-stats{display:flex;gap:4px;margin-top:5px;}
+.ca-vstat{min-width:24px;height:22px;border-radius:7px;background:rgba(26,56,100,.05);border:1px solid rgba(180,210,240,.55);display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:10px;font-weight:700;color:var(--navy);}
+.ca-vdmg{position:absolute;z-index:20;font-family:var(--T);font-size:28px;font-weight:700;color:#8b2020;text-shadow:0 2px 12px rgba(255,255,255,.95);animation:caDmgFloat .85s ease forwards;pointer-events:none;}
+@keyframes caDmgFloat{0%{opacity:0;transform:translate(-50%,8px) scale(.8)}25%{opacity:1;transform:translate(-50%,-8px) scale(1.12)}100%{opacity:0;transform:translate(-50%,-42px) scale(.9)}}
+.ca-vduel-log{min-height:62px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ca-vduel-step{padding:10px;border-radius:14px;background:rgba(255,255,255,.82);border:1px solid rgba(180,210,240,.7);box-shadow:0 3px 12px rgba(26,56,100,.08);opacity:.5;transform:translateY(4px);transition:.28s ease;}
+.ca-vduel-step.active{opacity:1;transform:translateY(0);border-color:rgba(154,112,16,.38);box-shadow:0 7px 20px rgba(154,112,16,.12);}
+.ca-vduel-step-title{font-family:var(--T);font-size:11px;font-weight:700;color:var(--navy);}
+.ca-vduel-step-text{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;margin-top:3px;line-height:1.3;}
+.ca-vduel-skip{align-self:center;border:none;border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.75);border:1px solid rgba(180,210,240,.85);font-family:var(--T);font-size:10px;font-weight:700;color:var(--navy);letter-spacing:1px;}
+.ca-vduel-beam{position:absolute;left:50%;top:50%;width:0;height:2px;background:linear-gradient(90deg,rgba(224,184,64,0),rgba(224,184,64,.9),rgba(224,184,64,0));transform-origin:left center;animation:caBeam .45s ease forwards;pointer-events:none;z-index:12;}
+@keyframes caBeam{0%{opacity:0;width:0}40%{opacity:1;width:42%}100%{opacity:0;width:50%}}
+@media(max-width:760px){
+  .ca-vduel-wrap{min-height:calc(100svh - 92px);gap:9px;}
+  .ca-vduel-top{padding:10px;border-radius:16px;display:grid;grid-template-columns:1fr;}
+  .ca-vduel-title{font-size:17px;}
+  .ca-vduel-bastions{width:100%;grid-template-columns:1fr 1fr;}
+  .ca-bastion{padding:8px;border-radius:12px;}
+  .ca-bastion-hp{font-size:18px;}
+  .ca-vduel-board{grid-template-columns:1fr 50px 1fr;gap:6px;min-height:370px;padding:9px;border-radius:18px;}
+  .ca-vduel-side{grid-template-columns:1fr;gap:6px;align-content:start;overflow:hidden;}
+  .ca-vcard{min-height:68px;border-radius:12px;padding:6px;gap:6px;}
+  .ca-vcard-art{width:34px;height:44px;border-radius:9px;font-size:18px;}
+  .ca-vcard-name{font-size:9.2px;-webkit-line-clamp:1;}
+  .ca-vcard-meta{font-size:7.6px;margin-top:1px;}
+  .ca-vcard-stats{margin-top:3px;gap:3px;}
+  .ca-vstat{min-width:19px;height:18px;font-size:8.4px;border-radius:6px;}
+  .ca-vduel-vs{width:44px;height:44px;font-size:11px;letter-spacing:1px;}
+  .ca-vduel-phase{font-size:9.5px;}
+  .ca-vduel-log{grid-template-columns:1fr;gap:6px;}
+  .ca-vduel-step{padding:8px;border-radius:12px;display:none;}
+  .ca-vduel-step.active{display:block;}
+  .ca-vdmg{font-size:22px;}
+}
+</style>
+<script>
+/* =========================================================
+   VISUAL DUEL UPDATE — override arène avec combat visible
+   ========================================================= */
+(function(){
+  const wait = (ms)=>new Promise(r=>setTimeout(r,ms));
+  const esc = (s)=>String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
+  function cfg(key){return (typeof ARENA_MODES!=='undefined' && ARENA_MODES[key])?ARENA_MODES[key]:{label:'Arène',cost:100,rewardWin:220,rewardLose:25,xpFactor:1,woundRisk:.18};}
+  function tier(c){return (typeof RARITIES!=='undefined' && RARITIES[c?.rarity])?RARITIES[c.rarity].tier:0;}
+  function cArt(c){return (typeof ART_EMOJIS!=='undefined' && ART_EMOJIS[c?.art])?ART_EMOJIS[c.art]:({UNIT:'⚔',EQUIPMENT:'🛡',TECHNIQUE:'✦',ULTIMATE:'★'}[c?.type]||'✦');}
+  function cardPower(c){return (c?.stats?.power||0)+(c?.type==='ULTIMATE'?7:c?.type==='TECHNIQUE'?3:c?.type==='EQUIPMENT'?2:0)+tier(c)*2+Math.max(0,Math.round((c?.cost||0)/2));}
+  function cardInit(c){return c?.stats?.initiative|| (c?.type==='TECHNIQUE'?7:c?.type==='ULTIMATE'?4:3);}
+  function makeEnemyDeck(modeKey){
+    const pool=(CARDS||[]).filter(c=>c.type==='UNIT').slice();
+    const bias=modeKey==='high'?2:modeKey==='arena'?1:0;
+    pool.sort((a,b)=>((tier(b)-tier(a))*2+(b.cost-a.cost))+Math.random()-.5);
+    return pool.slice(0,8).map(c=>({...c,_enemy:true}));
+  }
+  function vCard(c,i,enemy=false){
+    const f=(typeof FACTIONS!=='undefined' && FACTIONS[c.faction])?FACTIONS[c.faction]:{primary:'#1a3864',textColor:'#1a3864'};
+    const pow=cardPower(c), init=cardInit(c), vit=c?.stats?.vitality||Math.max(2,c?.cost||2);
+    return `<div class="ca-vcard ${enemy?'enemy':''}" id="${enemy?'enemy':'ally'}-vcard-${i}" style="animation-delay:${i*0.045}s;border-color:${f.primary}55;--strike:${enemy?'-18px':'18px'}"><div class="ca-vcard-art" style="border-color:${f.primary}44;background:linear-gradient(155deg,rgba(255,255,255,.92),${f.primary}22)">${cArt(c)}</div><div style="min-width:0;flex:1"><div class="ca-vcard-name" style="color:${f.textColor||f.primary}">${esc(c.name)}</div><div class="ca-vcard-meta">${esc((RARITIES[c.rarity]||{}).label||c.rarity)} · ${esc((FACTIONS[c.faction]||{}).short||c.faction)}</div><div class="ca-vcard-stats"><span class="ca-vstat">⚔ ${pow}</span><span class="ca-vstat">♦ ${vit}</span><span class="ca-vstat">✦ ${init}</span></div></div></div>`;
+  }
+  function showDamage(board,targetSelector,amount){
+    const target=document.querySelector(targetSelector); if(!board||!target)return;
+    const br=board.getBoundingClientRect(), tr=target.getBoundingClientRect();
+    const d=document.createElement('div'); d.className='ca-vdmg'; d.textContent='−'+amount;
+    d.style.left=(tr.left+tr.width/2-br.left)+'px'; d.style.top=(tr.top+tr.height/2-br.top)+'px'; board.appendChild(d);
+    setTimeout(()=>d.remove(),900);
+  }
+  function setHP(who,hp){
+    const val=document.getElementById(`ca-${who}-hp`), fill=document.getElementById(`ca-${who}-fill`);
+    if(val) val.textContent=Math.max(0,hp);
+    if(fill) fill.style.width=Math.max(0,Math.min(100,hp/30*100))+'%';
+  }
+  function setPhase(title,text,step){
+    const t=document.getElementById('ca-vduel-round'); if(t)t.textContent=title;
+    const p=document.getElementById('ca-vduel-phase'); if(p)p.textContent=text;
+    document.querySelectorAll('.ca-vduel-step').forEach((el,i)=>el.classList.toggle('active',i===step));
+  }
+  function renderBattle(mode,modeKey,enemyDeck){
+    const overlay=document.getElementById('arena-result-overlay'), box=document.getElementById('arena-result-box'); if(!overlay||!box)return;
+    overlay.className='open';
+    const ally=state.deck||[];
+    box.innerHTML=`<div class="ca-vduel-wrap">
+      <div class="ca-vduel-top"><div><div class="ca-vduel-kicker">✦ ${esc(mode.label)} ✦</div><div class="ca-vduel-title">Duel de Bastions</div><div class="ca-vduel-round" id="ca-vduel-round">Préparation du champ de bataille…</div></div><div class="ca-vduel-bastions"><div class="ca-bastion"><div class="ca-bastion-label"><span>Votre Bastion</span><span>PV</span></div><div class="ca-bastion-hp" id="ca-ally-hp">30</div><div class="ca-bastion-bar"><div class="ca-bastion-fill" id="ca-ally-fill"></div></div></div><div class="ca-bastion enemy"><div class="ca-bastion-label"><span>Bastion adverse</span><span>PV</span></div><div class="ca-bastion-hp" id="ca-enemy-hp">30</div><div class="ca-bastion-bar"><div class="ca-bastion-fill" id="ca-enemy-fill"></div></div></div></div></div>
+      <div class="ca-vduel-board" id="ca-vduel-board"><div class="ca-vduel-side">${ally.map((c,i)=>vCard(c,i,false)).join('')}</div><div class="ca-vduel-center"><div class="ca-vduel-vs">VS</div><div class="ca-vduel-phase" id="ca-vduel-phase">Les cartes se placent sur la ligne.</div><button class="ca-vduel-skip" onclick="window.__caSkipVisualDuel=true">Passer</button></div><div class="ca-vduel-side">${enemyDeck.map((c,i)=>vCard(c,i,true)).join('')}</div></div>
+      <div class="ca-vduel-log"><div class="ca-vduel-step active"><div class="ca-vduel-step-title">Round 1 — Déploiement</div><div class="ca-vduel-step-text">Les grimoires révèlent leurs premières reliques.</div></div><div class="ca-vduel-step"><div class="ca-vduel-step-title">Round 2 — Initiative</div><div class="ca-vduel-step-text">Les unités rapides frappent et ouvrent la brèche.</div></div><div class="ca-vduel-step"><div class="ca-vduel-step-title">Round 3 — Bastion</div><div class="ca-vduel-step-text">Les derniers dégâts décident du vainqueur.</div></div></div>
+    </div>`;
+  }
+  async function runVisualRounds(mode,modeKey,enemyDeck){
+    window.__caSkipVisualDuel=false;
+    let allyHP=30, enemyHP=30; const board=()=>document.getElementById('ca-vduel-board');
+    setPhase('Round 1 — Déploiement','Les deux grimoires prennent position.',0); await wait(650);
+    if(window.__caSkipVisualDuel)return {allyHP,enemyHP};
+    const allyUnits=(state.deck||[]).slice(0,8); const enemyUnits=enemyDeck.slice(0,8);
+    setPhase('Round 2 — Initiative','Les cartes attaquent selon leur initiative.',1);
+    const attacks=[...allyUnits.map((c,i)=>({side:'ally',c,i,init:cardInit(c)})),...enemyUnits.map((c,i)=>({side:'enemy',c,i,init:cardInit(c)}))].sort((a,b)=>b.init-a.init).slice(0,10);
+    for(const a of attacks){
+      if(window.__caSkipVisualDuel)break;
+      const el=document.getElementById(`${a.side}-vcard-${a.i}`); if(el)el.classList.add('active');
+      const dmg=Math.max(1,Math.round(cardPower(a.c)/3)+(tier(a.c)>1?1:0));
+      await wait(260);
+      if(a.side==='ally'){ enemyHP-=dmg; setHP('enemy',enemyHP); showDamage(board(),'#ca-enemy-hp',dmg); }
+      else { allyHP-=dmg; setHP('ally',allyHP); showDamage(board(),'#ca-ally-hp',dmg); }
+      await wait(310); if(el)el.classList.remove('active');
+      if(allyHP<=0||enemyHP<=0)break;
+    }
+    if(window.__caSkipVisualDuel)return {allyHP,enemyHP};
+    setPhase('Round 3 — Bastion','Les ultimes énergies frappent les Bastions.',2); await wait(420);
+    const allyBurst=Math.max(3,Math.round((deckScore?deckScore():130)/28));
+    const enemyBurst=Math.max(3,Math.round((120+Math.random()*80+(modeKey==='high'?30:0))/30));
+    enemyHP-=allyBurst; setHP('enemy',enemyHP); showDamage(board(),'#ca-enemy-hp',allyBurst); await wait(420);
+    if(enemyHP>0){ allyHP-=enemyBurst; setHP('ally',allyHP); showDamage(board(),'#ca-ally-hp',enemyBurst); await wait(520); }
+    return {allyHP,enemyHP};
+  }
+  function getModeOutcome(mode,modeKey,visual){
+    const score=deckScore();
+    const enemy=Math.round(110+Math.random()*85+(modeKey==='high'?35:modeKey==='arena'?12:0));
+    let victory=score>=enemy;
+    if(visual && (visual.enemyHP<=0||visual.allyHP<=0)) victory=visual.enemyHP<=visual.allyHP;
+    return {score,enemy,victory};
+  }
+  function applyDuelProgress(mode,modeKey,outcome){
+    const before=(state.deck||[]).map(card=>{const p=getProgress(card.id);return {id:card.id,xp:p.xp||0,level:p.level||1,fatigue:p.fatigue||0,wounds:p.wounds||0,duels:p.duels||0,wins:p.wins||0,value:estimateCardValue(card)};});
+    const reward=outcome.victory?mode.rewardWin:mode.rewardLose; const net=reward-mode.cost; state.or=(state.or||0)-mode.cost+reward;
+    let totalXP=0,wounds=0;
+    const rows=(state.deck||[]).map((card,idx)=>{const b=before[idx]; const p=getProgress(card.id); const xpGain=Math.round(((outcome.victory?95:55)+tier(card)*10)*(mode.xpFactor||1));
+      p.xp=(p.xp||0)+xpGain; p.level=levelFromXP(p.xp); p.fatigue=clamp((p.fatigue||0)+Math.round((card.fatigue?.playedGain||8)*(modeKey==='high'?1.7:modeKey==='arena'?1.15:.55)),0,100); p.duels=(p.duels||0)+1; if(outcome.victory)p.wins=(p.wins||0)+1; if(Math.random()<(mode.woundRisk||0)&&!outcome.victory){p.wounds=clamp((p.wounds||0)+1,0,3);} const wd=(p.wounds||0)-(b.wounds||0); wounds+=Math.max(0,wd); totalXP+=xpGain; if(typeof logEvent==='function')logEvent(`${outcome.victory?'Victoire':'Défaite'} en ${mode.label} · ${net>=0?'+':''}${net} ₲ · +${xpGain} XP`,card.id); return {card,before:b,after:{...p},xpGain};
+    });
+    let mvp=rows.slice().sort((a,b)=>(b.xpGain+tier(b.card)*20+estimateCardValue(b.card)/100)-(a.xpGain+tier(a.card)*20+estimateCardValue(a.card)/100))[0];
+    mvp={card:mvp.card,progress:getProgress(mvp.card.id),gain:mvp.xpGain,score:mvp.xpGain+tier(mvp.card)*20,value:estimateCardValue(mvp.card),before:mvp.before};
+    state.lastDuel={victory:outcome.victory,score:outcome.score,enemy:outcome.enemy,reward:net,date:new Date().toISOString(),mode:mode.label,mvp:mvp.card?.id,totalXP,wounds};
+    state.arenaHistory ||= []; state.arenaHistory.push({mode:mode.label,victory:outcome.victory,score:outcome.score,enemy:outcome.enemy,net,date:new Date().toISOString(),mvp:mvp.card?.id,totalXP,wounds}); state.arenaHistory=state.arenaHistory.slice(-20);
+    saveGame(); updateOrDisplay(); renderDeck(); renderGrid(); renderShop(); renderHome(); renderArena(); if(typeof renderForge==='function')renderForge(); if(typeof renderQuests==='function')renderQuests();
+    return {mode,modeKey,victory:outcome.victory,score:outcome.score,enemy:outcome.enemy,net,totalXP,wounds,rows,mvp};
+  }
+  function progressRow(c,before,after,xpGain){
+    const f=(FACTIONS[c.faction]||FACTIONS.AURELIA), art=cArt(c), xp=(after.xp||0)%260, pct=Math.max(4,Math.min(100,Math.round(xp/260*100))), wd=(after.wounds||0)-(before.wounds||0), fd=(after.fatigue||0)-(before.fatigue||0);
+    return `<div class="card-progress-row"><div class="card-progress-icon" style="border-color:${f.primary}55;">${art}</div><div><div class="card-progress-name">${esc(c.name)}</div><div class="card-progress-meta">Niv. ${after.level||1} · +${xpGain} XP · fatigue +${Math.max(0,fd)}${wd>0?' · blessure +'+wd:''}</div><div class="xp-mini"><div class="xp-mini-fill" style="--xp:${pct}%;width:${pct}%"></div></div></div><div class="card-progress-delta">${estimateCardValue(c).toLocaleString('fr')} ₲</div></div>`;
+  }
+  function showResult(data){
+    const overlay=document.getElementById('arena-result-overlay'), box=document.getElementById('arena-result-box'); if(!overlay||!box)return;
+    overlay.className=`open ${data.victory?'victory':'defeat'}`;
+    const c=data.mvp.card||data.rows[0]?.card, p=data.mvp.progress||getProgress(c.id), f=FACTIONS[c.faction]||FACTIONS.AURELIA;
+    box.innerHTML=`<div class="arena-result-head"><div class="arena-result-state ${data.victory?'victory':'defeat'}">${data.victory?'Victoire':'Défaite'}</div><div class="arena-result-line">${esc(data.mode.label)} · ${data.victory?'Le Bastion adverse cède.':'Votre Bastion vacille, mais les cartes ont appris.'}</div><div class="arena-result-score"><div class="score-pill"><div class="score-label">Votre score</div><div class="score-num">${data.score}</div></div><div class="score-vs">VS</div><div class="score-pill"><div class="score-label">Adversaire</div><div class="score-num">${data.enemy}</div></div></div></div><div class="arena-result-grid"><div class="mvp-card"><div class="mvp-kicker">Carte MVP</div><div class="mvp-art" style="border-color:${f.primary}55;">${cArt(c)}</div><div class="mvp-name">${esc(c.name)}</div><div class="mvp-meta">${esc(RARITIES[c.rarity].label)} · Niv. ${p.level||1} · ${p.wins||0}/${p.duels||0} victoires</div><div class="mvp-value">${estimateCardValue(c).toLocaleString('fr')} ₲ estimés</div></div><div class="result-details"><div class="reward-row"><div class="reward-card"><div class="reward-val ${data.net>=0?'good':'bad'}">${data.net>=0?'+':''}${data.net}</div><div class="reward-lbl">Or net</div></div><div class="reward-card"><div class="reward-val gold">+${data.totalXP}</div><div class="reward-lbl">XP totale</div></div><div class="reward-card"><div class="reward-val ${data.wounds>0?'bad':'good'}">${data.wounds}</div><div class="reward-lbl">Blessure(s)</div></div></div><div class="card-progress-list">${data.rows.map(r=>progressRow(r.card,r.before,r.after,r.xpGain)).join('')}</div></div></div><div class="arena-result-actions"><button class="result-secondary" onclick="closeArenaResult();switchTab('deck')">Voir mes cartes</button><button class="result-primary" onclick="closeArenaResult();switchTab('arena')">Retour arène</button><button class="result-gold" onclick="closeArenaResult();startArenaDuel('${data.modeKey}')">Rejouer</button></div>`;
+    if(typeof notify==='function')notify(`${data.mode.label} : ${data.victory?'Victoire':'Défaite'} · ${data.net>=0?'+':''}${data.net} ₲`,data.victory?'#2d7a30':'#8b2020');
+  }
+  window.startArenaDuel=async function(modeKey){
+    modeKey=modeKey||'training'; const mode=cfg(modeKey);
+    if((state.deck||[]).length!==8){notify('Prépare un grimoire complet : 8 cartes.','#8b2020');switchTab('deck');return;}
+    if((state.or||0)<mode.cost){notify('Or insuffisant pour entrer dans cette arène.','#8b2020');return;}
+    const enemyDeck=makeEnemyDeck(modeKey); renderBattle(mode,modeKey,enemyDeck);
+    const visual=await runVisualRounds(mode,modeKey,enemyDeck);
+    const outcome=getModeOutcome(mode,modeKey,visual);
+    const data=applyDuelProgress(mode,modeKey,outcome);
+    await wait(360); showResult(data);
+  };
+  window.startDuel=function(){window.startArenaDuel('training');};
+})();
+</script>
+
+
+
+<style>
+/* =========================================================
+   CODEX ARCANUM — COMBAT PREMIUM V1 / TUTORIEL JOUABLE
+   ========================================================= */
+.ca-tuto-entry{margin-top:14px;padding:18px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(232,244,255,.78));border:1px solid rgba(180,210,240,.86);box-shadow:0 10px 30px rgba(26,56,100,.12);position:relative;overflow:hidden;}
+.ca-tuto-entry:before{content:'';position:absolute;inset:-40%;background:radial-gradient(circle at 20% 20%,rgba(200,160,48,.22),transparent 28%),radial-gradient(circle at 80% 60%,rgba(42,90,154,.18),transparent 30%);pointer-events:none;animation:caTutoEntryGlow 5s ease-in-out infinite;}
+@keyframes caTutoEntryGlow{0%,100%{transform:scale(1);opacity:.65}50%{transform:scale(1.08);opacity:1}}
+.ca-tuto-entry>*{position:relative;z-index:1}.ca-tuto-kicker{font-family:var(--T);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}.ca-tuto-title{font-family:var(--T);font-size:21px;font-weight:700;color:var(--navy);margin-bottom:5px}.ca-tuto-text{font-family:var(--B);font-size:13px;color:var(--muted);font-style:italic;line-height:1.55;max-width:680px}.ca-tuto-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.ca-tuto-chip{padding:8px 10px;border:1px solid rgba(180,210,240,.78);border-radius:12px;background:rgba(255,255,255,.72);font-family:var(--B);font-size:11px;color:var(--text)}.ca-tuto-start{border:none;border-radius:13px;padding:13px 18px;background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;font-family:var(--T);font-size:12px;font-weight:700;letter-spacing:1.4px;box-shadow:0 8px 22px rgba(26,56,100,.24)}
+#ca-combat-overlay{position:fixed;inset:0;z-index:12000;background:linear-gradient(160deg,#d9edff 0%,#eef7ff 38%,#f4efe4 100%);display:none;overflow:hidden;color:var(--text);}
+#ca-combat-overlay.open{display:flex;flex-direction:column;}
+#ca-combat-overlay:before{content:'';position:absolute;inset:-20%;background:radial-gradient(circle at 50% 22%,rgba(255,255,255,.72),transparent 31%),radial-gradient(circle at 14% 62%,rgba(154,112,16,.16),transparent 28%),radial-gradient(circle at 86% 56%,rgba(42,90,154,.18),transparent 30%);pointer-events:none;animation:caCombatBg 7s ease-in-out infinite;}
+@keyframes caCombatBg{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.05);opacity:1}}
+.ca-combat-shell{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top,0px)) 10px calc(10px + env(safe-area-inset-bottom,0px));gap:8px;max-width:1180px;width:100%;margin:0 auto;}
+.ca-combat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:18px;background:rgba(255,255,255,.76);border:1px solid rgba(180,210,240,.82);box-shadow:0 6px 20px rgba(26,56,100,.10);backdrop-filter:blur(14px);}
+.ca-combat-brand{display:flex;align-items:center;gap:9px;min-width:0}.ca-combat-sigil{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#fff,#d7eafb);border:1px solid rgba(180,210,240,.9);box-shadow:inset 0 0 14px rgba(26,56,100,.08);font-family:var(--T);color:var(--gold);font-size:22px}.ca-combat-kicker{font-family:var(--T);font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);white-space:nowrap}.ca-combat-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ca-combat-actions{display:flex;align-items:center;gap:7px}.ca-combat-pill{padding:7px 9px;border:1px solid rgba(180,210,240,.82);border-radius:999px;background:rgba(255,255,255,.72);font-family:var(--T);font-size:11px;color:var(--navy);white-space:nowrap}.ca-combat-close{width:34px;height:34px;border:none;border-radius:12px;background:rgba(139,32,32,.08);color:#8b2020;font-family:var(--T);font-size:18px;}
+.ca-rule-card{padding:10px 12px;border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(232,244,255,.78));border:1px solid rgba(180,210,240,.86);box-shadow:0 8px 26px rgba(26,56,100,.12);display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;}
+.ca-rule-step{font-family:var(--T);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}.ca-rule-title{font-family:var(--T);font-size:17px;font-weight:700;color:var(--navy);margin-bottom:3px}.ca-rule-text{font-family:var(--B);font-size:13px;color:var(--muted);font-style:italic;line-height:1.42}.ca-rule-btn{border:none;border-radius:12px;padding:11px 14px;background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;font-family:var(--T);font-size:11px;font-weight:700;letter-spacing:1.1px;white-space:nowrap}.ca-rule-btn.ghost{background:rgba(255,255,255,.76);color:var(--navy);border:1px solid rgba(180,210,240,.9)}
+.ca-combat-field{flex:1;min-height:0;display:grid;grid-template-rows:auto 1fr auto;gap:8px;}
+.ca-bastion-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ca-fortress{position:relative;overflow:hidden;border-radius:16px;padding:9px 11px;background:rgba(255,255,255,.80);border:1px solid rgba(180,210,240,.82);box-shadow:0 6px 18px rgba(26,56,100,.09)}.ca-fortress.enemy{background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,238,238,.66))}.ca-fortress.active{box-shadow:0 0 0 2px rgba(200,160,48,.25),0 8px 24px rgba(154,112,16,.18)}.ca-fortress-head{display:flex;align-items:center;justify-content:space-between;font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic}.ca-fortress-hp{font-family:var(--T);font-size:25px;font-weight:700;color:var(--navy);line-height:1;margin-top:4px}.ca-fortress.enemy .ca-fortress-hp{color:#8b2020}.ca-fortress-bar{height:6px;border-radius:999px;background:rgba(180,210,240,.45);overflow:hidden;margin-top:6px}.ca-fortress-fill{height:100%;width:100%;background:linear-gradient(90deg,#8b2020,#e6b83d);border-radius:inherit;transition:width .45s ease}.ca-fortress:not(.enemy) .ca-fortress-fill{background:linear-gradient(90deg,#2d7a30,#6ba9dc)}
+.ca-board-wrap{position:relative;min-height:0;border-radius:22px;border:1px solid rgba(180,210,240,.75);background:linear-gradient(180deg,rgba(255,255,255,.46),rgba(255,255,255,.25));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 28px rgba(26,56,100,.10);overflow:hidden;display:grid;grid-template-rows:1fr auto 1fr;gap:4px;padding:8px;}
+.ca-board-wrap:before{content:'';position:absolute;left:8%;right:8%;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(154,112,16,.55),transparent);box-shadow:0 0 28px rgba(154,112,16,.25)}
+.ca-lane{position:relative;z-index:1;display:grid;grid-template-rows:1fr 1fr;gap:6px;min-height:0}.ca-lane.player{grid-template-rows:1fr 1fr}.ca-zone-label{position:absolute;left:10px;top:6px;font-family:var(--T);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(96,128,160,.72);z-index:2}.ca-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;min-height:0}.ca-slot{position:relative;min-height:86px;border-radius:16px;border:1px dashed rgba(80,110,145,.28);background:rgba(255,255,255,.36);display:flex;align-items:center;justify-content:center;transition:all .18s ease;overflow:hidden}.ca-slot:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(200,160,48,.14),transparent 58%);opacity:0;transition:opacity .2s}.ca-slot.valid{border-style:solid;border-color:rgba(154,112,16,.75);background:rgba(255,250,232,.72);box-shadow:0 0 0 2px rgba(200,160,48,.12),0 0 24px rgba(200,160,48,.18);animation:caValidPulse 1.2s ease-in-out infinite}.ca-slot.valid:after{opacity:1}.ca-slot.target{border-style:solid;border-color:rgba(139,32,32,.68);background:rgba(255,240,240,.82);box-shadow:0 0 22px rgba(139,32,32,.16);animation:caTargetPulse 1s ease-in-out infinite}.ca-slot.heal{border-color:rgba(45,122,48,.72);background:rgba(238,255,239,.82);box-shadow:0 0 24px rgba(45,122,48,.16)}
+@keyframes caValidPulse{50%{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(200,160,48,.18),0 0 30px rgba(200,160,48,.26)}}@keyframes caTargetPulse{50%{transform:scale(1.015)}}
+.ca-midline{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:26px}.ca-midline span{font-family:var(--T);font-size:10px;letter-spacing:3px;color:rgba(154,112,16,.78);text-transform:uppercase;background:rgba(255,255,255,.66);border:1px solid rgba(180,210,240,.66);border-radius:999px;padding:5px 12px}.ca-combat-card{position:relative;width:min(92px,100%);height:104px;border-radius:14px;background:#fff;border:1.4px solid rgba(180,210,240,.86);box-shadow:0 8px 18px rgba(26,56,100,.12);display:flex;flex-direction:column;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;touch-action:manipulation}.ca-combat-card.selectable{cursor:pointer}.ca-combat-card.selectable:hover,.ca-combat-card.selected{transform:translateY(-4px) scale(1.03);box-shadow:0 14px 30px rgba(26,56,100,.20),0 0 0 2px rgba(154,112,16,.22)}.ca-combat-card.sleep{filter:saturate(.75) opacity(.82)}.ca-combat-card.attacking{animation:caCardAttack .45s cubic-bezier(.2,1.4,.4,1)}@keyframes caCardAttack{0%{transform:translateY(0) scale(1)}45%{transform:translateY(-18px) scale(1.08) rotate(-2deg)}100%{transform:translateY(0) scale(1)}}.ca-card-rarity{height:3px;background:var(--rarity,#ddd)}.ca-card-art{height:38px;display:flex;align-items:center;justify-content:center;font-size:24px;background:linear-gradient(155deg,var(--faction-soft),rgba(255,255,255,.6));position:relative}.ca-card-cost{position:absolute;right:5px;top:4px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 28%,#fff,var(--faction));color:#fff;font-family:var(--T);font-size:10px;font-weight:700;border:1.5px solid rgba(255,255,255,.8);box-shadow:0 2px 8px rgba(0,0,0,.12)}.ca-card-name{font-family:var(--T);font-size:8.5px;line-height:1.1;font-weight:700;color:var(--faction-text);padding:5px 6px 3px;height:26px;overflow:hidden}.ca-card-stats{margin:auto 5px 5px;display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid rgba(180,210,240,.68);border-radius:7px;overflow:hidden;background:rgba(26,56,100,.035)}.ca-card-stat{text-align:center;padding:3px 0;border-right:1px solid rgba(180,210,240,.58);font-family:var(--T);font-size:10px;font-weight:700}.ca-card-stat:last-child{border-right:0}.ca-card-stat small{display:block;font-family:var(--B);font-size:7px;color:var(--muted);font-weight:400}.ca-card-buff{position:absolute;left:5px;top:5px;padding:2px 5px;border-radius:999px;background:rgba(255,255,255,.88);border:1px solid rgba(180,210,240,.8);font-family:var(--T);font-size:8px;color:var(--navy);font-weight:700}.ca-combat-card.legendary{box-shadow:0 8px 18px rgba(26,56,100,.12),0 0 24px rgba(224,184,64,.20)}.ca-combat-card.legendary .ca-card-rarity{animation:caLegendLine 1.6s linear infinite}@keyframes caLegendLine{50%{filter:brightness(1.35)}}
+.ca-hand-area{position:relative;border-radius:19px;background:rgba(255,255,255,.74);border:1px solid rgba(180,210,240,.82);box-shadow:0 -4px 22px rgba(26,56,100,.08);padding:8px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}.ca-energy{width:58px;border-radius:15px;background:linear-gradient(145deg,rgba(26,56,100,.96),rgba(42,90,154,.92));color:#fff;text-align:center;padding:8px 6px;box-shadow:0 8px 18px rgba(26,56,100,.18)}.ca-energy-num{font-family:var(--T);font-size:22px;font-weight:700;line-height:1}.ca-energy-lbl{font-family:var(--B);font-size:9px;font-style:italic;opacity:.84}.ca-hand-scroll{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;padding:4px 2px 8px;scrollbar-width:none}.ca-hand-scroll::-webkit-scrollbar{display:none}.ca-hand-card{flex:0 0 88px;height:118px;transform-origin:center bottom}.ca-hand-card.playable{animation:caHandPlayable 1.3s ease-in-out infinite}@keyframes caHandPlayable{50%{transform:translateY(-4px)}}.ca-end-turn{height:54px;border:none;border-radius:15px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;font-family:var(--T);font-size:11px;font-weight:700;letter-spacing:1.1px;padding:0 12px;box-shadow:0 9px 20px rgba(154,112,16,.20)}.ca-combat-log{position:absolute;right:14px;bottom:92px;width:min(300px,40vw);max-height:140px;overflow:hidden;border:1px solid rgba(180,210,240,.78);border-radius:14px;background:rgba(255,255,255,.78);box-shadow:0 8px 24px rgba(26,56,100,.12);padding:8px 10px;font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;backdrop-filter:blur(10px);z-index:4}.ca-log-line{animation:fadeUp .22s both;margin-bottom:3px}.ca-damage-pop,.ca-heal-pop{position:fixed;z-index:13000;pointer-events:none;font-family:var(--T);font-size:30px;font-weight:700;color:#8b2020;text-shadow:0 3px 14px rgba(139,32,32,.22);animation:caPopDamage .85s ease-out forwards}.ca-heal-pop{color:#2d7a30;text-shadow:0 3px 14px rgba(45,122,48,.22)}@keyframes caPopDamage{0%{transform:translate(-50%,-50%) scale(.6);opacity:0}18%{transform:translate(-50%,-70%) scale(1.15);opacity:1}100%{transform:translate(-50%,-130%) scale(.85);opacity:0}}.ca-screen-flash{position:fixed;inset:0;z-index:12500;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(255,240,160,.95),rgba(224,184,64,.35),transparent 65%);animation:caFlash .8s ease-out forwards}.ca-screen-flash.violet{background:radial-gradient(circle at 50% 50%,rgba(210,190,255,.95),rgba(100,64,216,.32),transparent 65%)}@keyframes caFlash{from{opacity:1}to{opacity:0}}.ca-shake{animation:caShake .34s ease-in-out}@keyframes caShake{20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}.ca-tutorial-complete{position:fixed;inset:0;z-index:13500;background:rgba(20,40,80,.52);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:18px}.ca-complete-box{width:min(560px,100%);border-radius:26px;background:linear-gradient(155deg,rgba(255,255,255,.98),rgba(232,244,255,.94));border:1px solid rgba(210,230,250,.86);box-shadow:0 28px 80px rgba(0,0,0,.28);padding:22px;text-align:center;position:relative;overflow:hidden;animation:modalIn .22s ease}.ca-complete-box:before{content:'';position:absolute;inset:-40%;background:radial-gradient(circle at 50% 30%,rgba(224,184,64,.36),transparent 32%);animation:caCombatBg 4s ease-in-out infinite}.ca-complete-box>*{position:relative;z-index:1}.ca-complete-seal{width:92px;height:92px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 24%,#fff,#d9edff);border:1px solid rgba(200,160,48,.5);box-shadow:0 0 36px rgba(200,160,48,.22);font-size:42px;color:var(--gold)}.ca-complete-title{font-family:var(--T);font-size:30px;letter-spacing:2px;color:var(--navy);font-weight:700}.ca-complete-text{font-family:var(--B);font-size:14px;color:var(--muted);font-style:italic;line-height:1.55;margin:8px auto 14px;max-width:430px}.ca-complete-rewards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.ca-complete-reward{padding:12px;border-radius:15px;background:rgba(255,255,255,.76);border:1px solid rgba(180,210,240,.82)}.ca-complete-reward b{display:block;font-family:var(--T);font-size:18px;color:var(--gold)}.ca-complete-reward span{font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic}.ca-complete-actions{display:flex;gap:10px}.ca-complete-actions button{flex:1;border:none;border-radius:14px;padding:13px 10px;font-family:var(--T);font-size:11px;font-weight:700;letter-spacing:1.1px}.ca-complete-primary{background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff}.ca-complete-secondary{background:rgba(255,255,255,.78);border:1px solid rgba(180,210,240,.9)!important;color:var(--navy)}
+@media(max-width:760px){.ca-tuto-steps{grid-template-columns:1fr}.ca-combat-shell{padding:calc(7px + env(safe-area-inset-top,0px)) 7px calc(7px + env(safe-area-inset-bottom,0px));gap:6px}.ca-combat-top{padding:7px 8px;border-radius:16px}.ca-combat-sigil{width:32px;height:32px}.ca-combat-kicker{font-size:8px;letter-spacing:1.6px}.ca-combat-title{font-size:13px}.ca-combat-pill{display:none}.ca-rule-card{grid-template-columns:1fr;padding:9px 10px}.ca-rule-title{font-size:15px}.ca-rule-text{font-size:12px}.ca-rule-btn{width:100%;padding:10px}.ca-bastion-row{gap:6px}.ca-fortress{padding:8px;border-radius:14px}.ca-fortress-hp{font-size:22px}.ca-board-wrap{padding:6px;border-radius:18px;gap:3px}.ca-row{gap:4px}.ca-slot{min-height:74px;border-radius:13px}.ca-combat-card{width:100%;max-width:76px;height:90px;border-radius:12px}.ca-card-art{height:31px;font-size:20px}.ca-card-name{font-size:7.4px;height:22px;padding:4px 5px 2px}.ca-card-stats{margin:auto 4px 4px}.ca-card-stat{font-size:8.5px;padding:2px 0}.ca-card-stat small{font-size:6px}.ca-card-cost{min-width:18px;height:18px;font-size:9px}.ca-hand-area{grid-template-columns:48px 1fr 58px;padding:7px;gap:6px;border-radius:16px}.ca-energy{width:48px;border-radius:13px;padding:7px 5px}.ca-energy-num{font-size:19px}.ca-energy-lbl{font-size:8px}.ca-hand-card{flex-basis:76px;height:104px}.ca-end-turn{height:48px;font-size:9px;padding:0 8px}.ca-combat-log{position:relative;right:auto;bottom:auto;width:100%;max-height:42px;order:99;font-size:10px;padding:6px 8px;border-radius:12px}.ca-complete-title{font-size:25px}.ca-complete-rewards{grid-template-columns:1fr}.ca-complete-actions{flex-direction:column}.ca-midline span{font-size:8px;padding:4px 9px}.ca-zone-label{display:none}}
+@media(max-height:720px) and (max-width:760px){.ca-rule-text{display:none}.ca-rule-card{padding:7px 9px}.ca-slot{min-height:62px}.ca-combat-card{height:80px}.ca-card-art{height:27px}.ca-card-name{display:none}.ca-card-stats{margin:auto 4px 4px}.ca-hand-card{height:94px}.ca-combat-log{display:none}}
+</style>
+
+<script>
+/* =========================================================
+   CODEX ARCANUM — moteur tuto combat premium V1
+   ========================================================= */
+(function(){
+  if(window.__caPremiumTutorialLoaded) return; window.__caPremiumTutorialLoaded=true;
+  const $=(id)=>document.getElementById(id);
+  const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
+  const ids={ecuyer:'A01',lancier:'A02',pretresse:'A03',archer:'A04',garde:'A05',bouclier:'A15',soin:'A21',ultime:'A24',squelette:'M01',goule:'M04',acolyte:'M03',peste:'M05'};
+  const stepData=[
+    {title:'Le Bastion',text:'Ton Bastion est ton cœur. S’il tombe à 0 PV, le duel est perdu. Observe les points de vie en haut.',btn:'Compris'},
+    {title:'Jouer une unité',text:'Les unités se placent sur le plateau. Place l’Écuyer du Lys en avant-garde centrale pour protéger ton Bastion.',btn:'Je place l’Écuyer'},
+    {title:'Attaquer',text:'Tap sur ton Écuyer, puis tap sur le Squelette adverse. Les cibles valides brillent en rouge.',btn:'À toi de jouer'},
+    {title:'L’arrière-garde',text:'L’arrière-garde est plus protégée. Place l’Archer de Clairval derrière tes lignes.',btn:'Placer l’Archer'},
+    {title:'Attaque à distance',text:'Certaines cartes attaquent depuis l’arrière-garde. Utilise l’Archer pour viser la Goule.',btn:'Tirer'},
+    {title:'Technique',text:'Les Techniques produisent un effet immédiat. Utilise Soin de Campagne sur ton Écuyer blessé.',btn:'Soigner'},
+    {title:'Ultime',text:'Les Ultimes coûtent cher, mais retournent un duel. Joue Jugement du Haut-Roi pour purifier le plateau.',btn:'Déchaîner l’Ultime'}
+  ];
+  let T=null;
+  function card(id){ return (typeof cardById==='function'?cardById(id):null) || (window.CARDS||CARDS||[]).find(c=>c.id===id) || {id,name:id,faction:'AURELIA',type:'UNIT',rarity:'COMMON',cost:1,stats:{power:1,vitality:1,initiative:1},keywords:[],text:''}; }
+  function fac(c){ return (window.FACTIONS||FACTIONS||{} )[c.faction] || (window.FACTIONS||FACTIONS).AURELIA || {primary:'#1a3864',textColor:'#1a3864',gem:'#2a5a9a'}; }
+  function rar(c){ return (window.RARITIES||RARITIES||{} )[c.rarity] || {shineColor:'#9eaab4',label:'Commune',tier:0}; }
+  function art(c){ return ((window.ART_EMOJIS||ART_EMOJIS||{} )[c.art]) || ({UNIT:'⚔',EQUIPMENT:'🛡',TECHNIQUE:'✦',ULTIMATE:'★'}[c.type]||'✦'); }
+  function esc(s){ return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m])); }
+  function cssVars(c){ const f=fac(c), r=rar(c); return `--faction:${f.primary};--faction-soft:${f.primary}24;--faction-text:${f.textColor||f.primary};--rarity:${c.rarity==='LEGENDARY'?'linear-gradient(90deg,transparent,#e0b840,transparent)':c.rarity==='EPIC'?'linear-gradient(90deg,transparent,#a080d8,transparent)':c.rarity==='RARE'?'linear-gradient(90deg,transparent,#6aaad8,transparent)':'transparent'};`; }
+  function unitFrom(id,owner,slot){ const c=card(id); return {uid:owner+'-'+id+'-'+Math.random().toString(36).slice(2,7),owner,slot,card:c,hp:c.stats?.vitality||1,max:c.stats?.vitality||1,power:c.stats?.power||0,init:c.stats?.initiative||0,ready:false,protected:false,stunned:false}; }
+  function makeState(){ return {step:0,energy:1,maxEnergy:1,playerHP:30,enemyHP:20,selected:null,log:['Le duel d’initiation commence.'],hand:[card(ids.ecuyer)],pfront:[null,null,null],pback:[null,null,null],efront:[null,unitFrom(ids.squelette,'enemy','efront-1'),null],eback:[null,null,null]}; }
+  function ensureOverlay(){ if($('ca-combat-overlay')) return; const el=document.createElement('div'); el.id='ca-combat-overlay'; document.body.appendChild(el); }
+  function hpPct(v,max){ return Math.max(0,Math.min(100,Math.round(v/max*100))); }
+  function cHTML(c,opts={}){ const isUnit=c.type==='UNIT', s=opts.unit; const hp=s?Math.max(0,s.hp):(c.stats?.vitality||0), pow=s?s.power:(c.stats?.power||0), ini=s?s.init:(c.stats?.initiative||0); return `<div class="ca-combat-card ${opts.selectable?'selectable':''} ${opts.selected?'selected':''} ${opts.sleep?'sleep':''} ${c.rarity==='LEGENDARY'?'legendary':''}" style="${cssVars(c)}" ${opts.attr||''}><div class="ca-card-rarity"></div><div class="ca-card-art">${art(c)}<div class="ca-card-cost">${c.cost||0}</div>${s?.protected?'<div class="ca-card-buff">PROT.</div>':''}</div><div class="ca-card-name">${esc(c.name)}</div>${isUnit?`<div class="ca-card-stats"><div class="ca-card-stat" style="color:#8b2020">${pow}<small>⚔</small></div><div class="ca-card-stat" style="color:#1e4080">${hp}<small>PV</small></div><div class="ca-card-stat" style="color:#2d7a30">${ini}<small>INI</small></div></div>`:`<div class="ca-card-stats"><div class="ca-card-stat" style="grid-column:1/4;color:var(--navy)">${c.type==='ULTIMATE'?'Ultime':'Technique'}<small>${c.type==='ULTIMATE'?'Effet majeur':'Effet immédiat'}</small></div></div>`}</div>`; }
+  function slotHTML(side,row,i){ const arr=T[row], u=arr[i]; let cls='ca-slot'; if(isValidSlot(row,i)) cls+=' valid'; if(isValidTarget(row,i)) cls+=' target'; if(isValidHeal(row,i)) cls+=' heal'; const label=row.includes('front')?'Avant-garde':'Arrière-garde'; return `<div class="${cls}" data-row="${row}" data-index="${i}" onclick="caTutorialSlotTap('${row}',${i})">${u?cHTML(u.card,{unit:u,selectable:u.owner==='player'&&canSelectUnit(u),selected:T.selected?.kind==='unit'&&T.selected.uid===u.uid,attr:`data-uid="${u.uid}" onclick="event.stopPropagation();caTutorialUnitTap('${u.uid}')"`}):`<span class="ca-zone-label">${label}</span>`}</div>`; }
+  function boardRows(row){ return [0,1,2].map(i=>slotHTML(null,row,i)).join(''); }
+  function canSelectUnit(u){ if(!u||u.owner!=='player') return false; return (T.step===2&&u.card.id===ids.ecuyer)||(T.step===4&&u.card.id===ids.archer); }
+  function currentHandPlayable(c){ return (T.step===1&&c.id===ids.ecuyer)||(T.step===3&&c.id===ids.archer)||(T.step===5&&c.id===ids.soin)||(T.step===6&&c.id===ids.ultime); }
+  function isValidSlot(row,i){ if(!T?.selected||T.selected.kind!=='hand') return false; const c=T.selected.card; return (T.step===1&&c.id===ids.ecuyer&&row==='pfront'&&i===1&&!T[row][i])||(T.step===3&&c.id===ids.archer&&row==='pback'&&i===1&&!T[row][i]); }
+  function isValidTarget(row,i){ if(!T?.selected||T.selected.kind!=='unit') return false; return (T.step===2&&row==='efront'&&i===1&&T[row][i])||(T.step===4&&row==='efront'&&i===0&&T[row][i]); }
+  function isValidHeal(row,i){ if(!T?.selected||T.selected.kind!=='hand'||T.selected.card.id!==ids.soin) return false; return T.step===5&&row==='pfront'&&i===1&&T[row][i]; }
+  function render(){ ensureOverlay(); const d=stepData[T.step]||stepData.at(-1), o=$('ca-combat-overlay'); o.classList.add('open'); o.innerHTML=`<div class="ca-combat-shell"><div class="ca-combat-top"><div class="ca-combat-brand"><div class="ca-combat-sigil">✦</div><div><div class="ca-combat-kicker">Initiation du Codex</div><div class="ca-combat-title">Aurélia contre les Abysses</div></div></div><div class="ca-combat-actions"><div class="ca-combat-pill">Tour ${Math.min(7,T.step+1)}</div><div class="ca-combat-pill">Énergie ${T.energy}/${T.maxEnergy}</div><button class="ca-combat-close" onclick="caCloseTutorialCombat()">×</button></div></div><div class="ca-rule-card"><div><div class="ca-rule-step">Étape ${T.step+1}/7</div><div class="ca-rule-title">${esc(d.title)}</div><div class="ca-rule-text">${esc(d.text)}</div></div><button class="ca-rule-btn ${T.step===0?'':'ghost'}" onclick="caTutorialHintAction()">${esc(d.btn)}</button></div><div class="ca-combat-field"><div class="ca-bastion-row"><div class="ca-fortress enemy ${T.step===0?'active':''}" id="ca-tuto-enemy-fort"><div class="ca-fortress-head"><span>Bastion adverse</span><span>Abysses</span></div><div class="ca-fortress-hp">${T.enemyHP}</div><div class="ca-fortress-bar"><div class="ca-fortress-fill" style="width:${hpPct(T.enemyHP,20)}%"></div></div></div><div class="ca-fortress ${T.step===0?'active':''}" id="ca-tuto-player-fort"><div class="ca-fortress-head"><span>Ton Bastion</span><span>Aurélia</span></div><div class="ca-fortress-hp">${T.playerHP}</div><div class="ca-fortress-bar"><div class="ca-fortress-fill" style="width:${hpPct(T.playerHP,30)}%"></div></div></div></div><div class="ca-board-wrap" id="ca-board-wrap"><div class="ca-lane enemy"><div class="ca-row">${boardRows('eback')}</div><div class="ca-row">${boardRows('efront')}</div></div><div class="ca-midline"><span>Ligne de bataille</span></div><div class="ca-lane player"><div class="ca-row">${boardRows('pfront')}</div><div class="ca-row">${boardRows('pback')}</div></div><div class="ca-combat-log">${T.log.slice(-4).map(l=>`<div class="ca-log-line">${esc(l)}</div>`).join('')}</div></div><div class="ca-hand-area"><div class="ca-energy"><div class="ca-energy-num">${T.energy}</div><div class="ca-energy-lbl">Énergie</div></div><div class="ca-hand-scroll">${T.hand.map((c,i)=>`<div class="ca-hand-card ${currentHandPlayable(c)?'playable':''}">${cHTML(c,{selectable:currentHandPlayable(c),selected:T.selected?.kind==='hand'&&T.selected.index===i,attr:`onclick="caTutorialHandTap(${i})"`})}</div>`).join('')}</div><button class="ca-end-turn" onclick="caTutorialHintAction()">Aide</button></div></div></div>`; }
+  function log(s){ T.log.push(s); }
+  function nextStep(){ T.step++; T.selected=null; if(T.step===2){ T.efront[1]=unitFrom(ids.squelette,'enemy','efront-1'); } if(T.step===3){ T.maxEnergy=2; T.energy=2; T.hand=[card(ids.archer)]; T.efront=[unitFrom(ids.goule,'enemy','efront-0'),null,null]; log('Une Goule de Crypte surgit en avant-garde.'); } if(T.step===5){ T.maxEnergy=2; T.energy=2; T.hand=[card(ids.soin)]; const u=T.pfront[1]; if(u){u.hp=1;} log('Ton Écuyer est blessé : il faut le soigner.'); } if(T.step===6){ T.maxEnergy=9; T.energy=9; T.hand=[card(ids.ultime)]; T.efront=[unitFrom(ids.goule,'enemy','efront-0'),unitFrom(ids.acolyte,'enemy','efront-1'),unitFrom(ids.peste,'enemy','efront-2')]; log('Les Abysses se rassemblent. Ton Ultime est prêt.'); } render(); }
+  async function damageUnit(row,i,amount){ const u=T[row][i]; if(!u)return; const el=document.querySelector(`[data-row="${row}"][data-index="${i}"] .ca-combat-card`); if(el){el.classList.add('ca-shake'); setTimeout(()=>el.classList.remove('ca-shake'),380); popAt(el,'-'+amount,false);} if(u.protected){u.protected=false; log(`${u.card.name} annule les dégâts grâce à Protégé.`); render(); return;} u.hp-=amount; if(u.hp<=0){ log(`${u.card.name} est détruit.`); await wait(360); T[row][i]=null; } render(); }
+  function healUnit(row,i,amount){ const u=T[row][i]; if(!u)return; const el=document.querySelector(`[data-row="${row}"][data-index="${i}"] .ca-combat-card`); u.hp=Math.min(u.max,u.hp+amount); popAt(el,'+'+amount,true); log(`${u.card.name} récupère ${amount} PV.`); render(); }
+  function damageBastion(which,amount){ if(which==='enemy') T.enemyHP=Math.max(0,T.enemyHP-amount); else T.playerHP=Math.max(0,T.playerHP-amount); const el=$(which==='enemy'?'ca-tuto-enemy-fort':'ca-tuto-player-fort'); if(el){el.classList.add('ca-shake');setTimeout(()=>el.classList.remove('ca-shake'),360);popAt(el,'-'+amount,false);} render(); }
+  function popAt(el,text,heal){ if(!el)return; const r=el.getBoundingClientRect(), p=document.createElement('div'); p.className=heal?'ca-heal-pop':'ca-damage-pop'; p.textContent=text; p.style.left=(r.left+r.width/2)+'px'; p.style.top=(r.top+r.height/2)+'px'; document.body.appendChild(p); setTimeout(()=>p.remove(),900); }
+  function flash(type='gold'){ const f=document.createElement('div'); f.className='ca-screen-flash '+(type==='violet'?'violet':''); document.body.appendChild(f); setTimeout(()=>f.remove(),850); }
+  function selectHand(i){ const c=T.hand[i]; if(!c||!currentHandPlayable(c)) return; T.selected={kind:'hand',index:i,card:c}; if(c.type==='ULTIMATE') return playUltimate(); log(`${c.name} sélectionnée.`); render(); }
+  async function playUnit(row,i){ if(!T.selected||T.selected.kind!=='hand'||!isValidSlot(row,i)) return; const c=T.selected.card; T[row][i]=unitFrom(c.id,'player',row+'-'+i); T.hand.splice(T.selected.index,1); T.energy=Math.max(0,T.energy-(c.cost||0)); log(`${c.name} rejoint ${row==='pfront'?'l’avant-garde':'l’arrière-garde'}.`); T.selected=null; render(); flash(c.rarity==='RARE'?'violet':'gold'); await wait(450); nextStep(); }
+  function selectUnit(uid){ let found=null; ['pfront','pback'].forEach(row=>T[row].forEach((u,i)=>{ if(u?.uid===uid) found={row,i,u}; })); if(!found||!canSelectUnit(found.u)) return; T.selected={kind:'unit',uid,row:found.row,index:found.i,unit:found.u}; log(`${found.u.card.name} prépare son attaque.`); render(); }
+  async function attack(row,i){ if(!T.selected||T.selected.kind!=='unit'||!isValidTarget(row,i)) return; const attacker=T.selected.unit, ael=document.querySelector(`[data-uid="${attacker.uid}"]`); if(ael) ael.classList.add('attacking'); log(`${attacker.card.name} attaque ${T[row][i].card.name}.`); await wait(280); await damageUnit(row,i,attacker.power||1); if(ael) ael.classList.remove('attacking'); if(T.step===2){ await wait(380); nextStep(); } else if(T.step===4){ await wait(380); nextStep(); } }
+  async function playHeal(row,i){ if(!T.selected||T.selected.kind!=='hand'||!isValidHeal(row,i)) return; const c=T.selected.card; T.hand.splice(T.selected.index,1); T.energy=Math.max(0,T.energy-(c.cost||0)); log(`${c.name} illumine le champ de bataille.`); flash('gold'); await wait(220); healUnit(row,i,4); await wait(520); nextStep(); }
+  async function playUltimate(){ if(T.step!==6)return; const c=T.selected.card; T.hand=[]; T.energy=0; log(`${c.name} est invoqué.`); render(); flash('gold'); await wait(480); for(let i=0;i<3;i++){ if(T.efront[i]){ await damageUnit('efront',i,4); await wait(250);} } damageBastion('enemy',5); T.playerHP=Math.min(30,T.playerHP+5); log('Ton Bastion récupère 5 PV.'); await wait(650); completeTutorial(); }
+  function completeTutorial(){ try{ state.tutorialDone=true; state.or=(state.or||0)+250; state.dust=(state.dust||0)+40; state.packsOpened=(state.packsOpened||0)+1; state.owned ||= {}; [ids.ecuyer,ids.archer,ids.soin].forEach(id=>state.owned[id]=(state.owned[id]||0)+1); if(typeof logEvent==='function') logEvent('Initiation du Codex terminée · Badge Apprenti Arcaniste'); if(typeof saveGame==='function')saveGame(); if(typeof updateOrDisplay==='function')updateOrDisplay(); }catch(e){} const done=document.createElement('div'); done.className='ca-tutorial-complete'; done.innerHTML=`<div class="ca-complete-box"><div class="ca-complete-seal">✦</div><div class="ca-complete-title">Initiation terminée</div><div class="ca-complete-text">Tu connais les bases : Bastion, énergie, avant-garde, arrière-garde, attaques, Techniques et Ultimes. Le Codex peut maintenant s’ouvrir.</div><div class="ca-complete-rewards"><div class="ca-complete-reward"><b>+250 ₲</b><span>Or d’initiation</span></div><div class="ca-complete-reward"><b>Apprenti</b><span>Badge Arcaniste</span></div><div class="ca-complete-reward"><b>+3 cartes</b><span>Reliques Aurélia</span></div><div class="ca-complete-reward"><b>+40</b><span>Poussière</span></div></div><div class="ca-complete-actions"><button class="ca-complete-secondary" onclick="caCloseTutorialCombat();this.closest('.ca-tutorial-complete').remove();switchTab('arena')">Retour arène</button><button class="ca-complete-primary" onclick="caCloseTutorialCombat();this.closest('.ca-tutorial-complete').remove();switchTab('deck')">Voir mon grimoire</button></div></div>`; document.body.appendChild(done); }
+  window.caStartTutorialCombat=function(){ T=makeState(); ensureOverlay(); render(); };
+  window.caCloseTutorialCombat=function(){ $('ca-combat-overlay')?.classList.remove('open'); };
+  window.caTutorialHandTap=function(i){ selectHand(i); };
+  window.caTutorialUnitTap=function(uid){ selectUnit(uid); };
+  window.caTutorialSlotTap=function(row,i){ if(!T)return; if(isValidSlot(row,i)) return playUnit(row,i); if(isValidTarget(row,i)) return attack(row,i); if(isValidHeal(row,i)) return playHeal(row,i); };
+  window.caTutorialHintAction=function(){ if(!T)return; if(T.step===0){ nextStep(); return; } if(T.step===1){ T.selected={kind:'hand',index:0,card:T.hand[0]}; render(); return; } if(T.step===2){ const u=T.pfront[1]; if(u){T.selected={kind:'unit',uid:u.uid,row:'pfront',index:1,unit:u}; render();} return;} if(T.step===3){T.selected={kind:'hand',index:0,card:T.hand[0]}; render(); return;} if(T.step===4){const u=T.pback[1]; if(u){T.selected={kind:'unit',uid:u.uid,row:'pback',index:1,unit:u}; render();} return;} if(T.step===5){T.selected={kind:'hand',index:0,card:T.hand[0]}; render(); return;} if(T.step===6){T.selected={kind:'hand',index:0,card:T.hand[0]}; playUltimate(); return;} };
+  const oldRenderArena=window.renderArena;
+  window.renderArena=function(){ if(oldRenderArena) oldRenderArena(); const grid=$('arena-grid'); if(grid && !$('ca-tuto-entry')){ const box=document.createElement('div'); box.id='ca-tuto-entry'; box.className='ca-tuto-entry'; box.innerHTML=`<div class="ca-tuto-kicker">Combat Premium V1</div><div class="ca-tuto-title">Initiation du Codex</div><div class="ca-tuto-text">Un tutoriel jouable, pensé mobile : tap sur une carte, tap sur une cible, animations propres, règles guidées et récompenses. Aurélia affronte les Abysses sur un vrai plateau avant-garde / arrière-garde.</div><div class="ca-tuto-steps"><div class="ca-tuto-chip">1. Bastion & énergie</div><div class="ca-tuto-chip">2. Unités & placement</div><div class="ca-tuto-chip">3. Attaques, soin & ultime</div></div><button class="ca-tuto-start" onclick="caStartTutorialCombat()">Lancer le tutoriel</button>`; grid.parentNode.insertBefore(box,grid); } };
+  setTimeout(()=>{ if((window.state&&state.tab)==='arena') window.renderArena(); },250);
+})();
+</script>
+
 </body>
 </html>
