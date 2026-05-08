@@ -2280,6 +2280,243 @@ html, body { background: var(--sky) !important; }
 @media(max-width:760px){.business-metric-grid,.pack-store-grid,.tokenomics-grid,.market-kpi-grid{grid-template-columns:1fr 1fr;gap:8px;}.pack-product-card{padding:13px;border-radius:14px;}.pack-product-title{font-size:15px}.pack-product-price{font-size:13px}.pass-reward-track{grid-template-columns:repeat(3,1fr)}.card-nft-grid{grid-template-columns:1fr}}
 @media(max-width:380px){.business-metric-grid,.market-kpi-grid{grid-template-columns:1fr 1fr}.pack-store-grid{grid-template-columns:1fr}.pass-reward-track{grid-template-columns:repeat(2,1fr)}}
 
+
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE NAV DISCOVERY — rendre les onglets/filtres scrollables évidents
+────────────────────────────────────────────────────────────── */
+.mobile-nav-hint,
+.mobile-filter-hint{display:none;}
+
+@media (max-width:760px){
+  .nav-pill-group{
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    justify-content:flex-start!important;
+    scroll-snap-type:x proximity;
+    padding:4px 42px 4px 6px!important;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .nav-pill-group::-webkit-scrollbar{display:none;}
+  .nav-pill-group .nav-btn{
+    flex:0 0 auto!important;
+    min-width:82px!important;
+    padding:0 10px!important;
+    scroll-snap-align:center;
+    white-space:nowrap;
+  }
+  .nav-pill-group::after{
+    content:"›";
+    position:sticky;
+    right:0;
+    flex:0 0 34px;
+    height:38px;
+    margin-left:-30px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--T);
+    font-size:24px;
+    font-weight:700;
+    color:var(--navy);
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.98) 45%,rgba(255,255,255,1));
+    pointer-events:none;
+    animation:navChevronPulse 1.15s ease-in-out infinite;
+    z-index:5;
+  }
+  .nav-pill-group.is-scrolled::before{
+    content:"‹";
+    position:sticky;
+    left:0;
+    flex:0 0 24px;
+    height:38px;
+    margin-right:-20px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--T);
+    font-size:20px;
+    font-weight:700;
+    color:rgba(26,56,100,0.55);
+    background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,0));
+    pointer-events:none;
+    z-index:5;
+  }
+  @keyframes navChevronPulse{
+    0%,100%{transform:translateX(0);opacity:.75;}
+    50%{transform:translateX(4px);opacity:1;}
+  }
+  .mobile-nav-hint{
+    display:flex;
+    position:fixed;
+    right:18px;
+    bottom:calc(60px + env(safe-area-inset-bottom,0px));
+    z-index:1210;
+    align-items:center;
+    justify-content:center;
+    padding:5px 10px;
+    border-radius:999px;
+    border:1px solid rgba(200,160,48,0.45);
+    background:rgba(255,255,255,0.94);
+    box-shadow:0 6px 18px rgba(26,56,100,0.18);
+    color:var(--gold);
+    font-family:var(--B);
+    font-size:10px;
+    font-style:italic;
+    pointer-events:none;
+    animation:hintFloat 1.4s ease-in-out infinite;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .mobile-nav-hint.soft{opacity:.72;}
+  .mobile-nav-hint.seen{opacity:0;transform:translateY(6px);}
+  @keyframes hintFloat{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(5px);}
+  }
+
+  #sidebar{
+    position:relative;
+    padding-right:48px!important;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  #sidebar::after{
+    content:"›";
+    position:sticky;
+    right:-10px;
+    align-self:stretch;
+    min-width:40px;
+    height:34px;
+    margin-left:-36px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--T);
+    font-size:22px;
+    color:var(--navy);
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.98) 55%);
+    pointer-events:none;
+    animation:navChevronPulse 1.15s ease-in-out infinite;
+    z-index:4;
+  }
+  .mobile-filter-hint{
+    display:flex;
+    flex:0 0 auto;
+    height:28px;
+    align-items:center;
+    padding:0 9px;
+    border-radius:999px;
+    border:1px solid rgba(26,56,100,0.16);
+    background:rgba(255,255,255,0.82);
+    color:var(--muted);
+    font-family:var(--B);
+    font-size:10px;
+    font-style:italic;
+    white-space:nowrap;
+    scroll-snap-align:start;
+  }
+}
+
+
+
+/* ==========================================================
+   PREMIUM POLISH UPDATE — splash, settings, haptics, luxury UI
+   ========================================================== */
+@keyframes caSplashPulse{0%{transform:scale(.94);opacity:.55}55%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes caSoftFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes caGoldSweep{0%{transform:translateX(-120%) rotate(12deg)}100%{transform:translateX(220%) rotate(12deg)}}
+@keyframes caToastIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes caToastOut{to{opacity:0;transform:translateY(-8px) scale(.96)}}
+@keyframes caCounterPop{0%{transform:scale(1)}35%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes caLegendBreath{0%,100%{box-shadow:0 2px 10px var(--shadow),0 0 0 rgba(224,184,64,0)}50%{box-shadow:0 10px 26px var(--shadow-md),0 0 18px rgba(224,184,64,.38)}}
+@keyframes caEpicBreath{0%,100%{box-shadow:0 2px 10px var(--shadow),0 0 0 rgba(104,64,216,0)}50%{box-shadow:0 10px 26px var(--shadow-md),0 0 14px rgba(104,64,216,.28)}}
+
+#ca-splash{
+  position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;
+  background:radial-gradient(circle at 50% 34%,rgba(255,255,255,.98),rgba(226,240,252,.96) 38%,rgba(206,224,242,.94) 75%,rgba(244,240,232,.96));
+  transition:opacity .34s ease,visibility .34s ease;
+}
+#ca-splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.ca-splash-sigil{width:76px;height:76px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:35px;color:var(--gold);background:rgba(255,255,255,.58);border:1px solid rgba(154,112,16,.28);box-shadow:0 18px 50px rgba(26,56,100,.16),0 0 28px rgba(200,160,48,.2);animation:caSplashPulse .9s ease both, caSoftFloat 3s ease-in-out infinite;}
+.ca-splash-title{font-family:var(--T);font-weight:700;letter-spacing:3px;color:var(--navy);font-size:18px;}
+.ca-splash-sub{font-family:var(--B);font-style:italic;color:var(--muted);font-size:12px;}
+
+#ca-toast-stack{position:fixed;top:12px;right:12px;z-index:21000;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:min(340px,calc(100vw - 24px));}
+.ca-toast{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:13px;background:rgba(255,255,255,.96);border:1px solid rgba(180,210,240,.82);box-shadow:0 14px 34px rgba(26,56,100,.16);backdrop-filter:blur(16px);animation:caToastIn .22s ease both;overflow:hidden;position:relative;}
+.ca-toast::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:var(--toast-color,var(--navy));}
+.ca-toast.hide{animation:caToastOut .18s ease both;}
+.ca-toast-ico{font-size:17px;line-height:1;margin-top:1px;color:var(--toast-color,var(--navy));}
+.ca-toast-title{font-family:var(--T);font-size:12px;font-weight:700;color:var(--toast-color,var(--navy));letter-spacing:.4px;}
+.ca-toast-msg{font-family:var(--B);font-size:11px;color:var(--text);line-height:1.35;margin-top:2px;}
+.ca-toast-gain{box-shadow:0 14px 34px rgba(154,112,16,.18);}
+
+.gold-display.counter-pop .amount,#dust-display.counter-pop .amount{animation:caCounterPop .42s ease;}
+.ca-header-icon{width:32px;height:32px;border:none;border-radius:9px;background:rgba(255,255,255,.82);border:1px solid var(--border);box-shadow:0 1px 7px var(--shadow);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.ca-header-icon:active{transform:scale(.95);}
+
+.ca-settings-modal{position:fixed;inset:0;z-index:20500;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(20,40,80,.42);backdrop-filter:blur(8px);}
+.ca-settings-modal.open{display:flex;}
+.ca-settings-box{width:min(520px,100%);max-height:88svh;overflow:auto;border-radius:18px;background:rgba(255,255,255,.98);border:1px solid var(--border);box-shadow:0 24px 70px rgba(26,56,100,.22);padding:18px;}
+.ca-settings-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;}
+.ca-settings-title{font-family:var(--T);font-weight:700;color:var(--navy);font-size:18px;letter-spacing:1px;}
+.ca-settings-sub{font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;margin-top:3px;}
+.ca-setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid rgba(180,210,240,.6);}
+.ca-setting-name{font-family:var(--T);font-weight:700;color:var(--text);font-size:13px;}
+.ca-setting-desc{font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;margin-top:2px;}
+.ca-switch{position:relative;width:48px;height:27px;border:none;border-radius:999px;background:rgba(96,128,160,.24);transition:.18s;flex-shrink:0;}
+.ca-switch::after{content:'';position:absolute;width:21px;height:21px;border-radius:50%;left:3px;top:3px;background:white;box-shadow:0 2px 8px rgba(26,56,100,.22);transition:.18s;}
+.ca-switch.on{background:linear-gradient(135deg,var(--navy),var(--navy-l));}
+.ca-switch.on::after{left:24px;}
+.ca-settings-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
+.ca-action-btn{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.9);font-family:var(--T);font-size:12px;color:var(--navy);font-weight:700;}
+.ca-action-btn.primary{background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;border-color:transparent;}
+.ca-action-btn.danger{color:#9a2525;border-color:rgba(154,37,37,.25);background:rgba(154,37,37,.05);}
+
+.ca-home-polish-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:14px 0;}
+.ca-portfolio-card,.ca-latest-card,.ca-feature-card{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.88);box-shadow:0 8px 28px var(--shadow);padding:15px;}
+.ca-portfolio-card::after,.ca-feature-card::after{content:'';position:absolute;top:-35%;bottom:-35%;width:34px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:caGoldSweep 3.8s ease-in-out infinite;}
+.ca-polish-k{font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;}
+.ca-polish-v{font-family:var(--T);font-size:24px;font-weight:700;color:var(--navy);margin-top:3px;}
+.ca-polish-sub{font-family:var(--B);font-size:11px;color:#2d7a30;font-style:italic;margin-top:3px;}
+.ca-latest-mini{display:flex;gap:10px;align-items:center;margin-top:9px;}
+.ca-latest-art{width:46px;height:58px;border-radius:9px;border:1px solid rgba(154,112,16,.3);background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 16px rgba(26,56,100,.12);}
+.ca-latest-name{font-family:var(--T);font-weight:700;color:var(--text);font-size:13px;}
+.ca-latest-meta{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;margin-top:2px;}
+
+.card.ca-rarity-LEGENDARY{animation:caLegendBreath 3.4s ease-in-out infinite;}
+.card.ca-rarity-EPIC{animation:caEpicBreath 4.2s ease-in-out infinite;}
+.card.ca-owned-wounded::before{content:'';position:absolute;inset:0;z-index:6;pointer-events:none;background:linear-gradient(130deg,transparent 45%,rgba(139,32,32,.22) 46%,transparent 47%),linear-gradient(30deg,transparent 57%,rgba(139,32,32,.15) 58%,transparent 59%);}
+.card.ca-owned-fatigued{filter:saturate(.78);}
+.card.ca-listed-market::after{content:'⚖';position:absolute;top:6px;right:32px;z-index:8;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:1px solid rgba(154,112,16,.35);font-size:10px;color:var(--gold);box-shadow:0 2px 8px var(--shadow);}
+
+.ca-living-tabs{margin-top:2px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.72);overflow:hidden;}
+.ca-living-tabbar{display:flex;overflow-x:auto;border-bottom:1px solid var(--border);background:rgba(26,56,100,.04);}
+.ca-living-tabbar button{flex:0 0 auto;padding:9px 12px;border:none;background:transparent;color:var(--muted);font-family:var(--T);font-size:11px;font-weight:700;}
+.ca-living-tabbar button.active{color:var(--navy);background:rgba(255,255,255,.82);}
+.ca-living-panel{padding:12px;display:none;}
+.ca-living-panel.active{display:block;}
+.ca-meter{height:6px;border-radius:999px;background:rgba(180,210,240,.55);overflow:hidden;margin-top:5px;}
+.ca-meter span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--navy),var(--gold));}
+.ca-timeline{display:flex;flex-direction:column;gap:7px;max-height:180px;overflow:auto;}
+.ca-timeline-item{position:relative;padding-left:16px;font-family:var(--B);font-size:11px;color:var(--text);line-height:1.35;}
+.ca-timeline-item::before{content:'✦';position:absolute;left:0;top:0;color:var(--gold);font-size:9px;}
+.ca-empty-premium{padding:22px;border:1px dashed rgba(26,56,100,.2);border-radius:14px;text-align:center;background:rgba(255,255,255,.62);color:var(--muted);font-family:var(--B);font-style:italic;}
+
+@media(max-width:760px){
+  #ca-toast-stack{top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;left:8px;max-width:none;}
+  .ca-toast{padding:9px 11px;border-radius:12px;}
+  .ca-settings-modal{align-items:flex-end;padding:0;}
+  .ca-settings-box{width:100%;max-height:86svh;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));}
+  .ca-settings-actions{grid-template-columns:1fr;}
+  .ca-home-polish-grid{grid-template-columns:1fr;gap:10px;}
+  .ca-polish-v{font-size:22px;}
+  .ca-header-icon{width:30px;height:30px;font-size:13px;}
+}
+
 </style>
 
 </head>
@@ -2313,6 +2550,7 @@ html, body { background: var(--sky) !important; }
       <button class="nav-btn" data-tab="pass" onclick="switchTab('pass')">Pass</button>
       <button class="nav-btn" data-tab="vision" onclick="switchTab('vision')">Vision</button>
     </nav>
+    <div class="mobile-nav-hint" id="mobile-nav-hint">Glisser pour voir plus →</div>
     <div style="display:flex;align-items:center;gap:8px;">
       <div class="gold-display">
         <span style="font-size:14px;">🪙</span>
@@ -2372,6 +2610,7 @@ html, body { background: var(--sky) !important; }
 <!-- ═══ TAB: COLLECTION ═══ -->
 <div id="tab-collection">
   <aside id="sidebar" data-sidebar-filters="true">
+    <div class="mobile-filter-hint">Filtres →</div>
     <!-- Factions -->
     <button class="flt-btn active" data-filter-type="faction" data-value="ALL" title="Toutes" onclick="setFilter('faction','ALL')" style="font-size:8px;color:var(--navy);font-family:var(--T);">ALL</button>
     <button class="flt-btn" data-filter-type="faction" data-value="AURELIA"  title="Aurélia"  onclick="setFilter('faction','AURELIA')"  style="font-size:15px;color:#c8a040;">✦</button>
@@ -4073,7 +4312,7 @@ function closeCoffre() {
 function switchTab(tab) {
   state.tab = tab;
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.tab===tab));
-  const tabs = ["home","collection","deck","shop","arena","market"];
+  const tabs = ["home","collection","deck","shop","arena","market","forge","quests","pass","vision"];
   tabs.forEach(t => {
     const el = document.getElementById(`tab-${t}`);
     if (!el) return;
@@ -4085,6 +4324,14 @@ function switchTab(tab) {
   if (tab==="shop") renderShop();
   if (tab==="arena") renderArena();
   if (tab==="market") renderMarket();
+  if (tab==="forge" && typeof renderForge === "function") renderForge();
+  if (tab==="quests" && typeof renderQuests === "function") renderQuests();
+  if (tab==="pass" && typeof renderSeason === "function") renderSeason();
+  const activeNav = document.querySelector(`.nav-btn[data-tab="${tab}"]`);
+  if (activeNav && window.matchMedia("(max-width: 760px)").matches) {
+    activeNav.scrollIntoView({ behavior:"smooth", inline:"center", block:"nearest" });
+  }
+  markNavDiscovered();
 }
 
 
@@ -4955,6 +5202,32 @@ function collectAndOpenAgain(){
 
 loadGame();
 
+
+// ── Mobile scroll hints ───────────────────────────────────────
+function markNavDiscovered() {
+  const hint = document.getElementById("mobile-nav-hint");
+  if (!hint) return;
+  hint.classList.add("seen");
+  try { localStorage.setItem("codex_nav_hint_seen", "1"); } catch(e) {}
+}
+function initMobileScrollHints() {
+  const nav = document.querySelector(".nav-pill-group");
+  const hint = document.getElementById("mobile-nav-hint");
+  if (hint) {
+    try {
+      if (localStorage.getItem("codex_nav_hint_seen") === "1") hint.classList.add("seen");
+    } catch(e) {}
+    setTimeout(() => hint.classList.add("soft"), 2600);
+  }
+  if (nav) {
+    nav.addEventListener("scroll", () => {
+      nav.classList.toggle("is-scrolled", nav.scrollLeft > 8);
+      if (nav.scrollLeft > 18) markNavDiscovered();
+    }, { passive:true });
+    nav.addEventListener("touchstart", markNavDiscovered, { passive:true });
+  }
+}
+
 // ── Keyboard ───────────────────────────────────────────────────
 document.addEventListener("keydown", e => {
   if (e.key==="/" && document.activeElement!==document.getElementById("search-input")) {
@@ -5083,6 +5356,7 @@ document.addEventListener("keydown", e => {
 // ── Init ───────────────────────────────────────────────────────
 updateOrDisplay();
 switchTab("home");
+initMobileScrollHints();
 renderGrid();
 renderDeck();
 renderShop();
@@ -5522,6 +5796,444 @@ renderQuests();
   const oldSwitchTab=window.switchTab;
   window.switchTab=function(tab){if(['pass','vision'].includes(tab)){state.tab=tab;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['home','collection','deck','shop','arena','market','forge','quests','pass','vision'].forEach(t=>{const el=document.getElementById(`tab-${t}`);if(!el)return;if(t==='collection')el.style.display=tab===t?'flex':'none';else el.classList.toggle('active',tab===t);});if(tab==='pass')renderPass();if(tab==='vision')renderVision();return;}oldSwitchTab(tab);document.getElementById('tab-pass')?.classList.remove('active');document.getElementById('tab-vision')?.classList.remove('active');};
   setTimeout(()=>{try{renderHome();renderShop();renderMarket();renderPass();renderVision();}catch(e){console.warn('Business layer init',e);}},80);
+})();
+</script>
+
+
+
+<script>
+/* ==========================================================
+   PREMIUM POLISH UPDATE — finitions d'app premium
+   ========================================================== */
+(function(){
+  const STORAGE_KEY = 'codex_arcanum_polish_settings_v1';
+  function getPolishSettings(){
+    try{return Object.assign({haptics:true,sound:false,splash:true,performance:false}, JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'));}
+    catch(e){return {haptics:true,sound:false,splash:true,performance:false};}
+  }
+  function setPolishSettings(s){localStorage.setItem(STORAGE_KEY, JSON.stringify(s));}
+  function settings(){return getPolishSettings();}
+  function haptic(type='light'){
+    const s=settings();
+    if(!s.haptics || !navigator.vibrate) return;
+    const map={light:18,medium:38,heavy:[45,30,45],legendary:[60,40,90,40,60],success:[25,25,45],error:[70]};
+    navigator.vibrate(map[type]||18);
+  }
+  function iconForMessage(msg=''){
+    const m=String(msg).toLowerCase();
+    if(m.includes('légendaire')) return '👑';
+    if(m.includes('épique')) return '✸';
+    if(m.includes('coffre')||m.includes('pack')) return '🎁';
+    if(m.includes('or')||m.includes('₲')) return '🪙';
+    if(m.includes('duel')||m.includes('victoire')) return '⚔';
+    if(m.includes('bless')) return '🩸';
+    if(m.includes('niveau')||m.includes('xp')) return '✦';
+    if(m.includes('marché')||m.includes('list')) return '⚖';
+    return '✦';
+  }
+  function ensureToastStack(){
+    let stack=document.getElementById('ca-toast-stack');
+    if(!stack){stack=document.createElement('div');stack.id='ca-toast-stack';document.body.appendChild(stack);} return stack;
+  }
+  const oldNotify = window.notify;
+  window.notify = function(msg, color='#1a3864'){
+    const stack=ensureToastStack();
+    const t=document.createElement('div');
+    t.className='ca-toast '+(String(msg).includes('+')?'ca-toast-gain':'');
+    t.style.setProperty('--toast-color', color);
+    const title = String(msg).includes('Coffre') ? 'Récompense obtenue' : String(msg).includes('Victoire') ? 'Duel terminé' : 'Codex Arcanum';
+    t.innerHTML=`<div class="ca-toast-ico">${iconForMessage(msg)}</div><div><div class="ca-toast-title">${title}</div><div class="ca-toast-msg">${msg}</div></div>`;
+    stack.prepend(t);
+    haptic(String(msg).toLowerCase().includes('légendaire')?'legendary':String(msg).toLowerCase().includes('victoire')?'success':'light');
+    setTimeout(()=>{t.classList.add('hide');setTimeout(()=>t.remove(),220);},3100);
+    try{ if(stack.children.length>4) stack.lastElementChild?.remove(); }catch(e){}
+  };
+  window.caHaptic = haptic;
+
+  function injectSplash(){
+    if(!settings().splash || document.getElementById('ca-splash')) return;
+    const s=document.createElement('div');s.id='ca-splash';
+    s.innerHTML='<div class="ca-splash-sigil">✦</div><div class="ca-splash-title">CODEX ARCANUM</div><div class="ca-splash-sub">Possédez vos cartes. Vivez votre légende.</div>';
+    document.body.appendChild(s);
+    setTimeout(()=>s.classList.add('hide'),900);
+    setTimeout(()=>s.remove(),1320);
+  }
+
+  function ensureSettingsButton(){
+    if(document.getElementById('ca-settings-btn')) return;
+    const right=document.querySelector('#header > div:last-child');
+    if(!right) return;
+    const btn=document.createElement('button');btn.id='ca-settings-btn';btn.className='ca-header-icon';btn.title='Réglages';btn.innerHTML='⚙';btn.onclick=openSettings;
+    right.appendChild(btn);
+  }
+  function ensureSettingsModal(){
+    if(document.getElementById('ca-settings-modal')) return;
+    const modal=document.createElement('div');modal.id='ca-settings-modal';modal.className='ca-settings-modal';modal.onclick=e=>{if(e.target===modal) closeSettings();};
+    modal.innerHTML=`<div class="ca-settings-box" onclick="event.stopPropagation()">
+      <div class="ca-settings-top"><div><div class="ca-settings-title">Réglages du Codex</div><div class="ca-settings-sub">Finitions premium, sauvegarde locale et confort mobile.</div></div><button class="ca-header-icon" onclick="closeSettings()">✕</button></div>
+      <div id="ca-settings-rows"></div>
+      <div class="ca-settings-actions">
+        <button class="ca-action-btn primary" onclick="exportCodexSave()">Exporter ma sauvegarde</button>
+        <button class="ca-action-btn" onclick="document.getElementById('ca-import-save').click()">Importer une sauvegarde</button>
+        <button class="ca-action-btn" onclick="copyCodexSave()">Copier JSON</button>
+        <button class="ca-action-btn danger" onclick="resetCodexPrototype()">Réinitialiser prototype</button>
+      </div>
+      <input id="ca-import-save" type="file" accept="application/json,.json" style="display:none" onchange="importCodexSaveFile(event)">
+      <div class="ca-settings-sub" style="margin-top:12px;text-align:center;">Version prototype premium · données stockées en localStorage</div>
+    </div>`;
+    document.body.appendChild(modal);
+  }
+  function renderSettingsRows(){
+    const s=settings();const rows=document.getElementById('ca-settings-rows'); if(!rows) return;
+    const defs=[
+      ['haptics','Vibrations tactiles','Retour mobile sur coffre, rareté et duel.'],
+      ['sound','Sons premium','Préparé pour plus tard, désactivé par défaut.'],
+      ['splash','Splash screen','Affiche le sceau Codex au lancement.'],
+      ['performance','Mode performance','Réduit certains effets visuels sur vieux téléphones.']
+    ];
+    rows.innerHTML=defs.map(([k,n,d])=>`<div class="ca-setting-row"><div><div class="ca-setting-name">${n}</div><div class="ca-setting-desc">${d}</div></div><button class="ca-switch ${s[k]?'on':''}" onclick="togglePolishSetting('${k}')"></button></div>`).join('');
+  }
+  window.togglePolishSetting=function(k){const s=settings();s[k]=!s[k];setPolishSettings(s);renderSettingsRows();document.body.classList.toggle('ca-performance-mode',!!s.performance);notify(`${k==='haptics'?'Vibrations':k==='splash'?'Splash':k==='performance'?'Mode performance':'Sons'} ${s[k]?'activé':'désactivé'}`,'#1a3864');};
+  window.openSettings=function(){ensureSettingsModal();renderSettingsRows();document.getElementById('ca-settings-modal')?.classList.add('open');};
+  window.closeSettings=function(){document.getElementById('ca-settings-modal')?.classList.remove('open');};
+
+  function findSaveKey(){
+    const keys=Object.keys(localStorage).filter(k=>/codex|arcanum/i.test(k));
+    const game=keys.find(k=>!/polish_settings/i.test(k) && localStorage.getItem(k)?.includes('owned'));
+    return game || keys.find(k=>!/polish_settings/i.test(k)) || 'codexArcanumSave';
+  }
+  window.exportCodexSave=function(){
+    const payload={exportedAt:new Date().toISOString(),polish:settings(),gameKey:findSaveKey(),game:localStorage.getItem(findSaveKey())||null};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='codex-arcanum-sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);notify('Sauvegarde exportée','#9a7010');
+  };
+  window.copyCodexSave=async function(){
+    const payload={exportedAt:new Date().toISOString(),polish:settings(),gameKey:findSaveKey(),game:localStorage.getItem(findSaveKey())||null};
+    try{await navigator.clipboard.writeText(JSON.stringify(payload));notify('Sauvegarde copiée dans le presse-papiers','#2d7a30');}catch(e){notify('Copie impossible sur ce navigateur','#9a2525');}
+  };
+  window.importCodexSaveFile=function(e){
+    const f=e.target.files?.[0]; if(!f)return; const r=new FileReader();
+    r.onload=()=>{try{const data=JSON.parse(r.result); if(data.polish) setPolishSettings(data.polish); if(data.gameKey&&data.game)localStorage.setItem(data.gameKey,data.game); notify('Sauvegarde importée · recharge la page','#2d7a30'); setTimeout(()=>location.reload(),700);}catch(err){notify('Fichier invalide','#9a2525');}};
+    r.readAsText(f);
+  };
+  window.resetCodexPrototype=function(){ if(!confirm('Réinitialiser toutes les données locales du prototype Codex Arcanum ?'))return; Object.keys(localStorage).filter(k=>/codex|arcanum/i.test(k)).forEach(k=>localStorage.removeItem(k)); notify('Prototype réinitialisé','#9a2525'); setTimeout(()=>location.reload(),700); };
+
+  function decorateCards(){
+    document.querySelectorAll('.card[data-card-id]').forEach(el=>{
+      const id=el.dataset.cardId; const card=(typeof cardById==='function'?cardById(id):(window.CARDS||[]).find(c=>c.id===id)); if(!card)return;
+      el.classList.add('ca-rarity-'+card.rarity);
+      if(typeof hasOwned==='function' && hasOwned(card) && typeof getProgress==='function'){
+        const p=getProgress(card.id); if((p.wounds||0)>0)el.classList.add('ca-owned-wounded'); if((p.fatigue||0)>70)el.classList.add('ca-owned-fatigued');
+      }
+      if(state?.listings?.[id]) el.classList.add('ca-listed-market');
+    });
+  }
+  const oldRenderGrid=window.renderGrid;
+  window.renderGrid=function(){ const r=oldRenderGrid?.apply(this,arguments); decorateCards(); return r; };
+
+  function animateCounters(prev){
+    const gd=document.querySelector('.gold-display'); if(gd && prev && prev.or!==state.or){gd.classList.remove('counter-pop');void gd.offsetWidth;gd.classList.add('counter-pop');setTimeout(()=>gd.classList.remove('counter-pop'),520);}
+    const dust=document.getElementById('dust-display'); if(dust && prev && prev.dust!==state.dust){dust.classList.remove('counter-pop');void dust.offsetWidth;dust.classList.add('counter-pop');setTimeout(()=>dust.classList.remove('counter-pop'),520);}
+  }
+  const oldUpdateOrDisplay=window.updateOrDisplay;
+  window.updateOrDisplay=function(){ const prev={or:state?.or,dust:state?.dust}; const r=oldUpdateOrDisplay?.apply(this,arguments); setTimeout(()=>animateCounters(prev),0); return r; };
+
+  function topOwnedCard(){
+    try{return Object.keys(state.owned||{}).map(cardById).filter(Boolean).sort((a,b)=>(estimateCardValue?.(b)||0)-(estimateCardValue?.(a)||0))[0] || CARDS[0];}catch(e){return CARDS?.[0];}
+  }
+  function lastAcquiredCard(){
+    try{
+      let best=null, score=-1;
+      Object.keys(state.progress||{}).forEach(id=>{const p=state.progress[id]; const h=p?.history||[]; if(h.length>score){score=h.length; best=cardById(id);}});
+      return best || topOwnedCard();
+    }catch(e){return topOwnedCard();}
+  }
+  function injectHomePolish(){
+    const home=document.getElementById('tab-home'); if(!home || document.getElementById('ca-home-polish')) return;
+    const grid=document.getElementById('home-status-grid'); if(!grid) return;
+    const top=topOwnedCard(), last=lastAcquiredCard();
+    const topVal=typeof ownedValueRaw==='function'?ownedValueRaw():0;
+    const topIcon=top?(ART_EMOJIS[top.art]||'✦'):'✦'; const lastIcon=last?(ART_EMOJIS[last.art]||'✦'):'✦';
+    grid.insertAdjacentHTML('afterend',`<div id="ca-home-polish" class="ca-home-polish-grid">
+      <div class="ca-portfolio-card"><div class="ca-polish-k">Valeur estimée du portefeuille</div><div class="ca-polish-v">${Math.round(topVal).toLocaleString('fr')} ₲</div><div class="ca-polish-sub">+${Math.max(1,Math.min(9,Math.round((state.packsOpened||1)*.7)))}% activité récente</div></div>
+      <div class="ca-latest-card"><div class="ca-polish-k">Dernière relique marquante</div><div class="ca-latest-mini"><div class="ca-latest-art">${lastIcon}</div><div><div class="ca-latest-name">${last?.name||'Aucune carte'}</div><div class="ca-latest-meta">${last?`${RARITIES[last.rarity]?.label||''} · ${last.faction}`:'Ouvre un coffre pour commencer'}</div></div></div></div>
+      <div class="ca-feature-card" style="grid-column:1/-1"><div class="ca-polish-k">Carte vedette du Codex</div><div class="ca-latest-mini"><div class="ca-latest-art">${topIcon}</div><div><div class="ca-latest-name">${top?.name||'Relique inconnue'}</div><div class="ca-latest-meta">Valeur ${top?estimateCardValue(top).toLocaleString('fr'):'0'} ₲ · ${top?serialFor(top):'Set Genèse'}</div></div></div></div>
+    </div>`);
+  }
+  const oldRenderHome=window.renderHome;
+  window.renderHome=function(){ const r=oldRenderHome?.apply(this,arguments); document.getElementById('ca-home-polish')?.remove(); injectHomePolish(); return r; };
+
+  function renderLivingPanel(card, tab='resume'){
+    const p=typeof getProgress==='function'?getProgress(card.id):{}; const val=typeof estimateCardValue==='function'?estimateCardValue(card):0; const hist=(p.history||[]).slice(-8).reverse();
+    const fatigue=p.fatigue||0, wounds=p.wounds||0, xp=p.xp||0, lvl=p.level||1;
+    const eq=(card.type==='UNIT' && typeof equippedToUnit==='function' && equippedToUnit(card.id)) ? cardById(equippedToUnit(card.id)) : null;
+    const panels={
+      resume:`<div class="card-nft-grid"><div class="card-nft-item"><div class="k">Valeur</div><div class="v">${val.toLocaleString('fr')} ₲</div></div><div class="card-nft-item"><div class="k">Niveau</div><div class="v">${lvl}</div></div><div class="card-nft-item"><div class="k">Duels</div><div class="v">${p.duels||0}</div></div><div class="card-nft-item"><div class="k">Victoires</div><div class="v">${p.wins||0}</div></div></div>`,
+      etat:`<div class="ca-polish-k">XP ${xp}</div><div class="ca-meter"><span style="width:${Math.min(100,(xp%250)/250*100)}%"></span></div><div class="ca-polish-k" style="margin-top:10px">Fatigue ${fatigue}/100</div><div class="ca-meter"><span style="width:${fatigue}%;background:linear-gradient(90deg,#2d7a30,#c8a030,#9a2525)"></span></div><div class="ca-polish-k" style="margin-top:10px">Blessures ${wounds}/3</div><div class="ca-meter"><span style="width:${(wounds/3)*100}%;background:#9a2525"></span></div><div class="modal-text" style="margin-top:10px">Équipement : ${eq?eq.name:'Aucun'}</div>`,
+      histoire:`<div class="ca-timeline">${hist.length?hist.map(x=>`<div class="ca-timeline-item">${typeof x==='string'?x:(x.text||x.label||'Événement gravé dans le Codex')}</div>`).join(''):'<div class="ca-empty-premium">Aucune légende gravée pour l’instant.</div>'}</div>`,
+      marche:`<div class="card-nft-grid"><div class="card-nft-item"><div class="k">Floor</div><div class="v">${typeof floorPrice==='function'?floorPrice(card.rarity):0} ₲</div></div><div class="card-nft-item"><div class="k">Dernière vente</div><div class="v">${typeof lastSale==='function'?lastSale(card):0} ₲</div></div><div class="card-nft-item"><div class="k">Statut</div><div class="v">${state.listings?.[card.id]?'Listée':'Hors marché'}</div></div><div class="card-nft-item"><div class="k">Série</div><div class="v">${typeof serialFor==='function'?serialFor(card):card.id}</div></div></div><button class="modal-cta" style="margin-top:10px" onclick="toggleListing('${card.id}');showModal(cardById('${card.id}'))">${state.listings?.[card.id]?'Retirer du marché':'Lister au marché'}</button>`
+    };
+    return `<div class="ca-living-tabs"><div class="ca-living-tabbar">${[['resume','Résumé'],['etat','État'],['histoire','Histoire'],['marche','Marché']].map(([k,n])=>`<button class="${tab===k?'active':''}" onclick="switchLivingTab('${card.id}','${k}')">${n}</button>`).join('')}</div>${Object.entries(panels).map(([k,v])=>`<div class="ca-living-panel ${tab===k?'active':''}" data-living-panel="${k}">${v}</div>`).join('')}</div>`;
+  }
+  window.switchLivingTab=function(id,tab){const card=typeof cardById==='function'?cardById(id):CARDS.find(c=>c.id===id); const wrap=document.querySelector('.ca-living-tabs'); if(!card||!wrap)return; wrap.outerHTML=renderLivingPanel(card,tab); haptic('light');};
+  const oldShowModal=window.showModal;
+  window.showModal=function(card){ const r=oldShowModal?.apply(this,arguments); try{ if(typeof hasOwned==='function' && !hasOwned(card)) return r; const info=document.getElementById('modal-info'); if(info && !info.querySelector('.ca-living-tabs')) info.insertAdjacentHTML('beforeend',renderLivingPanel(card,'resume')); }catch(e){} return r; };
+
+  const oldOpenCoffre=window.openCoffre;
+  window.openCoffre=function(){ haptic('medium'); return oldOpenCoffre?.apply(this,arguments); };
+  const oldReveal=window.revealCurrentPackCard;
+  window.revealCurrentPackCard=function(){ const cur=state?.packRevealOrder?.[state.packStep||0]?.card; if(cur){ haptic(cur.rarity==='LEGENDARY'?'legendary':cur.rarity==='EPIC'?'heavy':cur.rarity==='RARE'?'medium':'light'); } return oldReveal?.apply(this,arguments); };
+
+  function initPolish(){
+    document.body.classList.toggle('ca-performance-mode',!!settings().performance);
+    injectSplash(); ensureToastStack(); ensureSettingsButton(); ensureSettingsModal();
+    try{renderHome?.(); renderGrid?.(); updateOrDisplay?.();}catch(e){}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initPolish); else setTimeout(initPolish,20);
+})();
+</script>
+
+
+<style id="ca-product-depth-style">
+/* ═══════════════════════════════════════════════════════════════
+   PRODUCT DEPTH UPDATE — onboarding, wallet portfolio, live events,
+   forge depth, card titles, level-up, premium whitepaper
+═══════════════════════════════════════════════════════════════ */
+.ca-product-kicker{font-family:var(--T);font-size:10px;color:var(--muted);letter-spacing:2.4px;text-transform:uppercase;margin-bottom:6px;}
+.ca-product-panel{background:rgba(255,255,255,.86);border:1px solid var(--border);border-radius:16px;box-shadow:0 6px 22px rgba(26,56,100,.10);padding:16px;margin-bottom:14px;position:relative;overflow:hidden;}
+.ca-product-panel::before{content:'';position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,rgba(200,160,48,.75),transparent);opacity:.85;}
+.ca-panel-title{font-family:var(--T);font-size:17px;font-weight:700;color:var(--navy);letter-spacing:.8px;margin-bottom:4px;}
+.ca-panel-text{font-family:var(--B);font-size:13px;color:var(--muted);font-style:italic;line-height:1.55;}
+.ca-two-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.ca-action{border:none;border-radius:10px;padding:11px 12px;font-family:var(--T);font-size:12px;font-weight:700;letter-spacing:.7px;transition:transform .15s,box-shadow .15s,opacity .15s;}
+.ca-action:active{transform:scale(.98)}
+.ca-action.primary{background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;box-shadow:0 8px 22px rgba(26,56,100,.22);}
+.ca-action.gold{background:linear-gradient(135deg,#9a7010,#c8a030);color:#fff;box-shadow:0 8px 22px rgba(154,112,16,.22);}
+.ca-action.secondary{background:rgba(255,255,255,.72);border:1px solid var(--border);color:var(--navy);}
+.ca-action.danger{background:rgba(139,32,32,.08);border:1px solid rgba(139,32,32,.22);color:#8b2020;}
+.ca-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0;}
+.ca-kpi{background:rgba(255,255,255,.72);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
+.ca-kpi .v{font-family:var(--T);font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ca-kpi .l{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;margin-top:2px;}
+.ca-card-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px;}
+.ca-mini-relic{border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.72);padding:10px;display:flex;gap:9px;align-items:center;min-width:0;}
+.ca-mini-art{width:42px;height:56px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(155deg,rgba(26,56,100,.05),rgba(154,112,16,.09));border:1px solid rgba(154,112,16,.22);flex-shrink:0;}
+.ca-mini-name{font-family:var(--T);font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ca-mini-meta{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;line-height:1.35;}
+.ca-onboarding-banner{margin:12px 0 14px;padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,.90),rgba(232,242,252,.84));border:1px solid rgba(154,112,16,.20);box-shadow:0 10px 30px rgba(26,56,100,.10);}
+.ca-onboarding-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
+.ca-on-step{border:1px solid var(--border);background:rgba(255,255,255,.72);border-radius:10px;padding:8px 5px;text-align:center;position:relative;overflow:hidden;}
+.ca-on-step.done{border-color:rgba(45,122,48,.35);background:rgba(45,122,48,.08)}
+.ca-on-step .ico{font-size:16px}.ca-on-step .txt{font-family:var(--B);font-size:9px;color:var(--muted);font-style:italic;margin-top:3px;line-height:1.1}
+.ca-on-step.done .txt{color:#2d7a30}.ca-on-step.done::after{content:'✓';position:absolute;right:5px;top:3px;color:#2d7a30;font-family:var(--T);font-size:11px;}
+.ca-title-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
+.ca-title-badge{font-family:var(--B);font-size:9px;font-weight:600;border-radius:999px;padding:2px 7px;background:rgba(154,112,16,.10);border:1px solid rgba(154,112,16,.22);color:#9a7010;}
+.ca-card-title-chip{position:absolute;left:6px;bottom:5px;z-index:8;background:rgba(255,255,255,.92);border:1px solid rgba(154,112,16,.35);color:#9a7010;border-radius:999px;padding:1px 6px;font-family:var(--B);font-size:7.5px;font-weight:700;box-shadow:0 2px 8px rgba(26,56,100,.08);}
+.ca-event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.ca-event-card{border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.86);padding:15px;box-shadow:0 8px 24px rgba(26,56,100,.08);position:relative;overflow:hidden;}
+.ca-event-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--event-color,#9a7010);}
+.ca-event-tag{font-family:var(--T);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--event-color,#9a7010);margin-bottom:5px;}
+.ca-event-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px;}
+.ca-event-desc{font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;line-height:1.45;min-height:48px;}
+.ca-event-timer{display:inline-flex;margin-top:10px;border:1px solid rgba(154,112,16,.22);border-radius:999px;padding:3px 9px;font-family:var(--B);font-size:10px;color:#9a7010;background:rgba(154,112,16,.07);}
+.ca-portfolio-hero{background:radial-gradient(circle at 20% 15%,rgba(200,160,48,.20),transparent 34%),linear-gradient(160deg,rgba(255,255,255,.94),rgba(232,242,252,.86));border:1px solid rgba(154,112,16,.22);}
+.ca-wallet-address{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted);background:rgba(26,56,100,.05);border:1px solid var(--border);border-radius:999px;padding:5px 9px;display:inline-flex;margin-top:7px;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
+.ca-transaction-list{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
+.ca-tx{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid var(--border);background:rgba(255,255,255,.65);border-radius:10px;padding:8px 10px;font-family:var(--B);font-size:11px;color:var(--text);}
+.ca-tx span:last-child{color:var(--gold);font-family:var(--T);font-weight:700;white-space:nowrap;}
+.ca-forge-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px;}
+.ca-forge-action{border:1px solid var(--border);background:rgba(255,255,255,.72);border-radius:13px;padding:12px;text-align:left;}
+.ca-forge-action .ico{font-size:20px}.ca-forge-action .t{font-family:var(--T);font-size:13px;font-weight:700;color:var(--navy);margin-top:4px}.ca-forge-action .d{font-family:var(--B);font-size:10.5px;color:var(--muted);font-style:italic;line-height:1.35;margin-top:3px;min-height:38px;}
+.ca-whitepaper-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.ca-wp-section{border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.82);padding:16px;}
+.ca-wp-section h3{font-family:var(--T);font-size:15px;color:var(--navy);margin-bottom:6px;}
+.ca-wp-section p,.ca-wp-section li{font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;line-height:1.55;}
+.ca-wp-section ul{padding-left:17px;margin-top:5px;}
+.ca-level-overlay{position:fixed;inset:0;z-index:26000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(20,40,80,.44);backdrop-filter:blur(8px);animation:caFade .22s ease both;}
+.ca-level-card{width:min(420px,100%);border-radius:22px;padding:22px;text-align:center;background:radial-gradient(circle at 50% 0,rgba(200,160,48,.28),transparent 38%),rgba(255,255,255,.97);border:1px solid rgba(154,112,16,.28);box-shadow:0 28px 90px rgba(26,56,100,.28);animation:caPop .36s cubic-bezier(.2,1.2,.2,1) both;}
+.ca-level-sigil{width:74px;height:74px;margin:0 auto 10px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:rgba(154,112,16,.10);border:1px solid rgba(154,112,16,.25);font-size:36px;color:#9a7010;box-shadow:0 0 30px rgba(200,160,48,.25);}
+.ca-level-title{font-family:var(--T);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#9a7010;}
+.ca-level-name{font-family:var(--T);font-weight:700;font-size:20px;color:var(--navy);margin-top:5px;}
+.ca-level-meta{font-family:var(--B);font-size:13px;color:var(--muted);font-style:italic;margin-top:6px;}
+@keyframes caFade{from{opacity:0}to{opacity:1}}@keyframes caPop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@media(max-width:760px){
+  .ca-two-actions,.ca-card-strip,.ca-whitepaper-grid{grid-template-columns:1fr;}
+  .ca-kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .ca-onboarding-steps{grid-template-columns:repeat(5,72px);overflow-x:auto;padding-bottom:4px;}
+  .ca-event-grid,.ca-forge-actions{grid-template-columns:1fr;}
+  .ca-product-panel{border-radius:14px;padding:14px;}
+}
+</style>
+
+<script id="ca-product-depth-script">
+(function(){
+  const EXTRA_KEY='codex_arcanum_product_depth_v1';
+  const nowIso=()=>new Date().toISOString();
+  const today=()=>new Date().toISOString().slice(0,10);
+  function extra(){try{return JSON.parse(localStorage.getItem(EXTRA_KEY)||'{}')||{};}catch(e){return {};}}
+  function setExtra(obj){try{localStorage.setItem(EXTRA_KEY,JSON.stringify(obj));}catch(e){}}
+  function mergeExtra(){const e=extra();state.onboarding=Object.assign({wallet:false,relic:false,pack:false,grimoire:false,arena:false,done:false},e.onboarding||state.onboarding||{});state.txHistory=e.txHistory||state.txHistory||[];state.liveEventClaims=e.liveEventClaims||state.liveEventClaims||{};state.forgeLog=e.forgeLog||state.forgeLog||[];state.levelUpsSeen=e.levelUpsSeen||state.levelUpsSeen||{};}
+  function saveExtra(){setExtra({onboarding:state.onboarding||{},txHistory:(state.txHistory||[]).slice(0,60),liveEventClaims:state.liveEventClaims||{},forgeLog:(state.forgeLog||[]).slice(0,80),levelUpsSeen:state.levelUpsSeen||{}});}
+  mergeExtra();
+
+  function safeCardById(id){return typeof cardById==='function'?cardById(id):(CARDS||[]).find(c=>c.id===id);}
+  function ownedCards(){return Object.keys(state.owned||{}).filter(id=>(state.owned[id]||0)>0).map(safeCardById).filter(Boolean);}
+  function value(card){return typeof estimateCardValue==='function'?estimateCardValue(card):((RARITIES[card.rarity]?.tier||0)+1)*100;}
+  function portfolioValue(){return ownedCards().reduce((s,c)=>s+value(c),0);}
+  function topOwned(){return ownedCards().sort((a,b)=>value(b)-value(a))[0]||null;}
+  function walletShort(){if(typeof walletLabel==='function')return walletLabel();return state.walletAddress||'Wallet local';}
+  function hasGenesis(card){return typeof isGenesis==='function'?isGenesis(card):(card.rarity==='LEGENDARY'||card.id.endsWith('14')||card.type==='ULTIMATE');}
+  function serial(card){return typeof serialFor==='function'?serialFor(card):`GEN-${String(Math.abs([...card.id].reduce((a,ch)=>a+ch.charCodeAt(0),0))*37%9999).padStart(4,'0')}`;}
+  function haptic(type='light'){try{if(window.caHaptic) window.caHaptic(type); else if(navigator.vibrate) navigator.vibrate(type==='heavy'?[28,35,38]:type==='medium'?24:12);}catch(e){}}
+  function tx(label,amount,kind='info'){state.txHistory||=[];state.txHistory.unshift({date:nowIso(),label,amount,kind});state.txHistory=state.txHistory.slice(0,60);saveExtra();}
+  function markOnboarding(key){state.onboarding||={}; if(!state.onboarding[key]){state.onboarding[key]=true; const all=['wallet','relic','pack','grimoire','arena'].every(k=>state.onboarding[k]); state.onboarding.done=all; saveExtra(); renderOnboarding(); if(all) notify('Parcours Arcaniste complété ✦','#9a7010');}}
+
+  function cardTitles(card){
+    const p=typeof getProgress==='function'?getProgress(card.id):{}; const titles=[];
+    if(hasGenesis(card)) titles.push('Genèse');
+    if((p.level||1)>=10) titles.push('Vétéran');
+    if((p.level||1)>=20) titles.push('Ascendant');
+    if((p.duels||0)>=25) titles.push('Éprouvée');
+    if((p.wins||0)>=10) titles.push('Brise-Bastion');
+    if((p.wins||0)>=5 && (p.duels||0)===(p.wins||0)) titles.push('Invaincue');
+    if((p.mvp||0)>=3) titles.push('Championne');
+    if((p.wounds||0)>0) titles.push('Marquée');
+    return titles.slice(0,4);
+  }
+  window.caCardTitles=cardTitles;
+  function titleValueBonus(card){return cardTitles(card).reduce((s,t)=>s+({Genèse:120,Vétéran:80,Ascendant:180,Éprouvée:70,'Brise-Bastion':95,Invaincue:160,Championne:120,Marquée:20}[t]||25),0);}
+  if(typeof estimateCardValue==='function' && !window.__caEstimateWrapped){window.__caEstimateWrapped=true; const old=estimateCardValue; window.estimateCardValue=function(card){return old(card)+titleValueBonus(card);};}
+
+  function injectTabs(){
+    const nav=document.querySelector('.nav-pill-group');
+    if(nav && !document.querySelector('.nav-btn[data-tab="portfolio"]')){
+      const market=document.querySelector('.nav-btn[data-tab="market"]');
+      const b1=document.createElement('button');b1.className='nav-btn';b1.dataset.tab='portfolio';b1.textContent='Wallet';b1.onclick=()=>switchTab('portfolio');
+      const b2=document.createElement('button');b2.className='nav-btn';b2.dataset.tab='events';b2.textContent='Événements';b2.onclick=()=>switchTab('events');
+      if(market) market.insertAdjacentElement('afterend',b1); else nav.appendChild(b1);
+      b1.insertAdjacentElement('afterend',b2);
+    }
+    const body=document.getElementById('body') || document.querySelector('#app'); if(!body) return;
+    if(!document.getElementById('tab-portfolio')) body.insertAdjacentHTML('beforeend',`<div id="tab-portfolio"><div class="shop-inner" id="portfolio-root"></div></div>`);
+    if(!document.getElementById('tab-events')) body.insertAdjacentHTML('beforeend',`<div id="tab-events"><div class="shop-inner" id="events-root"></div></div>`);
+    document.querySelectorAll('#tab-portfolio,#tab-events').forEach(el=>{el.style.flex='1';el.style.display='none';el.style.overflowY='auto';el.style.background='rgba(255,255,255,0.28)';});
+  }
+  injectTabs();
+
+  const oldSwitch=window.switchTab;
+  window.switchTab=function(tab){
+    if(tab==='portfolio'||tab==='events'){
+      state.tab=tab;
+      document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+      ['home','collection','deck','shop','arena','market','portfolio','events','forge','quests','pass','vision'].forEach(t=>{const el=document.getElementById(`tab-${t}`); if(!el)return; if(t==='collection') el.style.display=tab===t?'flex':'none'; else {el.classList.toggle('active',tab===t); if(t==='portfolio'||t==='events') el.style.display=tab===t?'block':'none';}});
+      if(tab==='portfolio') renderPortfolio();
+      if(tab==='events') renderEvents();
+      return;
+    }
+    oldSwitch?.(tab);
+    ['portfolio','events'].forEach(t=>{const el=document.getElementById(`tab-${t}`); if(el){el.classList.remove('active');el.style.display='none';}});
+    if(tab==='home') renderOnboarding();
+  };
+
+  function renderPortfolio(){
+    const root=document.getElementById('portfolio-root'); if(!root)return;
+    const cards=ownedCards(); const top=topOwned(); const listed=Object.keys(state.listings||{}).length;
+    const recent=(state.txHistory||[]).slice(0,8);
+    root.innerHTML=`
+      <div class="ca-product-kicker">Portefeuille collectionneur</div>
+      <div class="ca-product-panel ca-portfolio-hero">
+        <div class="ca-panel-title">Wallet Codex</div>
+        <div class="ca-panel-text">Vue prototype de tes actifs Play-to-Own : cartes vivantes, valeur estimée, annonces marché et historique.</div>
+        <div class="ca-wallet-address">${state.walletConnected?walletShort():'Non connecté · portefeuille local simulé'}</div>
+        <div class="ca-kpi-grid">
+          <div class="ca-kpi"><div class="v">${portfolioValue().toLocaleString('fr')} ₲</div><div class="l">Valeur estimée</div></div>
+          <div class="ca-kpi"><div class="v">${cards.length}/120</div><div class="l">Cartes possédées</div></div>
+          <div class="ca-kpi"><div class="v">${listed}</div><div class="l">Listées marché</div></div>
+          <div class="ca-kpi"><div class="v">${cards.filter(hasGenesis).length}</div><div class="l">Relique Genèse</div></div>
+        </div>
+        <div class="ca-two-actions"><button class="ca-action primary" onclick="connectWallet()">${state.walletConnected?'Wallet connecté':'Connecter portefeuille'}</button><button class="ca-action secondary" onclick="switchTab('market')">Voir le marché</button></div>
+      </div>
+      <div class="ca-product-panel"><div class="ca-panel-title">Actifs remarquables</div><div class="ca-card-strip">${top?miniRelic(top):'<div class="ca-panel-text">Aucune relique possédée.</div>'}${cards.sort((a,b)=>(getProgress(b.id).level||1)-(getProgress(a.id).level||1))[0]?miniRelic(cards.sort((a,b)=>(getProgress(b.id).level||1)-(getProgress(a.id).level||1))[0]):''}</div></div>
+      <div class="ca-product-panel"><div class="ca-panel-title">Historique portefeuille</div><div class="ca-transaction-list">${recent.length?recent.map(t=>`<div class="ca-tx"><span>${t.label}<br><small style="color:var(--faint)">${new Date(t.date).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</small></span><span>${t.amount||''}</span></div>`).join(''):'<div class="ca-panel-text">Aucune transaction simulée pour l’instant.</div>'}</div></div>`;
+  }
+  function miniRelic(card){const p=getProgress(card.id); const f=FACTIONS[card.faction]||{}; return `<div class="ca-mini-relic" onclick="selectCard('${card.id}')"><div class="ca-mini-art" style="border-color:${f.primary||'#9a7010'}55">${ART_EMOJIS[card.art]||'✦'}</div><div style="min-width:0"><div class="ca-mini-name">${card.name}</div><div class="ca-mini-meta">${RARITIES[card.rarity]?.label} · ${serial(card)} · Niv. ${p.level||1}<br>${value(card).toLocaleString('fr')} ₲ · ${cardTitles(card).join(' · ')||'Sans titre'}</div></div></div>`;}
+
+  const liveEvents=[
+    {id:'aurelia_focus',tag:'Coffre ciblé',title:'Grâce d’Aurélia',color:'#c8a040',desc:'+20% de poids Aurélia dans les packs simulés. Idéal pour chercher des gardes et paladins.',reward:'75 ₲',action:'Réclamer bonus'},
+    {id:'draconis_arena',tag:'Arène',title:'Fournaise Draconis',color:'#b03020',desc:'+50 ₲ sur la prochaine victoire si ton grimoire contient au moins 3 cartes Draconis.',reward:'+50 victoire',action:'Activer'},
+    {id:'market_week',tag:'Marché',title:'Marché des Reliques',color:'#1a3864',desc:'Frais marketplace simulés réduits à 2,5% sur les annonces de la semaine.',reward:'Frais réduits',action:'Voir marché'}
+  ];
+  function renderEvents(){
+    const root=document.getElementById('events-root'); if(!root)return;
+    root.innerHTML=`<div class="ca-product-kicker">Live service prototype</div><div class="ca-product-panel"><div class="ca-panel-title">Événements temporaires</div><div class="ca-panel-text">Des boosts courts créent une sensation d’économie vivante : packs ciblés, arène spéciale et activité marketplace.</div></div><div class="ca-event-grid">${liveEvents.map(ev=>`<div class="ca-event-card" style="--event-color:${ev.color}"><div class="ca-event-tag">${ev.tag}</div><div class="ca-event-title">${ev.title}</div><div class="ca-event-desc">${ev.desc}</div><div class="ca-event-timer">⏳ ${eventTimer(ev.id)}</div><button class="ca-action ${state.liveEventClaims?.[today()+ev.id]?'secondary':'gold'}" style="width:100%;margin-top:10px" onclick="claimLiveEvent('${ev.id}')">${state.liveEventClaims?.[today()+ev.id]?'Activé':'${ev.action}'}</button></div>`).join('')}</div>`;
+  }
+  function eventTimer(id){const h=23-new Date().getHours();return `${h}h restantes`;}
+  window.claimLiveEvent=function(id){state.liveEventClaims||={};const key=today()+id;if(state.liveEventClaims[key]){notify('Événement déjà activé aujourd’hui','#8098b0');return;}state.liveEventClaims[key]=true;if(id==='aurelia_focus'){state.or=(state.or||0)+75;tx('Bonus événement Grâce d’Aurélia','+75 ₲','gain');updateOrDisplay?.();notify('Bonus événement : +75 ₲','#9a7010');}else if(id==='draconis_arena'){notify('Bonus Draconis actif pour la prochaine victoire','#b03020');}else{notify('Frais marketplace réduits simulés','#1a3864');}saveExtra();saveGame?.();renderEvents();renderHome?.();};
+
+  function renderOnboarding(){
+    const home=document.getElementById('tab-home'); if(!home)return;
+    let container=document.getElementById('ca-onboarding-home');
+    if(!container){const first=home.querySelector('.shop-inner,.home-inner,.hero-card')||home.firstElementChild; container=document.createElement('div'); container.id='ca-onboarding-home'; container.className='ca-onboarding-banner'; if(first&&first.parentElement) first.parentElement.insertBefore(container, first.nextSibling); else home.prepend(container);}
+    const steps=[['wallet','👛','Connecter'],['relic','🎴','Relique'],['pack','🎁','Coffre'],['grimoire','✦','Grimoire'],['arena','⚔','Arène']];
+    const done=steps.filter(s=>state.onboarding?.[s[0]]).length;
+    container.innerHTML=`<div class="ca-product-kicker">Parcours Arcaniste</div><div class="ca-panel-title">${state.onboarding?.done?'Hub prêt pour l’économie Codex':'Configure ton portefeuille de reliques'}</div><div class="ca-panel-text">Un onboarding Web3 sans “nouvelle partie” : portefeuille, première relique, pack, grimoire et arène.</div><div class="ca-onboarding-steps">${steps.map(s=>`<div class="ca-on-step ${state.onboarding?.[s[0]]?'done':''}"><div class="ico">${s[1]}</div><div class="txt">${s[2]}</div></div>`).join('')}</div><div class="ca-two-actions"><button class="ca-action primary" onclick="continueOnboarding()">${done===0?'Démarrer le parcours':'Continuer'}</button><button class="ca-action secondary" onclick="switchTab('portfolio')">Voir wallet</button></div>`;
+  }
+  window.continueOnboarding=function(){
+    if(!state.onboarding?.wallet){connectWallet(); markOnboarding('wallet'); return;}
+    if(!state.onboarding?.relic){claimStarterRelic(); return;}
+    if(!state.onboarding?.pack){switchTab('shop'); notify('Ouvre un coffre pour valider cette étape.','#9a7010'); return;}
+    if(!state.onboarding?.grimoire){switchTab('deck'); notify('Prépare un grimoire de 8 cartes.','#1a3864'); return;}
+    if(!state.onboarding?.arena){switchTab('arena'); notify('Entre en entraînement pour valider l’arène.','#1a3864'); return;}
+    switchTab('home');
+  };
+  window.claimStarterRelic=function(){
+    const candidates=CARDS.filter(c=>c.rarity==='RARE' && !hasOwned(c.id)); const card=candidates[0]||CARDS.find(c=>c.rarity==='RARE'); if(!card)return;
+    state.owned||={}; state.owned[card.id]=(state.owned[card.id]||0)+1; getProgress(card.id); markOnboarding('relic'); tx(`Relique de départ : ${card.name}`,'+1 carte','mint'); saveGame?.(); saveExtra(); notify(`Relique reçue : ${card.name}`,'#9a7010'); renderGrid?.(); renderHome?.(); showLevelMoment(card,'Relique de départ','Mint prototype Genèse simulé');
+  };
+
+  // Wrap wallet/pack/arena/deck hooks
+  if(typeof connectWallet==='function' && !window.__caWalletWrapped){window.__caWalletWrapped=true; const old=connectWallet; window.connectWallet=function(){old(); markOnboarding('wallet'); tx('Wallet connecté','LOCAL','wallet'); renderPortfolio(); renderHome?.();};}
+  if(typeof closeCoffre==='function' && !window.__caPackCloseWrapped){window.__caPackCloseWrapped=true; const old=closeCoffre; window.closeCoffre=function(){old(); markOnboarding('pack'); tx('Coffre ouvert','- pack','pack'); renderPortfolio(); renderHome?.();};}
+  if(typeof collectAndOpenAgain==='function' && !window.__caPackAgainWrapped){window.__caPackAgainWrapped=true; const old=collectAndOpenAgain; window.collectAndOpenAgain=function(){markOnboarding('pack'); tx('Coffre ouvert','- pack','pack'); old();};}
+  if(typeof toggleDeck==='function' && !window.__caDeckWrapped){window.__caDeckWrapped=true; const old=toggleDeck; window.toggleDeck=function(e,id){old(e,id); if((state.deck||[]).length>=8) markOnboarding('grimoire');};}
+  if(typeof clearDeck==='function' && !window.__caClearDeckWrapped){window.__caClearDeckWrapped=true; const old=clearDeck; window.clearDeck=function(){old(); renderOnboarding();};}
+  if(typeof startArenaDuel==='function' && !window.__caArenaWrapped){window.__caArenaWrapped=true; const old=startArenaDuel; window.startArenaDuel=function(modeKey){const before={};(state.deck||[]).forEach(c=>before[c.id]=getProgress(c.id).level||1); old(modeKey); markOnboarding('arena'); tx(`Duel ${modeKey||'arène'}`,'résultat','arena'); setTimeout(()=>checkLevelUps(before),1200);};}
+
+  function checkLevelUps(before){
+    const ups=[];(state.deck||[]).forEach(c=>{const p=getProgress(c.id); const old=before[c.id]||1; if((p.level||1)>old) ups.push({card:c,old,newLevel:p.level});});
+    if(ups.length){ups.forEach((u,i)=>setTimeout(()=>showLevelMoment(u.card,'NIVEAU SUPÉRIEUR',`Niveau ${u.old} → ${u.newLevel}`),i*900));}
+  }
+  function showLevelMoment(card,title,meta){
+    const overlay=document.createElement('div'); overlay.className='ca-level-overlay'; overlay.onclick=()=>overlay.remove();
+    overlay.innerHTML=`<div class="ca-level-card"><div class="ca-level-sigil">${ART_EMOJIS[card.art]||'✦'}</div><div class="ca-level-title">${title}</div><div class="ca-level-name">${card.name}</div><div class="ca-level-meta">${meta}<br>${cardTitles(card).join(' · ')||'Nouvelle relique vivante'}</div><button class="ca-action gold" style="margin-top:15px" onclick="this.closest('.ca-level-overlay').remove()">Continuer</button></div>`;
+    document.body.appendChild(overlay); haptic('medium');
+  }
+  window.showLevelMoment=showLevelMoment;
+
+  // Forge depth additions
+  function renderForgeDepth(){
+    const root=document.getElementById('tab-forge'); if(!root)return;
+    let panel=document.getElementById('ca-forge-depth');
+    if(!panel){const inner=root.querySelector('.shop-inner')||root; panel=document.createElement('div'); panel.id='ca-forge-depth'; panel.className='ca-product-panel'; inner.prepend(panel);}
+    panel.innerHTML=`<div class="ca-product-kicker">Forge des reliques</div><div class="ca-panel-title">Donner de la valeur aux doublons</div><div class="ca-panel-text">Les doublons, la poussière et l’or servent à renforcer une carte vivante sans casser l’équilibre compétitif.</div><div class="ca-forge-actions"><div class="ca-forge-action"><div class="ico">♻️</div><div class="t">Fusion de doublons</div><div class="d">Consomme 3 copies d’une même carte pour ajouter +180 XP à l’exemplaire principal.</div><button class="ca-action primary" style="width:100%" onclick="forgeFuseBestDuplicate()">Fusionner</button></div><div class="ca-forge-action"><div class="ico">✧</div><div class="t">Brûler poussière</div><div class="d">Utilise 120 poussières pour réduire fortement la fatigue de ta meilleure carte.</div><button class="ca-action gold" style="width:100%" onclick="forgeDustRecovery()">Restaurer</button></div><div class="ca-forge-action"><div class="ico">🏷️</div><div class="t">Graver un titre</div><div class="d">Ajoute une entrée d’historique premium à la meilleure carte de ton portefeuille.</div><button class="ca-action secondary" style="width:100%" onclick="forgeEngraveTitle()">Graver</button></div></div>`;
+  }
+  const oldRenderForge=window.renderForge; window.renderForge=function(){oldRenderForge?.(); renderForgeDepth();};
+  window.forgeFuseBestDuplicate=function(){const target=Object.keys(state.owned||{}).map(id=>[id,state.owned[id]||0]).filter(x=>x[1]>=3).map(x=>safeCardById(x[0])).filter(Boolean).sort((a,b)=>value(b)-value(a))[0]; if(!target){notify('Aucun doublon x3 disponible.','#8098b0');return;} state.owned[target.id]-=2; const p=getProgress(target.id); const before=p.level||1; p.xp=(p.xp||0)+180; p.level=levelFromXP(p.xp); p.history||=[];p.history.unshift({date:nowIso(),text:'Fusion de doublons : +180 XP'}); tx(`Fusion : ${target.name}`,'+180 XP','forge'); saveGame?.();saveExtra();renderForge?.();renderGrid?.(); if((p.level||1)>before) showLevelMoment(target,'FUSION RÉUSSIE',`Niveau ${before} → ${p.level}`); else notify('Fusion réussie : +180 XP','#9a7010');};
+  window.forgeDustRecovery=function(){if((state.dust||0)<120){notify('Poussière insuffisante.','#8b2020');return;} const target=ownedCards().sort((a,b)=>(getProgress(b.id).fatigue||0)-(getProgress(a.id).fatigue||0))[0]; if(!target){notify('Aucune carte à restaurer.','#8098b0');return;} const p=getProgress(target.id); if((p.fatigue||0)<=0){notify('Ta meilleure carte n’est pas fatiguée.','#8098b0');return;} state.dust-=120; p.fatigue=clamp((p.fatigue||0)-60,0,100); p.history||=[];p.history.unshift({date:nowIso(),text:'Restauration par poussière arcanique'}); tx(`Restauration : ${target.name}`,'-120 ✧','forge'); updateOrDisplay?.();saveGame?.();saveExtra();renderForge?.();notify('Restauration arcanique effectuée','#6840d8');};
+  window.forgeEngraveTitle=function(){const target=topOwned(); if(!target){notify('Aucune carte possédée.','#8098b0');return;} if((state.or||0)<250){notify('Or insuffisant pour graver.','#8b2020');return;} state.or-=250; const p=getProgress(target.id); p.history||=[];p.history.unshift({date:nowIso(),text:'Titre gravé dans le Codex : Relique remarquée'}); tx(`Gravure : ${target.name}`,'-250 ₲','forge'); updateOrDisplay?.();saveGame?.();saveExtra();showLevelMoment(target,'TITRE GRAVÉ','Relique remarquée');};
+
+  // Cards: add title chip and richer modal panel
+  if(typeof buildCardHTML==='function' && !window.__caCardTitleWrapped){window.__caCardTitleWrapped=true; const old=buildCardHTML; window.buildCardHTML=function(card,size){let out=old(card,size); const titles=cardTitles(card); if(titles.length && hasOwned(card.id)){out=out.replace('</div>',`<div class="ca-card-title-chip">${titles[0]}</div></div>`);} return out;};}
+  if(typeof showModal==='function' && !window.__caModalTitleWrapped){window.__caModalTitleWrapped=true; const old=showModal; window.showModal=function(card){old(card);setTimeout(()=>{const info=document.getElementById('modal-info'); if(!info||document.getElementById('ca-modal-product-depth'))return; const titles=cardTitles(card); const p=getProgress(card.id); info.insertAdjacentHTML('beforeend',`<div id="ca-modal-product-depth" class="progress-box"><div class="progress-top"><span>Identité NFT vivante</span><span>${serial(card)}</span></div><div class="ca-title-badges">${titles.length?titles.map(t=>`<span class="ca-title-badge">${t}</span>`).join(''):'<span class="ca-title-badge">Sans titre</span>'}</div><div class="progress-meta"><span>Winrate ${p.duels?Math.round((p.wins||0)/(p.duels||1)*100):0}%</span><span>Valeur +${titleValueBonus(card)} ₲ titres</span><span>${hasGenesis(card)?'Set 0 Genèse':'Set standard'}</span></div></div>`);},30);};}
+
+  // Home premium portfolio and live event teasers
+  const oldHome=window.renderHome; window.renderHome=function(){oldHome?.(); renderOnboarding(); const home=document.getElementById('tab-home'); if(!home)return; let box=document.getElementById('ca-home-business-depth'); if(!box){const inner=home.querySelector('.shop-inner')||home; box=document.createElement('div'); box.id='ca-home-business-depth'; box.className='ca-product-panel'; inner.appendChild(box);} const top=topOwned(); box.innerHTML=`<div class="ca-product-kicker">Portefeuille Play-to-Own</div><div class="ca-panel-title">Valeur de collection : ${portfolioValue().toLocaleString('fr')} ₲</div><div class="ca-panel-text">Dernière vision produit : collection NFT simulée, événements temporaires, portefeuille et cartes vivantes valorisées par leur historique.</div><div class="ca-card-strip">${top?miniRelic(top):'<div class="ca-panel-text">Ouvre un coffre pour générer une relique remarquable.</div>'}<div class="ca-mini-relic" onclick="switchTab('events')"><div class="ca-mini-art">⏳</div><div><div class="ca-mini-name">Événement actif</div><div class="ca-mini-meta">Grâce d’Aurélia · Fournaise Draconis<br>Boosts temporaires prototype</div></div></div></div><div class="ca-two-actions"><button class="ca-action primary" onclick="switchTab('portfolio')">Voir portefeuille</button><button class="ca-action gold" onclick="switchTab('events')">Événements live</button></div>`;};
+
+  // Vision page: strengthen whitepaper layout if user opens it
+  const oldVision=window.renderVision; window.renderVision=function(){oldVision?.(); const root=document.getElementById('vision-root'); if(!root)return; root.insertAdjacentHTML('beforeend',`<div class="ca-product-panel"><div class="ca-product-kicker">Whitepaper produit</div><div class="ca-panel-title">Business layer intégré dans le prototype</div><div class="ca-whitepaper-grid"><div class="ca-wp-section"><h3>Play-to-Own</h3><p>Les cartes sont pensées comme des actifs vivants : niveau, fatigue, blessures, historique, titres et valeur estimée.</p></div><div class="ca-wp-section"><h3>Marketplace</h3><p>Commission cible 5%, floor price simulé, séries Genèse et cartes listables dès le prototype.</p></div><div class="ca-wp-section"><h3>Événements</h3><p>Les boosts temporaires donnent de la vie au marché et orientent les ouvertures de packs ou l’arène.</p></div><div class="ca-wp-section"><h3>Conformité</h3><p>Les mises, prize pools et crypto-actifs restent simulés tant que le cadre juridique n’est pas validé.</p></div></div></div>`);};
+
+  // Seed tx and finish setup
+  if(!(state.txHistory||[]).length){tx('Portefeuille prototype initialisé','LOCAL','wallet');}
+  renderOnboarding(); renderHome?.(); renderPortfolio(); renderEvents(); renderForgeDepth(); saveExtra();
 })();
 </script>
 
