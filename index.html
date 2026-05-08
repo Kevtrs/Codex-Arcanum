@@ -2126,6 +2126,160 @@ html, body { background: var(--sky) !important; }
 @media (max-width:430px){#pack-overlay.ca-v5{padding-top:calc(7px + env(safe-area-inset-top,0px))!important;padding-bottom:calc(7px + env(safe-area-inset-bottom,0px))!important;gap:6px!important;}#pack-overlay.ca-v5 .pack-title{font-size:11px!important;letter-spacing:3.2px!important;}#pack-overlay.ca-v5 .pack-subtitle{font-size:11px!important;margin-top:3px!important;}.ca-v5-main{width:min(88vw,340px);height:min(62dvh,470px);}.ca-v5-name{font-size:20px;}.ca-v5-emoji{font-size:62px;}.ca-v5-final-grid{width:min(92vw,390px);gap:7px;}.ca-v5-final-card{border-radius:13px;}.ca-v5-panel{width:min(92vw,390px)!important;padding:10px!important;}}
 @media (max-width:380px){.ca-v5-main{width:min(86vw,320px);height:min(59dvh,430px);}.ca-v5-name{font-size:18px;}.ca-v5-meta{font-size:12px;}.ca-v5-text{font-size:11px;-webkit-line-clamp:2;}.ca-v5-stats{gap:5px}.ca-v5-stat{min-height:34px;font-size:13px;}.ca-v5-final-grid{gap:6px;}.ca-v5-final-name{font-size:9px;min-height:27px;}.ca-v5-final-meta{font-size:8px;}}
 
+
+
+/* ==========================================================
+   ARÈNE PREMIUM — résultat de duel cinématique
+   ========================================================== */
+#arena-result-overlay{
+  position:fixed;inset:0;z-index:12000;display:none;
+  align-items:center;justify-content:center;
+  padding:calc(14px + env(safe-area-inset-top,0px)) 12px calc(18px + env(safe-area-inset-bottom,0px));
+  background:rgba(18,34,58,.78);
+  backdrop-filter:blur(18px) saturate(1.12);
+  overflow:hidden;
+}
+#arena-result-overlay.open{display:flex;}
+#arena-result-overlay::before{content:'';position:absolute;inset:-20%;background:radial-gradient(circle at 50% 18%,rgba(255,255,255,.28),transparent 34%),radial-gradient(circle at 18% 85%,rgba(154,112,16,.20),transparent 28%),radial-gradient(circle at 82% 86%,rgba(42,90,154,.24),transparent 32%);pointer-events:none;animation:arenaPulse 3.6s ease-in-out infinite;}
+#arena-result-overlay.victory::before{background:radial-gradient(circle at 50% 20%,rgba(224,184,64,.38),transparent 34%),radial-gradient(circle at 18% 85%,rgba(154,112,16,.23),transparent 28%),radial-gradient(circle at 82% 86%,rgba(42,90,154,.23),transparent 32%);}
+#arena-result-overlay.defeat::before{background:radial-gradient(circle at 50% 20%,rgba(139,32,32,.28),transparent 34%),radial-gradient(circle at 18% 85%,rgba(80,112,128,.22),transparent 28%),radial-gradient(circle at 82% 86%,rgba(42,90,154,.18),transparent 32%);}
+@keyframes arenaPulse{0%,100%{transform:scale(1);opacity:.84}50%{transform:scale(1.04);opacity:1}}
+.arena-duel-box{position:relative;z-index:2;width:min(760px,100%);max-height:100%;overflow-y:auto;border:1px solid rgba(210,230,250,.64);border-radius:24px;background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(233,243,252,.92));box-shadow:0 28px 80px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.85);padding:18px;}
+.arena-duel-loading{min-height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;}
+.arena-duel-seal{width:150px;height:150px;border-radius:50%;border:1.5px solid rgba(200,160,48,.55);background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.95),rgba(205,226,246,.78));display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(200,160,48,.22),inset 0 0 24px rgba(26,56,100,.12);position:relative;animation:duelSeal 1.9s ease-in-out infinite;}
+.arena-duel-seal::before,.arena-duel-seal::after{content:'';position:absolute;inset:-14px;border:1px solid rgba(200,160,48,.28);border-radius:50%;animation:duelRing 2.2s ease-out infinite;}
+.arena-duel-seal::after{animation-delay:.7s;}
+.arena-duel-seal span{font-family:var(--T);font-size:54px;color:var(--gold);filter:drop-shadow(0 4px 12px rgba(154,112,16,.22));}
+@keyframes duelSeal{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.035) rotate(4deg)}}
+@keyframes duelRing{0%{transform:scale(.85);opacity:.65}100%{transform:scale(1.35);opacity:0}}
+.arena-duel-kicker{font-family:var(--T);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+.arena-duel-title{font-family:var(--T);font-size:30px;letter-spacing:4px;color:var(--navy);line-height:1;}
+.arena-duel-sub{font-family:var(--B);font-size:14px;color:var(--muted);font-style:italic;line-height:1.45;}
+.arena-result-head{position:relative;text-align:center;padding:16px 12px 14px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(226,240,252,.64));border:1px solid rgba(180,210,240,.72);overflow:hidden;}
+.arena-result-head::before{content:'';position:absolute;inset:-40%;background:radial-gradient(circle at 50% 35%,rgba(224,184,64,.26),transparent 30%);pointer-events:none;}
+.arena-result-state{position:relative;font-family:var(--T);font-size:36px;letter-spacing:5px;font-weight:700;line-height:1;color:var(--navy);text-transform:uppercase;text-shadow:0 3px 20px rgba(26,56,100,.12);}
+.arena-result-state.victory{color:#9a7010;}
+.arena-result-state.defeat{color:#8b2020;}
+.arena-result-line{position:relative;margin-top:8px;font-family:var(--B);font-size:14px;color:var(--muted);font-style:italic;}
+.arena-result-score{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;}
+.score-pill{padding:9px;border-radius:14px;background:rgba(255,255,255,.82);border:1px solid var(--border);}
+.score-label{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;}
+.score-num{font-family:var(--T);font-size:25px;font-weight:700;color:var(--navy);}
+.score-vs{font-family:var(--T);font-size:12px;color:var(--gold);letter-spacing:2px;}
+.arena-result-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:14px;margin-top:14px;align-items:stretch;}
+.mvp-card{position:relative;border-radius:18px;border:1.5px solid rgba(200,160,48,.52);background:linear-gradient(160deg,#fff,#edf6ff);box-shadow:0 12px 34px rgba(26,56,100,.17);overflow:hidden;padding:14px;text-align:center;min-height:310px;display:flex;flex-direction:column;justify-content:space-between;}
+.mvp-card::before{content:'';position:absolute;inset:-20%;background:radial-gradient(circle at 50% 12%,rgba(200,160,48,.22),transparent 32%);pointer-events:none;}
+.mvp-kicker{position:relative;font-family:var(--T);font-size:9px;letter-spacing:2.4px;color:var(--gold);text-transform:uppercase;}
+.mvp-art{position:relative;margin:14px auto 10px;width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#fff,rgba(200,220,245,.76));border:1px solid var(--border);font-size:42px;box-shadow:0 8px 22px rgba(26,56,100,.14);}
+.mvp-name{position:relative;font-family:var(--T);font-size:17px;font-weight:700;color:var(--navy);line-height:1.1;}
+.mvp-meta{position:relative;font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;margin-top:5px;}
+.mvp-value{position:relative;margin-top:12px;padding:8px;border-radius:12px;background:rgba(255,255,255,.72);border:1px solid rgba(200,160,48,.28);font-family:var(--T);font-size:18px;color:var(--gold);font-weight:700;}
+.result-details{display:flex;flex-direction:column;gap:10px;}
+.reward-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.reward-card{padding:11px 8px;border-radius:14px;background:rgba(255,255,255,.84);border:1px solid var(--border);text-align:center;}
+.reward-val{font-family:var(--T);font-size:20px;font-weight:700;color:var(--navy);}
+.reward-val.good{color:#2d7a30}.reward-val.bad{color:#8b2020}.reward-val.gold{color:var(--gold)}
+.reward-lbl{font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;margin-top:2px;}
+.card-progress-list{display:flex;flex-direction:column;gap:7px;max-height:248px;overflow-y:auto;padding-right:2px;}
+.card-progress-row{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:8px;border-radius:12px;background:rgba(255,255,255,.72);border:1px solid rgba(180,210,240,.62);}
+.card-progress-icon{width:34px;height:44px;border-radius:8px;background:linear-gradient(155deg,#fff,#e9f3ff);display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--border);}
+.card-progress-name{font-family:var(--T);font-size:11px;color:var(--navy);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-progress-meta{font-family:var(--B);font-size:9.5px;color:var(--muted);font-style:italic;line-height:1.3;}
+.xp-mini{height:4px;background:var(--border);border-radius:999px;overflow:hidden;margin-top:4px;}
+.xp-mini-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));border-radius:inherit;animation:xpGrow .9s ease both;}
+@keyframes xpGrow{from{width:0}to{width:var(--xp)}}
+.card-progress-delta{font-family:var(--T);font-size:11px;color:var(--gold);font-weight:700;text-align:right;}
+.arena-result-actions{display:flex;gap:10px;margin-top:14px;}
+.arena-result-actions button{flex:1;border:none;border-radius:14px;padding:13px 10px;font-family:var(--T);font-size:11px;font-weight:700;letter-spacing:1.5px;}
+.result-primary{background:linear-gradient(135deg,var(--navy),var(--navy-l));color:white;box-shadow:0 8px 24px rgba(26,56,100,.25);}
+.result-gold{background:linear-gradient(135deg,#a77910,#d0a72a);color:white;box-shadow:0 8px 24px rgba(154,112,16,.22);}
+.result-secondary{background:rgba(255,255,255,.78);border:1px solid var(--border)!important;color:var(--navy);}
+.arena-sparks{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.arena-spark{position:absolute;left:50%;top:48%;width:5px;height:5px;border-radius:50%;background:var(--spark);box-shadow:0 0 12px var(--spark);animation:arenaSpark .9s ease-out forwards;}
+@keyframes arenaSpark{to{transform:translate(var(--dx),var(--dy)) scale(.15);opacity:0}}
+@media(max-width:760px){
+  #arena-result-overlay{align-items:flex-start;padding-top:calc(10px + env(safe-area-inset-top,0px));}
+  .arena-duel-box{border-radius:22px;padding:12px;max-height:calc(100svh - 18px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));}
+  .arena-duel-loading{min-height:430px;gap:14px;}
+  .arena-duel-seal{width:122px;height:122px;}
+  .arena-duel-seal span{font-size:44px;}
+  .arena-duel-title{font-size:23px;letter-spacing:3px;}
+  .arena-result-state{font-size:28px;letter-spacing:3px;}
+  .arena-result-grid{grid-template-columns:1fr;gap:10px;}
+  .mvp-card{min-height:0;display:grid;grid-template-columns:82px 1fr;grid-template-areas:'art info' 'value value';gap:8px;text-align:left;align-items:center;padding:11px;}
+  .mvp-kicker{grid-area:info;font-size:8px;margin-bottom:34px;}
+  .mvp-art{grid-area:art;width:70px;height:70px;margin:0;font-size:32px;}
+  .mvp-name{grid-area:info;font-size:16px;margin-top:10px;align-self:center;}
+  .mvp-meta{grid-area:info;margin-top:42px;align-self:center;}
+  .mvp-value{grid-area:value;text-align:center;margin-top:2px;font-size:16px;}
+  .reward-row{grid-template-columns:repeat(3,1fr);gap:6px;}
+  .reward-card{padding:9px 5px;border-radius:12px;}
+  .reward-val{font-size:17px;}
+  .card-progress-list{max-height:214px;}
+  .arena-result-actions{position:sticky;bottom:0;background:linear-gradient(180deg,rgba(239,247,254,0),rgba(239,247,254,.96) 22%,rgba(239,247,254,.98));padding-top:16px;margin-bottom:-2px;}
+  .arena-result-actions button{padding:12px 8px;font-size:9.5px;letter-spacing:1px;}
+}
+
+
+
+/* ==========================================================
+   BUSINESS LAYER UPDATE — packs, wallet, marketplace, pass
+   ========================================================== */
+.business-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.78);border:1px solid var(--border);font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;box-shadow:0 1px 6px var(--shadow);}
+.business-metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;}
+.business-metric{background:rgba(255,255,255,.86);border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:0 3px 14px var(--shadow);}
+.business-metric .v{font-family:var(--T);font-weight:700;font-size:20px;color:var(--navy);line-height:1.1;}
+.business-metric .l{font-size:10px;color:var(--muted);font-style:italic;margin-top:5px;}
+.pack-store-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;}
+.pack-product-card{position:relative;overflow:hidden;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 6px 24px var(--shadow);}
+.pack-product-card::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,transparent,var(--pack-accent,#c8a030),transparent);opacity:.85;}
+.pack-product-card.premium{--pack-accent:#6840d8;}
+.pack-product-card.legendary{--pack-accent:#e0b840;background:linear-gradient(160deg,rgba(255,255,255,.93),rgba(255,248,224,.9));}
+.pack-product-card.season{--pack-accent:#1a3864;background:linear-gradient(160deg,rgba(255,255,255,.93),rgba(232,242,252,.92));}
+.pack-product-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.pack-product-title{font-family:var(--T);font-size:17px;font-weight:700;color:var(--navy);}
+.pack-product-price{font-family:var(--T);font-size:15px;font-weight:700;color:var(--gold);text-align:right;white-space:nowrap;}
+.pack-product-sub{font-size:12px;color:var(--muted);font-style:italic;line-height:1.45;margin-bottom:10px;}
+.pack-product-list{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 12px;}
+.pack-tag{font-size:9.5px;border-radius:5px;padding:3px 7px;border:1px solid var(--border);background:rgba(255,255,255,.7);color:var(--muted);}
+.pack-product-btn{width:100%;padding:11px 12px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy-l));color:white;font-family:var(--T);font-weight:700;font-size:11px;letter-spacing:1px;box-shadow:0 4px 16px rgba(26,56,100,.24);}
+.pack-product-btn.secondary{background:rgba(26,56,100,.08);color:var(--navy);border:1px solid rgba(26,56,100,.18);box-shadow:none;}
+.tokenomics-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px;}
+.token-card,.pass-card,.vision-card,.wallet-panel{background:rgba(255,255,255,.86);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:0 4px 18px var(--shadow);}
+.token-title,.pass-title,.vision-title{font-family:var(--T);font-weight:700;color:var(--navy);font-size:14px;margin-bottom:6px;}
+.token-text,.pass-text,.vision-text{font-size:12px;color:var(--muted);font-style:italic;line-height:1.55;}
+.market-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+.market-kpi{background:rgba(255,255,255,.82);border:1px solid var(--border);border-radius:11px;padding:10px;text-align:center;}
+.market-kpi .num{font-family:var(--T);font-weight:700;color:var(--navy);font-size:16px;}
+.market-kpi .lbl{font-size:9px;color:var(--muted);font-style:italic;margin-top:3px;}
+.market-card.genesis{box-shadow:0 0 0 1px rgba(224,184,64,.28),0 8px 26px rgba(154,112,16,.12);}
+.genesis-badge{display:inline-flex;margin-left:5px;padding:1px 6px;border-radius:999px;background:rgba(224,184,64,.16);border:1px solid rgba(224,184,64,.42);font-size:8px;color:#9a7010;font-family:var(--T);font-weight:700;letter-spacing:.8px;}
+.floor-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(180,210,240,.55);font-size:11px;color:var(--muted);}
+.floor-row:last-child{border-bottom:none;}
+.floor-name{font-family:var(--T);font-weight:700;color:var(--text);}
+.pass-hero{background:linear-gradient(150deg,rgba(255,255,255,.92),rgba(232,242,252,.86));border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 8px 30px var(--shadow);margin-bottom:14px;}
+.pass-reward-track{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px;}
+.pass-reward{min-height:72px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.75);padding:8px;text-align:center;position:relative;}
+.pass-reward.done{border-color:rgba(45,122,48,.45);background:rgba(45,122,48,.08);}
+.pass-reward .lvl{font-family:var(--T);font-size:11px;font-weight:700;color:var(--navy);}
+.pass-reward .ico{font-size:20px;margin:5px 0;}
+.pass-reward .txt{font-size:9px;color:var(--muted);font-style:italic;}
+.wallet-modal{position:fixed;inset:0;z-index:1200;background:rgba(20,40,80,.45);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;}
+.wallet-modal.open{display:flex;}
+.wallet-box{width:min(460px,100%);background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 24px 70px rgba(26,56,100,.22);}
+.wallet-option{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.75);margin-top:8px;cursor:pointer;}
+.wallet-option strong{font-family:var(--T);color:var(--navy);}
+.wallet-option span{display:block;font-size:11px;color:var(--muted);font-style:italic;margin-top:2px;}
+.card-nft-panel{background:rgba(255,255,255,.78);border:1px solid var(--border);border-radius:10px;padding:10px;margin-top:2px;}
+.card-nft-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.card-nft-item{background:rgba(26,56,100,.035);border:1px solid rgba(180,210,240,.55);border-radius:8px;padding:7px;}
+.card-nft-item .k{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--T);}
+.card-nft-item .v{font-family:var(--T);font-size:12px;color:var(--navy);font-weight:700;margin-top:2px;}
+#tab-pass,#tab-vision{flex:1;display:none;overflow-y:auto;background:rgba(255,255,255,0.28);}
+#tab-pass.active,#tab-vision.active{display:block;}
+@media(max-width:760px){.business-metric-grid,.pack-store-grid,.tokenomics-grid,.market-kpi-grid{grid-template-columns:1fr 1fr;gap:8px;}.pack-product-card{padding:13px;border-radius:14px;}.pack-product-title{font-size:15px}.pack-product-price{font-size:13px}.pass-reward-track{grid-template-columns:repeat(3,1fr)}.card-nft-grid{grid-template-columns:1fr}}
+@media(max-width:380px){.business-metric-grid,.market-kpi-grid{grid-template-columns:1fr 1fr}.pack-store-grid{grid-template-columns:1fr}.pass-reward-track{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 
 </head>
@@ -2156,6 +2310,8 @@ html, body { background: var(--sky) !important; }
       <button class="nav-btn" data-tab="market" onclick="switchTab('market')">Marché</button>
       <button class="nav-btn" data-tab="forge" onclick="switchTab('forge')">Atelier</button>
       <button class="nav-btn" data-tab="quests" onclick="switchTab('quests')">Contrats</button>
+      <button class="nav-btn" data-tab="pass" onclick="switchTab('pass')">Pass</button>
+      <button class="nav-btn" data-tab="vision" onclick="switchTab('vision')">Vision</button>
     </nav>
     <div style="display:flex;align-items:center;gap:8px;">
       <div class="gold-display">
@@ -2403,6 +2559,24 @@ html, body { background: var(--sky) !important; }
   </div>
 </div>
 
+<!-- ═══ TAB: CODEX PASS ═══ -->
+<div id="tab-pass">
+  <div class="shop-inner">
+    <div class="shop-kicker">✦ Codex Pass</div>
+    <div class="shop-lead">Abonnement premium simulé : confort, économies, statut et progression — aucun avantage direct en combat.</div>
+    <div id="pass-root"></div>
+  </div>
+</div>
+
+<!-- ═══ TAB: VISION / WHITEPAPER ═══ -->
+<div id="tab-vision">
+  <div class="shop-inner">
+    <div class="shop-kicker">🜂 Vision & Whitepaper</div>
+    <div class="shop-lead">Business layer du prototype : Play-to-Own, cartes NFT vivantes, marketplace et roadmap.</div>
+    <div id="vision-root"></div>
+  </div>
+</div>
+
   </div>
 </div>
 
@@ -2427,6 +2601,28 @@ html, body { background: var(--sky) !important; }
   <div id="pack-collect-wrap" class="hidden pack-actions" style="flex-direction:column;align-items:center;gap:10px;">
     <div id="pack-summary" class="pack-summary"></div>
     <button class="pack-collect" onclick="closeCoffre()">✦ Ajouter à la Collection</button>
+  </div>
+</div>
+
+
+
+<!-- ARÈNE RESULT MODAL -->
+<div id="arena-result-overlay" onclick="closeArenaResult(event)">
+  <div class="arena-duel-box" onclick="event.stopPropagation()" id="arena-result-box"></div>
+</div>
+
+
+
+<!-- WALLET MODAL -->
+<div id="wallet-modal" class="wallet-modal" onclick="closeWalletModal(event)">
+  <div class="wallet-box">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+      <div><div class="shop-kicker">🔗 Portefeuille</div><div class="shop-lead" style="margin-bottom:10px;">Prototype local : aucune transaction réelle. Cette interface prépare MetaMask / WalletConnect.</div></div>
+      <button id="modal-close" onclick="closeWalletModal()">✕</button>
+    </div>
+    <div class="wallet-option" onclick="connectWalletProvider('metamask')"><div style="font-size:26px;">🦊</div><div><strong>MetaMask</strong><span>Connexion simulée pour l’alpha UX.</span></div></div>
+    <div class="wallet-option" onclick="connectWalletProvider('walletconnect')"><div style="font-size:26px;">🔵</div><div><strong>WalletConnect</strong><span>Connexion mobile simulée.</span></div></div>
+    <div class="wallet-option" onclick="connectWalletProvider('local')"><div style="font-size:26px;">◎</div><div><strong>Wallet local prototype</strong><span>Actif immédiatement, parfait pour tester l’économie.</span></div></div>
   </div>
 </div>
 
@@ -4894,6 +5090,117 @@ renderArena();
 renderMarket();
 renderForge();
 renderQuests();
+
+
+/* ==========================================================
+   ARÈNE PREMIUM V2 — duel cinématique + résultat détaillé
+   ========================================================== */
+(function(){
+  const XP_PER_LEVEL_LOCAL = (typeof XP_PER_LEVEL !== 'undefined') ? XP_PER_LEVEL : 260;
+  function modeCfg(key){return (typeof ARENA_MODES !== 'undefined' && ARENA_MODES[key]) ? ARENA_MODES[key] : {label:'Arène',cost:100,rewardWin:220,rewardLose:25,xpFactor:1,woundRisk:.18};}
+  function tier(card){return RARITIES[card?.rarity]?.tier||0;}
+  function safeCard(id){return (typeof cardById==='function') ? cardById(id) : (CARDS||[]).find(c=>c.id===id);}
+  function mvpFromDeck(beforeRows){
+    let best=null;
+    for(const row of beforeRows){
+      const c=safeCard(row.id); if(!c) continue;
+      const pNow=getProgress(c.id);
+      const gain=(pNow.xp||0)-(row.xp||0);
+      const value=estimateCardValue(c);
+      const score=gain + (pNow.wins-(row.wins||0))*80 + tier(c)*25 + Math.max(0,100-(pNow.fatigue||0))*0.15;
+      if(!best || score>best.score) best={card:c,progress:pNow,gain,score,value,before:row};
+    }
+    return best || {card:state.deck[0],progress:getProgress(state.deck[0]?.id),gain:0,score:0,value:0,before:{}};
+  }
+  function addArenaSparks(root, victory){
+    if(!root) return;
+    const wrap=document.createElement('div'); wrap.className='arena-sparks'; root.appendChild(wrap);
+    const color=victory?'rgba(224,184,64,.95)':'rgba(139,32,32,.7)';
+    for(let i=0;i<54;i++){
+      const sp=document.createElement('span'); sp.className='arena-spark'; sp.style.setProperty('--spark',color);
+      const spread=victory?260:190; sp.style.setProperty('--dx',`${(Math.random()*2-1)*spread}px`); sp.style.setProperty('--dy',`${(Math.random()*2-1)*spread}px`);
+      sp.style.left=`${35+Math.random()*30}%`; sp.style.top=`${28+Math.random()*26}%`; wrap.appendChild(sp); setTimeout(()=>sp.remove(),1100);
+    }
+    setTimeout(()=>wrap.remove(),1200);
+  }
+  function showDuelLoading(mode){
+    const overlay=document.getElementById('arena-result-overlay'); const box=document.getElementById('arena-result-box');
+    if(!overlay||!box) return;
+    overlay.className='open';
+    box.innerHTML=`<div class="arena-duel-loading"><div class="arena-duel-kicker">✦ ${mode.label} ✦</div><div class="arena-duel-seal"><span>⚔</span></div><div class="arena-duel-title">Le duel commence</div><div class="arena-duel-sub">Les reliques s’éveillent, les Bastions se dressent, le Codex grave l’issue du combat…</div></div>`;
+  }
+  function progressRowHTML(c,before,after,xpGain){
+    const f=FACTIONS[c.faction]||FACTIONS.AURELIA; const art=ART_EMOJIS[c.art]||({UNIT:'⚔',EQUIPMENT:'🛡',TECHNIQUE:'✦',ULTIMATE:'★'}[c.type]||'✦');
+    const lvl=after.level||1; const xp=(after.xp||0)%XP_PER_LEVEL_LOCAL; const pct=Math.max(4,Math.min(100,Math.round(xp/XP_PER_LEVEL_LOCAL*100)));
+    const woundDelta=(after.wounds||0)-(before.wounds||0); const fatigueDelta=(after.fatigue||0)-(before.fatigue||0);
+    return `<div class="card-progress-row"><div class="card-progress-icon" style="border-color:${f.primary}55;">${art}</div><div><div class="card-progress-name">${c.name}</div><div class="card-progress-meta">Niv. ${lvl} · +${xpGain} XP · fatigue +${Math.max(0,fatigueDelta)}${woundDelta>0?' · blessure +'+woundDelta:''}</div><div class="xp-mini"><div class="xp-mini-fill" style="--xp:${pct}%;width:${pct}%"></div></div></div><div class="card-progress-delta">${estimateCardValue(c).toLocaleString('fr')} ₲</div></div>`;
+  }
+  function showDuelResult(data){
+    const overlay=document.getElementById('arena-result-overlay'); const box=document.getElementById('arena-result-box');
+    if(!overlay||!box) return;
+    overlay.className=`open ${data.victory?'victory':'defeat'}`;
+    const mvp=data.mvp; const c=mvp.card||data.rows[0]?.card; const p=mvp.progress||getProgress(c.id); const f=FACTIONS[c.faction]||FACTIONS.AURELIA; const art=ART_EMOJIS[c.art]||'✦';
+    const netClass=data.net>=0?'good':'bad';
+    box.innerHTML=`
+      <div class="arena-result-head">
+        <div class="arena-result-state ${data.victory?'victory':'defeat'}">${data.victory?'Victoire':'Défaite'}</div>
+        <div class="arena-result-line">${data.mode.label} · ${data.victory?'Le Bastion adverse cède.':'Votre Bastion vacille, mais les cartes ont appris.'}</div>
+        <div class="arena-result-score"><div class="score-pill"><div class="score-label">Votre score</div><div class="score-num">${data.score}</div></div><div class="score-vs">VS</div><div class="score-pill"><div class="score-label">Adversaire</div><div class="score-num">${data.enemy}</div></div></div>
+      </div>
+      <div class="arena-result-grid">
+        <div class="mvp-card">
+          <div class="mvp-kicker">Carte MVP</div><div class="mvp-art" style="border-color:${f.primary}55;">${art}</div><div class="mvp-name">${c.name}</div><div class="mvp-meta">${RARITIES[c.rarity].label} · Niv. ${p.level||1} · ${p.wins||0}/${p.duels||0} victoires</div><div class="mvp-value">${estimateCardValue(c).toLocaleString('fr')} ₲ estimés</div>
+        </div>
+        <div class="result-details">
+          <div class="reward-row"><div class="reward-card"><div class="reward-val ${netClass}">${data.net>=0?'+':''}${data.net}</div><div class="reward-lbl">Or net</div></div><div class="reward-card"><div class="reward-val gold">+${data.totalXP}</div><div class="reward-lbl">XP totale</div></div><div class="reward-card"><div class="reward-val ${data.wounds>0?'bad':'good'}">${data.wounds}</div><div class="reward-lbl">Blessure(s)</div></div></div>
+          <div class="card-progress-list">${data.rows.map(r=>progressRowHTML(r.card,r.before,r.after,r.xpGain)).join('')}</div>
+        </div>
+      </div>
+      <div class="arena-result-actions"><button class="result-secondary" onclick="closeArenaResult();switchTab('deck')">Voir mes cartes</button><button class="result-primary" onclick="closeArenaResult();switchTab('arena')">Retour arène</button><button class="result-gold" onclick="closeArenaResult();startArenaDuel('${data.modeKey}')">Rejouer</button></div>`;
+    addArenaSparks(box,data.victory);
+  }
+  window.closeArenaResult=function(e){
+    if(e && e.target && e.target.id!=='arena-result-overlay') return;
+    const overlay=document.getElementById('arena-result-overlay'); if(overlay) overlay.className='';
+  };
+  window.startArenaDuel=function(modeKey){
+    const mode=modeCfg(modeKey); modeKey=modeKey||'training';
+    if(state.deck.length!==8){notify('Prépare un grimoire complet : 8 cartes.','#8b2020');switchTab('deck');return;}
+    if((state.or||0)<mode.cost){notify('Or insuffisant pour entrer dans cette arène.','#8b2020');return;}
+    showDuelLoading(mode);
+    const before=state.deck.map(card=>{const p=getProgress(card.id);return {id:card.id,xp:p.xp||0,level:p.level||1,fatigue:p.fatigue||0,wounds:p.wounds||0,duels:p.duels||0,wins:p.wins||0,value:estimateCardValue(card)};});
+    setTimeout(()=>{
+      const score=deckScore();
+      const enemy=Math.round(110+Math.random()*85+(modeKey==='high'?35:modeKey==='arena'?12:0));
+      const victory=score>=enemy;
+      const reward=victory?mode.rewardWin:mode.rewardLose;
+      const net=reward-mode.cost;
+      state.or=(state.or||0)-mode.cost+reward;
+      let totalXP=0,wounds=0;
+      const rows=state.deck.map((card,idx)=>{
+        const b=before[idx]; const p=getProgress(card.id);
+        const rarityBonus=tier(card)*10;
+        const xpGain=Math.round(((victory?95:55)+rarityBonus)*(mode.xpFactor||1));
+        p.xp=(p.xp||0)+xpGain; p.level=levelFromXP(p.xp);
+        p.fatigue=clamp((p.fatigue||0)+Math.round((card.fatigue?.playedGain||8)*(modeKey==='high'?1.7:modeKey==='arena'?1.15:.55)),0,100);
+        p.duels=(p.duels||0)+1; if(victory) p.wins=(p.wins||0)+1;
+        if(Math.random()<(mode.woundRisk||0)&&!victory){p.wounds=clamp((p.wounds||0)+1,0,3);}
+        const woundDelta=(p.wounds||0)-(b.wounds||0); wounds+=Math.max(0,woundDelta); totalXP+=xpGain;
+        if(typeof logEvent==='function') logEvent(`${victory?'Victoire':'Défaite'} en ${mode.label} · ${net>=0?'+':''}${net} ₲ · +${xpGain} XP`,card.id);
+        return {card,before:b,after:{...p},xpGain};
+      });
+      const mvp=mvpFromDeck(before);
+      state.lastDuel={victory,score,enemy,reward:net,date:new Date().toISOString(),mode:mode.label,mvp:mvp.card?.id,totalXP,wounds};
+      state.arenaHistory ||= [];
+      state.arenaHistory.push({mode:mode.label,victory,score,enemy,net,date:new Date().toISOString(),mvp:mvp.card?.id,totalXP,wounds});
+      state.arenaHistory=state.arenaHistory.slice(-20);
+      saveGame(); updateOrDisplay(); renderDeck(); renderGrid(); renderShop(); renderHome(); renderArena(); if(typeof renderForge==='function') renderForge(); if(typeof renderQuests==='function') renderQuests();
+      showDuelResult({mode,modeKey,victory,score,enemy,net,totalXP,wounds,rows,mvp});
+    },1450);
+  };
+  window.startDuel=function(){ startArenaDuel('training'); };
+})();
+
 </script>
 
 
@@ -5164,6 +5471,58 @@ renderQuests();
   window.collectAndOpenAgain=function(){collectCurrentPack();if((state.or||0)<250){closeCoffre();return;}document.getElementById('pack-overlay').classList.remove('open','ca-v5','ca-v5-epic','ca-v5-legendary','ca-v5-cinematic');setTimeout(openCoffre,220);};
 })();
 
+</script>
+
+
+<script>
+/* ==========================================================
+   BUSINESS LAYER UPDATE — packs, wallet, marketplace, pass,
+   marketplace enrichi, fiche NFT vivante et whitepaper.
+   ========================================================== */
+(function(){
+  const BUSINESS_PACKS={
+    standard:{key:'standard',label:'Pack Standard',euro:'4,99€',costGold:250,count:5,guarantee:['RARE'],className:'standard',subtitle:'5 cartes · 1 Rare garantie',tags:['1 Rare+','Supply set Genèse','Mint simulé'],desc:'Point d’entrée idéal pour agrandir la collection.'},
+    premium:{key:'premium',label:'Pack Premium',euro:'14,99€',costGold:850,count:5,guarantee:['EPIC','RARE'],className:'premium',subtitle:'5 cartes · 1 Épique garantie + 1 Rare',tags:['1 Épique+','1 Rare+','Meilleur EV'],desc:'Le pack le plus rentable pour chasser les cartes compétitives.'},
+    legendary:{key:'legendary',label:'Pack Légendaire',euro:'49,99€',costGold:2500,count:5,guarantee:['LEGENDARY'],className:'legendary',subtitle:'5 cartes · 1 Légendaire garantie',tags:['1 Légendaire','Forte valeur','Effet premium'],desc:'Ouverture spectaculaire et forte valeur de collection.'},
+    season:{key:'season',label:'Coffre de Saison',euro:'99,99€',costGold:5000,count:20,guarantee:['LEGENDARY','EPIC','EPIC','RARE','RARE','RARE','RARE'],className:'season',subtitle:'20 cartes · édition limitée · non reproductible',tags:['20 cartes','Set Genèse','Supply fixe'],desc:'Drop événementiel avec forte rareté et collection long terme.'}
+  };
+  window.BUSINESS_PACKS=BUSINESS_PACKS;
+  const tier=r=>(RARITIES[r]?.tier||0);
+  const weightedPick=pool=>pool[Math.floor(Math.random()*pool.length)]||CARDS[0];
+  function weightedPool(minRarity='COMMON'){const min=tier(minRarity),pool=[];CARDS.filter(c=>tier(c.rarity)>=min).forEach(c=>{const w=Math.max(1,RARITIES[c.rarity]?.packWeight||1);for(let i=0;i<w;i++)pool.push(c);});return pool;}
+  function rollBusinessPack(packKey='standard'){const cfg=BUSINESS_PACKS[packKey]||BUSINESS_PACKS.standard,picks=[];(cfg.guarantee||[]).forEach(min=>picks.push(weightedPick(weightedPool(min))));const all=weightedPool('COMMON');while(picks.length<cfg.count)picks.push(weightedPick(all));return picks;}
+  function serialFor(card){let seed=0;for(const ch of card.id)seed=(seed*31+ch.charCodeAt(0))%9973;const supply={COMMON:20000,RARE:7500,EPIC:2500,LEGENDARY:1000}[card.rarity]||9999;const num=(seed*17%supply)+1;return `#${String(num).padStart(String(supply).length,'0')}/${supply}`;}
+  function isGenesis(card){return ['LEGENDARY','EPIC'].includes(card.rarity)||/01$|14$|24$/.test(card.id);}
+  function floorPrice(rarity){return {COMMON:35,RARE:125,EPIC:450,LEGENDARY:1650}[rarity]||25;}
+  function lastSale(card){return Math.max(floorPrice(card.rarity),Math.round(estimateCardValue(card)*(0.78+(card.id.charCodeAt(0)%7)/20)));}
+  function ownedValueRaw(){return typeof portfolioValue==='function'?portfolioValue():0;}
+  function walletStatusHTML(){return `<div class="wallet-panel"><div class="token-title">Wallet ${state.walletConnected?'connecté':'non connecté'}</div><div class="token-text">${state.walletConnected?walletLabel():'Connecte un wallet simulé pour débloquer le parcours Web3 UX.'}</div><button class="pack-product-btn secondary" style="margin-top:10px" onclick="openWalletModal()">${state.walletConnected?'Voir le portefeuille':'Connecter le portefeuille'}</button></div>`;}
+  window.openWalletModal=function(){document.getElementById('wallet-modal')?.classList.add('open');};
+  window.closeWalletModal=function(e){const modal=document.getElementById('wallet-modal');if(e&&e.target!==modal)return;modal?.classList.remove('open');};
+  window.connectWalletProvider=function(provider='local'){state.walletConnected=true;state.walletProvider=provider;state.walletAddress=provider==='metamask'?'0xMETA…ARCA':provider==='walletconnect'?'0xWALL…CODEX':('0x'+Math.random().toString(16).slice(2,6).toUpperCase()+'…CODEX');saveGame();closeWalletModal();renderHome();renderMarket();renderVision();renderPass();notify(`Wallet ${provider} simulé connecté`,'#9a7010');};
+  window.connectWallet=function(){openWalletModal();};
+  function businessMetricsHTML(){return `<div class="business-metric-grid"><div class="business-metric"><div class="v">${ownedCount()}/120</div><div class="l">Cartes possédées</div></div><div class="business-metric"><div class="v">${ownedValueRaw().toLocaleString('fr')} ₲</div><div class="l">Valeur estimée collection</div></div><div class="business-metric"><div class="v">5%</div><div class="l">Commission marché cible</div></div><div class="business-metric"><div class="v">Genèse</div><div class="l">Set 0 · supply fixe</div></div></div>`;}
+  function shopPacksHTML(){return `<div class="pack-store-grid">${Object.values(BUSINESS_PACKS).map(p=>`<div class="pack-product-card ${p.className}"><div class="pack-product-head"><div><div class="pack-product-title">${p.label}</div><div class="pack-product-sub">${p.subtitle}</div></div><div class="pack-product-price">${p.euro}<br><span style="font-size:10px;color:var(--muted);font-family:var(--B);font-style:italic;">${p.costGold.toLocaleString('fr')} ₲ proto</span></div></div><div class="pack-product-sub">${p.desc}</div><div class="pack-product-list">${p.tags.map(t=>`<span class="pack-tag">${t}</span>`).join('')}</div><button class="pack-product-btn" onclick="openCoffre('${p.key}')">Ouvrir / simuler l’achat</button></div>`).join('')}</div>`;}
+  const oldRenderShop=window.renderShop;
+  window.renderShop=function(){try{oldRenderShop?.();}catch(e){}const inner=document.querySelector('#tab-shop .shop-inner');if(!inner)return;inner.innerHTML=`<div class="shop-kicker">⚖️ Échoppe Play-to-Own</div><div class="shop-lead">Boutique pack simulée basée sur le business plan : prix €, garanties publiques, coûts prototype en or et rareté transparente.</div>${businessMetricsHTML()}${shopPacksHTML()}<div class="tokenomics-grid"><div class="token-card"><div class="token-title">Rareté vérifiable</div><div class="token-text">En production, les probabilités de pack seront publiques et auditées via smart contract.</div></div><div class="token-card"><div class="token-title">Supply fixe</div><div class="token-text">Chaque édition ferme son mint : les cartes Genèse gardent une rareté durable.</div></div><div class="token-card"><div class="token-title">Prototype</div><div class="token-text">Aucune transaction réelle : l’or interne simule le prix d’entrée pour tester l’UX.</div></div></div>`;updateOrDisplay();};
+  const sortPack=pack=>[...pack].map((card,rawIndex)=>({card,rawIndex})).sort((a,b)=>tier(a.card.rarity)-tier(b.card.rarity)||(a.card.cost||0)-(b.card.cost||0)||a.card.name.localeCompare(b.card.name,'fr'));
+  const bestPack=()=> (state.packRevealOrder||[]).reduce((best,it)=>tier(it.card.rarity)>tier(best)?it.card.rarity:best,'COMMON');
+  window.openCoffre=function(packKey='standard'){const cfg=BUSINESS_PACKS[packKey]||BUSINESS_PACKS.standard;if((state.or||0)<cfg.costGold){notify(`Or insuffisant · ${cfg.costGold.toLocaleString('fr')} ₲ requis`,'#8b2020');return;}const raw=rollBusinessPack(packKey);state.currentPackConfig={key:cfg.key,label:cfg.label,costGold:cfg.costGold,euro:cfg.euro,count:cfg.count};state.packCards=raw;state.packRevealOrder=sortPack(raw);state.packStep=0;state.packCurrentRevealed=false;state.packSwiping=false;state.packRevealed=[];state.packCollected=false;state.packStartOwned={...(state.owned||{})};const best=bestPack(),overlay=document.getElementById('pack-overlay');overlay.className=`open ca-v5 ${best==='LEGENDARY'?'ca-v5-legendary':best==='EPIC'?'ca-v5-epic':''}`;document.getElementById('pack-actions-wrap').classList.add('hidden');const collect=document.getElementById('pack-collect-wrap');collect.classList.add('hidden');collect.classList.remove('pack-finish-panel','ca-pack-v3-panel','ca-pack-v4-panel','ca-v5-panel');document.getElementById('pack-open-again')?.remove();document.querySelector('#pack-overlay .pack-title').innerHTML=`✦ ${cfg.label.toUpperCase()} ✦<span class="pack-subtitle">${cfg.subtitle} · ${best==='LEGENDARY'?'Aura dorée détectée…':best==='EPIC'?'Pulsation épique détectée…':'Touchez pour briser le sceau'}</span>`;document.getElementById('pack-body').innerHTML=`<div class="ca-v5-stage"><div class="ca-v5-chest" onclick="breakSeal(this)"><div class="ca-v5-core"><div class="ca-v5-sigil">◎</div></div><div class="ca-v5-chest-title">Briser le sceau</div><div class="ca-v5-chest-sub">${cfg.count} reliques · ${cfg.euro} simulé · plus rare à la fin</div></div></div>`;};
+  window.collectCurrentPack=function(){if(!state.packCards?.length||state.packCollected)return{newCards:0,dust:0};const cfg=state.currentPackConfig||BUSINESS_PACKS.standard;state.or=(state.or||0)-(cfg.costGold||250);state.packsOpened=(state.packsOpened||0)+1;state.packStats||={};state.packStats[cfg.key]=(state.packStats[cfg.key]||0)+1;let newCards=0,dust=0;state.packCards.forEach(card=>{const res=addCardToCollection(card);if(res.duplicate)dust+=res.dust;else newCards++;});state.packCollected=true;updateOrDisplay();saveGame();renderGrid();renderDeck();renderShop();renderHome();renderMarket();renderPass();if(typeof logEvent==='function')logEvent(`${cfg.label} ouvert : ${newCards} nouvelle(s), +${dust} poussière`);return{newCards,dust};};
+  window.collectAndOpenAgain=function(){const cfg=state.currentPackConfig||BUSINESS_PACKS.standard;collectCurrentPack();if((state.or||0)<(cfg.costGold||250)){closeCoffre();return;}document.getElementById('pack-overlay').classList.remove('open','ca-v5','ca-v5-epic','ca-v5-legendary','ca-v5-cinematic');setTimeout(()=>openCoffre(cfg.key),220);};
+  const oldRenderHome=window.renderHome;
+  window.renderHome=function(){try{oldRenderHome?.();}catch(e){}const hero=document.querySelector('#tab-home .hero-card');if(hero){const k=hero.querySelector('.hero-kicker'),s=hero.querySelector('.hero-sub');if(k)k.textContent='TCG digital Play-to-Own · NFT ready';if(s)s.textContent='Possédez, entraînez, échangez et valorisez des cartes vivantes. La blockchain est l’infrastructure, le jeu reste le produit.';}const grid=document.getElementById('home-status-grid');if(grid)grid.innerHTML=[['Wallet',state.walletConnected?walletLabel():'Non connecté'],['Collection',`${ownedCount()}/120`],['Valeur estimée',`${ownedValueRaw().toLocaleString('fr')} ₲`],['Coffres',`${state.packsOpened||0}`],['Pass',state.codexPassActive?'Actif':'Inactif'],['Marketplace',`${Object.keys(state.listings||{}).length} listée(s)`]].map(([a,b])=>`<div class="status-card"><div class="status-value" style="font-size:${String(b).length>11?'13px':'20px'}">${b}</div><div class="status-label">${a}</div></div>`).join('');};
+  window.renderMarket=function(){const sg=document.getElementById('market-status-grid');if(sg){const listings=Object.keys(state.listings||{}).length,vol=Math.max(1200,Math.round(ownedValueRaw()*0.18+listings*420));sg.innerHTML=[['Wallet',walletLabel()],['Valeur totale',`${ownedValueRaw().toLocaleString('fr')} ₲`],['Volume 24h',`${vol.toLocaleString('fr')} ₲`],['Commission','5%'],['Listées',listings],['Genèse','Set 0']].map(([a,b])=>`<div class="status-card"><div class="status-value" style="font-size:${String(b).length>10?'13px':'20px'}">${b}</div><div class="status-label">${a}</div></div>`).join('');}const inner=document.querySelector('#tab-market .market-inner');if(inner&&!document.getElementById('market-business-kpis')){inner.querySelector('.market-toolbar')?.insertAdjacentHTML('afterend',`<div id="market-business-kpis" class="market-kpi-grid"><div class="market-kpi"><div class="num">${floorPrice('COMMON')} ₲</div><div class="lbl">Floor commune</div></div><div class="market-kpi"><div class="num">${floorPrice('RARE')} ₲</div><div class="lbl">Floor rare</div></div><div class="market-kpi"><div class="num">${floorPrice('EPIC')} ₲</div><div class="lbl">Floor épique</div></div><div class="market-kpi"><div class="num">${floorPrice('LEGENDARY')} ₲</div><div class="lbl">Floor légendaire</div></div></div>`);}const ownedCards=Object.keys(state.owned||{}).map(cardById).filter(Boolean).sort((a,b)=>estimateCardValue(b)-estimateCardValue(a)).slice(0,18),grid=document.getElementById('market-grid');if(!grid)return;grid.innerHTML=ownedCards.length?ownedCards.map(card=>{const p=getProgress(card.id),f=FACTIONS[card.faction],listed=!!state.listings?.[card.id],gen=isGenesis(card),sale=lastSale(card),eq=card.type==='UNIT'&&typeof equippedToUnit==='function'&&equippedToUnit(card.id)?cardById(equippedToUnit(card.id)):null;return`<div class="market-card ${listed?'listed':''} ${gen?'genesis':''}"><div class="market-mini" style="border-color:${f.primary}55;">${ART_EMOJIS[card.art]||'✦'}</div><div style="flex:1;"><div class="market-name">${card.name}${gen?'<span class="genesis-badge">GENÈSE</span>':''}</div><div class="market-meta">${RARITIES[card.rarity].label} · ${serialFor(card)} · Niv. ${p.level||1} · ${p.wins||0}/${p.duels||0} V · Floor ${floorPrice(card.rarity)} ₲${eq?' · '+eq.name:''}</div><div class="market-price">${estimateCardValue(card).toLocaleString('fr')} ₲ estimés · Dernière vente ${sale.toLocaleString('fr')} ₲</div><button class="mini-action ${listed?'danger':'primary'}" onclick="toggleListing('${card.id}')">${listed?'Retirer du marché':'Lister au marché'}</button></div></div>`;}).join(''):`<div class="arena-desc">Aucune carte possédée.</div>`;};
+  window.renderPass=function(){const root=document.getElementById('pass-root');if(!root)return;const xp=(state.passXP||0)+(state.packsOpened||0)*80+(state.arenaHistory||[]).length*120+ownedCount()*12,lvl=Math.max(1,Math.min(12,Math.floor(xp/250)+1));const rewards=[['🎁','Pack Standard'],['✧','40 poussière'],['🪙','300 or'],['🎴','Rare mensuelle'],['🎁','Pack Premium'],['🧿','Cadre profil'],['✧','120 poussière'],['📊','Stats avancées'],['🎴','Épique bonus'],['🪙','1000 or'],['🜂','Skin légendaire'],['👑','Titre Archonte']];root.innerHTML=`<div class="pass-hero"><div class="pass-title">Codex Pass · 9,99€/mois</div><div class="pass-text">Accès prioritaire, -20% sur packs, 1 carte rare mensuelle, statistiques avancées et statut communautaire. Aucun avantage direct en combat.</div><div class="business-metric-grid"><div class="business-metric"><div class="v">Niv. ${lvl}</div><div class="l">Progression pass</div></div><div class="business-metric"><div class="v">${state.codexPassActive?'Actif':'Inactif'}</div><div class="l">État abonnement</div></div><div class="business-metric"><div class="v">-20%</div><div class="l">Réduction packs</div></div><div class="business-metric"><div class="v">0</div><div class="l">Bonus combat</div></div></div><button class="pack-product-btn" onclick="toggleCodexPass()">${state.codexPassActive?'Désactiver simulation':'Activer simulation Codex Pass'}</button></div><div class="pass-reward-track">${rewards.map((r,i)=>`<div class="pass-reward ${i<lvl?'done':''}"><div class="lvl">Niv. ${i+1}</div><div class="ico">${r[0]}</div><div class="txt">${r[1]}</div></div>`).join('')}</div>`;};
+  window.toggleCodexPass=function(){state.codexPassActive=!state.codexPassActive;saveGame();renderPass();renderHome();notify(`Codex Pass ${state.codexPassActive?'activé':'désactivé'} en simulation`,'#9a7010');};
+  window.renderVision=function(){const root=document.getElementById('vision-root');if(!root)return;root.innerHTML=`${businessMetricsHTML()}<div class="tokenomics-grid"><div class="vision-card"><div class="vision-title">Positionnement</div><div class="vision-text">TCG digital Play-to-Own : gameplay d’abord, blockchain comme infrastructure de propriété et de marché.</div></div><div class="vision-card"><div class="vision-title">Cartes vivantes</div><div class="vision-text">XP, niveau, fatigue, blessures, équipements et historique transforment chaque carte en actif évolutif.</div></div><div class="vision-card"><div class="vision-title">Revenus</div><div class="vision-text">Packs, marketplace 5%, tournois, cosmétiques, Codex Pass et partenariats.</div></div></div><div class="tokenomics-grid"><div class="token-card"><div class="token-title">Blockchain cible</div><div class="token-text">Polygon ou Immutable X · ERC-1155 · frais faibles · gaming ecosystem.</div></div><div class="token-card"><div class="token-title">Tokenomics Phase 2</div><div class="token-text">$CODEX pour gouvernance, tournois, staking et fusion/amélioration.</div></div><div class="token-card"><div class="token-title">Conformité</div><div class="token-text">Mises, prize pool et crypto doivent rester simulés tant que le cadre légal n’est pas validé.</div></div></div><div class="pass-hero"><div class="pass-title">Roadmap</div><div class="floor-row"><span class="floor-name">Phase 1</span><span>Foundation</span><span>Prototype actuel</span></div><div class="floor-row"><span class="floor-name">Phase 2</span><span>Alpha</span><span>Wallet + combat + mint Genèse</span></div><div class="floor-row"><span class="floor-name">Phase 3</span><span>Beta publique</span><span>Marketplace + tournois</span></div><div class="floor-row"><span class="floor-name">Phase 4</span><span>Lancement</span><span>Mobile + édition 2</span></div></div>${walletStatusHTML()}`;};
+  const oldShowModal=window.showModal;
+  window.showModal=function(card){oldShowModal(card);if(!hasOwned(card))return;const info=document.getElementById('modal-info');if(!info||info.querySelector('.card-nft-panel'))return;const gen=isGenesis(card),p=getProgress(card.id),perf=(p.duels||0)?Math.round(((p.wins||0)/(p.duels||1))*100)+'%':'0%';info.insertAdjacentHTML('beforeend',`<div class="card-nft-panel"><div class="progress-top"><span>Identité NFT vivante</span><span>${gen?'GENÈSE':'SET 0'}</span></div><div class="card-nft-grid"><div class="card-nft-item"><div class="k">Série</div><div class="v">${serialFor(card)}</div></div><div class="card-nft-item"><div class="k">Floor</div><div class="v">${floorPrice(card.rarity)} ₲</div></div><div class="card-nft-item"><div class="k">Dernière vente</div><div class="v">${lastSale(card)} ₲</div></div><div class="card-nft-item"><div class="k">Winrate</div><div class="v">${perf}</div></div></div></div>`);};
+  if(typeof ARENA_MODES==='object')Object.assign(ARENA_MODES,{training:{label:'Entraînement',cost:0,rewardWin:60,rewardLose:20,xpFactor:.55,woundRisk:.06,text:'Gratuit · XP réduite · aucun enjeu financier.'},arena:{label:'Arène Standard',cost:100,rewardWin:220,rewardLose:25,xpFactor:1,woundRisk:.18,text:'Entrée simulée 2,99€ · prize pool 70% · commission Codex 30%.'},high:{label:'Hautes Mises',cost:500,rewardWin:980,rewardLose:80,xpFactor:1.35,woundRisk:.32,text:'Entrée simulée 9,99€ · risque élevé · récompense élevée.'}});
+  const oldSwitchTab=window.switchTab;
+  window.switchTab=function(tab){if(['pass','vision'].includes(tab)){state.tab=tab;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['home','collection','deck','shop','arena','market','forge','quests','pass','vision'].forEach(t=>{const el=document.getElementById(`tab-${t}`);if(!el)return;if(t==='collection')el.style.display=tab===t?'flex':'none';else el.classList.toggle('active',tab===t);});if(tab==='pass')renderPass();if(tab==='vision')renderVision();return;}oldSwitchTab(tab);document.getElementById('tab-pass')?.classList.remove('active');document.getElementById('tab-vision')?.classList.remove('active');};
+  setTimeout(()=>{try{renderHome();renderShop();renderMarket();renderPass();renderVision();}catch(e){console.warn('Business layer init',e);}},80);
+})();
 </script>
 
 </body>
