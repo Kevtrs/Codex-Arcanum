@@ -7203,5 +7203,210 @@ body.ca-v3-lock #ca-bottom-nav,body.ca-v3-lock .nav-pill-group,body.ca-v3-lock #
 })();
 </script>
 
+
+
+<style id="ca-nft-economy-style">
+/* ═══════════════════════════════════════════════════════════════
+   NFT ECONOMY DEMO — crédibilité marketplace, prix, ventes,
+   carnets d'ordres et preuves de provenance simulées.
+═══════════════════════════════════════════════════════════════ */
+.ca-nft-economy{display:flex;flex-direction:column;gap:14px;margin-top:14px;}
+.ca-nft-hero{position:relative;overflow:hidden;border:1px solid rgba(154,112,16,.28);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(236,246,255,.86));box-shadow:0 10px 34px rgba(26,56,100,.13);padding:18px;}
+.ca-nft-hero::before{content:"";position:absolute;inset:-55%;background:radial-gradient(circle at 10% 10%,rgba(224,184,64,.16),transparent 28%),radial-gradient(circle at 86% 16%,rgba(42,90,154,.16),transparent 31%);pointer-events:none;}
+.ca-nft-hero>*{position:relative;z-index:1;}
+.ca-nft-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px;}
+.ca-nft-title{font-family:var(--T);font-size:22px;font-weight:700;color:var(--navy);letter-spacing:1px;}
+.ca-nft-copy{font-family:var(--B);font-size:12px;color:var(--muted);font-style:italic;line-height:1.5;max-width:640px;margin-top:4px;}
+.ca-nft-chain{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;}
+.ca-nft-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(180,210,240,.85);background:rgba(255,255,255,.76);border-radius:999px;padding:5px 9px;font-family:var(--B);font-size:10px;color:var(--muted);font-style:italic;white-space:nowrap;}
+.ca-nft-chip.gold{border-color:rgba(154,112,16,.34);color:var(--gold);}
+.ca-nft-kpi-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;}
+.ca-nft-kpi{padding:12px 9px;border:1px solid rgba(180,210,240,.8);border-radius:13px;background:rgba(255,255,255,.78);box-shadow:0 2px 10px rgba(26,56,100,.07);}
+.ca-nft-kpi .k{font-family:var(--B);font-size:9.5px;color:var(--muted);font-style:italic;margin-bottom:4px;}
+.ca-nft-kpi .v{font-family:var(--T);font-size:17px;font-weight:700;color:var(--navy);line-height:1.1;}
+.ca-nft-kpi .s{font-family:var(--B);font-size:9px;color:var(--gold);font-style:italic;margin-top:4px;}
+.ca-nft-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:12px;align-items:start;}
+.ca-nft-panel{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:16px;box-shadow:0 4px 18px var(--shadow);padding:14px;overflow:hidden;}
+.ca-nft-panel-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.ca-nft-panel-sub{font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;line-height:1.45;margin-bottom:10px;}
+.ca-nft-table{width:100%;border-collapse:separate;border-spacing:0 6px;}
+.ca-nft-table th{font-family:var(--T);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:700;padding:0 7px;}
+.ca-nft-table td{font-family:var(--B);font-size:11px;color:var(--text);padding:8px 7px;background:rgba(246,250,255,.78);border-top:1px solid rgba(180,210,240,.55);border-bottom:1px solid rgba(180,210,240,.55);vertical-align:middle;}
+.ca-nft-table td:first-child{border-left:1px solid rgba(180,210,240,.55);border-radius:9px 0 0 9px;}
+.ca-nft-table td:last-child{border-right:1px solid rgba(180,210,240,.55);border-radius:0 9px 9px 0;text-align:right;}
+.ca-nft-asset{display:flex;align-items:center;gap:8px;min-width:0;}
+.ca-nft-thumb{width:38px;height:52px;border-radius:8px;border:1px solid var(--border);background:linear-gradient(155deg,#fff,#eaf4ff);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto;}
+.ca-nft-name{font-family:var(--T);font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px;}
+.ca-nft-meta{font-size:9.5px;color:var(--muted);font-style:italic;line-height:1.25;margin-top:2px;}
+.ca-nft-price{font-family:var(--T);font-weight:700;color:var(--gold);white-space:nowrap;}
+.ca-nft-usd{font-size:9px;color:var(--faint);font-style:italic;margin-top:2px;white-space:nowrap;}
+.ca-nft-actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;}
+.ca-nft-btn{border:1px solid var(--border);background:rgba(255,255,255,.82);color:var(--navy);border-radius:9px;padding:7px 9px;font-family:var(--B);font-size:10px;font-style:italic;transition:all .14s;}
+.ca-nft-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,56,100,.12);}
+.ca-nft-btn.primary{border-color:transparent;background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;}
+.ca-nft-btn.gold{border-color:transparent;background:linear-gradient(135deg,#9a7010,#d0a72a);color:#fff;}
+.ca-nft-btn.danger{color:#8b2020;border-color:rgba(139,32,32,.28);}
+.ca-nft-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ca-nft-floor-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid rgba(180,210,240,.55);}
+.ca-nft-floor-row:last-child{border-bottom:none;}
+.ca-nft-floor-label{display:flex;align-items:center;gap:7px;font-family:var(--T);font-size:12px;color:var(--navy);font-weight:700;}
+.ca-nft-dot{width:9px;height:9px;border-radius:50%;box-shadow:0 0 10px currentColor;}
+.ca-nft-floor-val{text-align:right;font-family:var(--T);font-size:13px;color:var(--gold);font-weight:700;}
+.ca-nft-floor-val span{display:block;font-family:var(--B);font-size:9px;color:var(--muted);font-style:italic;font-weight:400;margin-top:2px;}
+.ca-nft-orderbook{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ca-nft-order-side{border:1px solid rgba(180,210,240,.62);border-radius:12px;background:rgba(246,250,255,.72);padding:9px;}
+.ca-nft-order-head{font-family:var(--T);font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+.ca-nft-order-line{display:flex;justify-content:space-between;gap:8px;font-family:var(--B);font-size:10px;color:var(--muted);padding:4px 0;border-bottom:1px dashed rgba(180,210,240,.55);}
+.ca-nft-order-line:last-child{border-bottom:none;}
+.ca-nft-provenance{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ca-nft-proof{padding:10px;border:1px solid rgba(180,210,240,.72);border-radius:12px;background:rgba(246,250,255,.72);}
+.ca-nft-proof .k{font-family:var(--B);font-size:9px;color:var(--muted);font-style:italic;margin-bottom:4px;}
+.ca-nft-proof .v{font-family:var(--T);font-size:11px;font-weight:700;color:var(--navy);word-break:break-all;}
+.ca-nft-warning{padding:12px;border:1px solid rgba(154,112,16,.28);border-radius:13px;background:rgba(255,250,236,.76);font-family:var(--B);font-size:11px;color:var(--muted);font-style:italic;line-height:1.5;}
+@media(max-width:900px){.ca-nft-kpi-grid{grid-template-columns:repeat(3,1fr);}.ca-nft-grid{grid-template-columns:1fr;}.ca-nft-provenance{grid-template-columns:1fr;}}
+@media(max-width:760px){.ca-nft-top{flex-direction:column}.ca-nft-chain{justify-content:flex-start}.ca-nft-kpi-grid{grid-template-columns:repeat(2,1fr)}.ca-nft-two,.ca-nft-orderbook{grid-template-columns:1fr}.ca-nft-table{min-width:640px}.ca-nft-table-wrap{overflow-x:auto;padding-bottom:3px}.ca-nft-title{font-size:19px}.ca-nft-economy{margin-bottom:90px;}}
+</style>
+
+<script id="ca-nft-economy-script">
+/* NFT ECONOMY DEMO — système crédible mais 100% simulé, sans transaction réelle. */
+(function(){
+  const NFT_STORE_KEY='codex_arcanum_nft_market_v1';
+  const ETH_EUR=2900;
+  const USDC_EUR=0.93;
+  const ROYALTY_RATE=.05;
+  const MARKET_FEE=.025;
+  const TREASURY_RATE=.015;
+  const COLLECTION='0xC0D3…A7C4';
+  const CONTRACT='ERC-721A demo · CodexRelicS1';
+  const CHAIN='Arbitrum Sepolia · simulation';
+  const rarityEth={COMMON:.006,RARE:.022,EPIC:.082,LEGENDARY:.31};
+  const rarityColors={COMMON:'#9eaab4',RARE:'#5090c8',EPIC:'#6840d8',LEGENDARY:'#d0a72a'};
+  const rarityLabels={COMMON:'Commune',RARE:'Rare',EPIC:'Épique',LEGENDARY:'Légendaire'};
+  function $id(id){return document.getElementById(id);}
+  function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function hash(s){let h=2166136261;for(let i=0;i<String(s).length;i++){h^=String(s).charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16).padStart(8,'0').toUpperCase();}
+  function market(){
+    if(!state.nftMarket){
+      try{state.nftMarket=JSON.parse(localStorage.getItem(NFT_STORE_KEY)||'{}')||{};}catch(e){state.nftMarket={};}
+    }
+    state.nftMarket.listings ||= {};
+    state.nftMarket.offers ||= {};
+    state.nftMarket.sales ||= seedSales();
+    state.nftMarket.watchlist ||= [];
+    return state.nftMarket;
+  }
+  function persist(){try{localStorage.setItem(NFT_STORE_KEY,JSON.stringify(state.nftMarket||{}));}catch(e){} try{typeof saveGame==='function'&&saveGame();}catch(e){}}
+  function ownedCards(){return Object.keys(state.owned||{}).map(id=>typeof cardById==='function'?cardById(id):(window.CARDS||[]).find(c=>c.id===id)).filter(Boolean);}
+  function tokenId(card){return `CA-${card.id}-${hash(card.id+card.name).slice(0,5)}`;}
+  function serial(card){return typeof serialFor==='function'?serialFor(card):`S1-${String((window.CARDS||[]).findIndex(c=>c.id===card.id)+1).padStart(3,'0')}`;}
+  function progress(card){try{return typeof getProgress==='function'?getProgress(card.id):{};}catch(e){return {};}}
+  function valueGold(card){try{return typeof estimateCardValue==='function'?estimateCardValue(card):100;}catch(e){return 100;}}
+  function cardEth(card){
+    const p=progress(card), base=rarityEth[card.rarity]||.005;
+    const levelMult=1+((p.level||1)-1)*.055;
+    const winMult=1+Math.min(.55,(p.wins||0)*.018+(p.duels||0)*.004);
+    const damageMult=1-Math.min(.28,(p.fatigue||0)*.0016+(p.wounds||0)*.045);
+    const genesis=(typeof hasGenesis==='function'&&hasGenesis(card))?1.16:1;
+    const listed=market().listings[card.id]?.eth;
+    return +(listed || Math.max(base*.72, base*levelMult*winMult*damageMult*genesis)).toFixed(4);
+  }
+  function eur(eth){return Math.round(eth*ETH_EUR);}
+  function usdc(eth){return Math.round((eth*ETH_EUR)/USDC_EUR);}
+  function floorByRarity(r){
+    const cards=ownedCards().filter(c=>c.rarity===r);
+    const all=(cards.length?cards:(window.CARDS||[]).filter(c=>c.rarity===r).slice(0,5));
+    const vals=all.map(cardEth).sort((a,b)=>a-b);
+    return +(vals[0]||rarityEth[r]||.005).toFixed(4);
+  }
+  function collectionFloor(){return Math.min(...Object.keys(rarityEth).map(floorByRarity));}
+  function seedSales(){
+    const pool=(window.CARDS||[]).filter(c=>['RARE','EPIC','LEGENDARY'].includes(c.rarity)).slice(0,18);
+    const now=Date.now();
+    return pool.slice(0,9).map((card,i)=>{
+      const eth=+(rarityEth[card.rarity]*(.86+(hash(card.id).charCodeAt(0)%42)/100)).toFixed(4);
+      return {id:`sale-${card.id}-${i}`,cardId:card.id,eth,buyer:`0x${hash(card.id+'b').slice(0,4)}…${hash(card.id+'bb').slice(4,8)}`,seller:`0x${hash(card.id+'s').slice(0,4)}…${hash(card.id+'ss').slice(4,8)}`,date:new Date(now-(i+1)*86400000*(.65+(i%3)*.35)).toISOString(),venue:i%3?'Codex Market':'OTC guild'};
+    });
+  }
+  function recentSales(){return (market().sales||[]).slice().sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,10);}
+  function listedCards(){
+    const m=market();
+    const explicit=Object.keys(m.listings).map(id=>({card:(typeof cardById==='function'?cardById(id):null),listing:m.listings[id],owned:true})).filter(x=>x.card);
+    const auto=ownedCards().filter(c=>!m.listings[c.id]).sort((a,b)=>cardEth(b)-cardEth(a)).slice(0,Math.max(0,8-explicit.length)).map(card=>({card,listing:{eth:+(cardEth(card)*1.08).toFixed(4),seller:walletShort(),auto:true},owned:true}));
+    return explicit.concat(auto).slice(0,12);
+  }
+  function walletShort(){if(typeof walletLabel==='function')return walletLabel();return state.walletAddress||'0xLOCAL…DEMO';}
+  function volumeEth(){return recentSales().reduce((s,x)=>s+(x.eth||0),0)+Object.values(market().listings||{}).reduce((s,x)=>s+(x.eth||0)*.18,0);}
+  function floorRows(){return ['COMMON','RARE','EPIC','LEGENDARY'].map(r=>{const fl=floorByRarity(r);return `<div class="ca-nft-floor-row"><div class="ca-nft-floor-label"><span class="ca-nft-dot" style="color:${rarityColors[r]};background:${rarityColors[r]}"></span>${rarityLabels[r]}</div><div class="ca-nft-floor-val">${fl.toFixed(4)} ETH<span>≈ ${eur(fl).toLocaleString('fr')} €</span></div></div>`;}).join('');}
+  function orderBook(){
+    const f=collectionFloor();
+    const bids=[.98,.94,.9,.84].map((m,i)=>+(f*m*(1-i*.025)).toFixed(4));
+    const asks=[1.06,1.12,1.2,1.34].map((m,i)=>+(f*m*(1+i*.03)).toFixed(4));
+    return `<div class="ca-nft-orderbook"><div class="ca-nft-order-side"><div class="ca-nft-order-head">Offres d'achat</div>${bids.map((v,i)=>`<div class="ca-nft-order-line"><span>${v.toFixed(4)} ETH</span><span>${2+i} reliques</span></div>`).join('')}</div><div class="ca-nft-order-side"><div class="ca-nft-order-head">Prix vendeurs</div>${asks.map((v,i)=>`<div class="ca-nft-order-line"><span>${v.toFixed(4)} ETH</span><span>${1+i} reliques</span></div>`).join('')}</div></div>`;
+  }
+  function listingRows(){
+    const rows=listedCards();
+    if(!rows.length)return '<div class="ca-nft-warning">Aucune relique dans le portefeuille : ouvre un coffre ou active la démo investisseur.</div>';
+    return `<div class="ca-nft-table-wrap"><table class="ca-nft-table"><thead><tr><th>Relique</th><th>État NFT</th><th>Prix</th><th>Liquidité</th><th></th></tr></thead><tbody>${rows.map(({card,listing})=>{const p=progress(card), eth=listing.eth||cardEth(card);const spread=+(eth*0.035).toFixed(4);return `<tr><td><div class="ca-nft-asset"><div class="ca-nft-thumb" style="border-color:${rarityColors[card.rarity]}88">${(typeof ART_EMOJIS!=='undefined'&&ART_EMOJIS[card.art])||'✦'}</div><div><div class="ca-nft-name">${esc(card.name)}</div><div class="ca-nft-meta">${tokenId(card)} · ${rarityLabels[card.rarity]} · ${serial(card)}</div></div></div></td><td>Niv. ${p.level||1} · ${p.wins||0}/${p.duels||0} W<br><span class="ca-nft-meta">Fatigue ${p.fatigue||0}% · provenance ${hash(card.id+serial(card)).slice(0,10)}</span></td><td><div class="ca-nft-price">${eth.toFixed(4)} ETH</div><div class="ca-nft-usd">≈ ${eur(eth).toLocaleString('fr')} € · ${usdc(eth).toLocaleString('fr')} USDC</div></td><td>Spread ${spread.toFixed(4)}<br><span class="ca-nft-meta">royalties ${(ROYALTY_RATE*100).toFixed(0)}% incluses</span></td><td><div class="ca-nft-actions"><button class="ca-nft-btn primary" onclick="caNftBuy('${card.id}')">Acheter</button><button class="ca-nft-btn ${market().listings[card.id]?'danger':'gold'}" onclick="caNftToggleListing('${card.id}')">${market().listings[card.id]?'Retirer':'Lister'}</button></div></td></tr>`;}).join('')}</tbody></table></div>`;
+  }
+  function salesRows(){
+    const sales=recentSales();
+    return `<div class="ca-nft-table-wrap"><table class="ca-nft-table"><thead><tr><th>Vente</th><th>Prix</th><th>Parties</th><th>Temps</th></tr></thead><tbody>${sales.map(s=>{const c=(typeof cardById==='function'?cardById(s.cardId):null)||{};const eth=s.eth||0;return `<tr><td><div class="ca-nft-asset"><div class="ca-nft-thumb" style="border-color:${rarityColors[c.rarity]||'#9eaab4'}88">${(typeof ART_EMOJIS!=='undefined'&&ART_EMOJIS[c.art])||'✦'}</div><div><div class="ca-nft-name">${esc(c.name||s.cardId)}</div><div class="ca-nft-meta">${esc(s.venue)} · ${tokenId(c)}</div></div></div></td><td><div class="ca-nft-price">${eth.toFixed(4)} ETH</div><div class="ca-nft-usd">≈ ${eur(eth).toLocaleString('fr')} €</div></td><td>${esc(s.seller)} → ${esc(s.buyer)}<br><span class="ca-nft-meta">fee ${(MARKET_FEE*100).toFixed(1)}% · royalty 5%</span></td><td>${new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}</td></tr>`;}).join('')}</tbody></table></div>`;
+  }
+  function proofPanel(){
+    const top=ownedCards().sort((a,b)=>cardEth(b)-cardEth(a))[0] || (window.CARDS||[])[0] || {id:'GEN',name:'Relique Genèse',rarity:'LEGENDARY'};
+    const metaHash='ipfs://bafy'+hash(top.id+top.name+top.rarity).toLowerCase();
+    const tx='0x'+hash(top.id+'mint')+hash(top.name+'transfer')+hash(top.rarity+'sale');
+    return `<div class="ca-nft-provenance"><div class="ca-nft-proof"><div class="k">Contrat collection</div><div class="v">${COLLECTION}</div></div><div class="ca-nft-proof"><div class="k">Metadata exemple</div><div class="v">${metaHash}</div></div><div class="ca-nft-proof"><div class="k">Dernière tx simulée</div><div class="v">${tx}</div></div></div>`;
+  }
+  function renderNftEconomy(){
+    const host=$id('ca-nft-economy-root');
+    if(!host)return;
+    market();
+    const owned=ownedCards().length;
+    const listed=Object.keys(market().listings||{}).length;
+    const floor=collectionFloor();
+    const vol=volumeEth();
+    const royalties=vol*ROYALTY_RATE;
+    const treasury=vol*TREASURY_RATE;
+    host.innerHTML=`<section class="ca-nft-hero"><div class="ca-nft-top"><div><div class="ca-nft-title">Économie NFT Codex — simulation de marché complète</div><div class="ca-nft-copy">Chaque carte possédée devient une relique ERC-721A simulée : token ID, provenance, metadata, floor price, spreads, ventes, royalties créateur et frais de marché. Les montants sont fictifs mais structurés comme une vraie marketplace.</div></div><div class="ca-nft-chain"><span class="ca-nft-chip gold">${CHAIN}</span><span class="ca-nft-chip">${CONTRACT}</span><span class="ca-nft-chip">Collection ${COLLECTION}</span></div></div><div class="ca-nft-kpi-grid"><div class="ca-nft-kpi"><div class="k">Floor collection</div><div class="v">${floor.toFixed(4)} ETH</div><div class="s">≈ ${eur(floor).toLocaleString('fr')} €</div></div><div class="ca-nft-kpi"><div class="k">Volume 30 j.</div><div class="v">${vol.toFixed(3)} ETH</div><div class="s">${recentSales().length} ventes simulées</div></div><div class="ca-nft-kpi"><div class="k">Portefeuille</div><div class="v">${owned}</div><div class="s">${portfolioValue?.().toLocaleString?.('fr')||0} ₲ estimés</div></div><div class="ca-nft-kpi"><div class="k">Listées</div><div class="v">${listed}</div><div class="s">liquidité personnelle</div></div><div class="ca-nft-kpi"><div class="k">Royalties</div><div class="v">${royalties.toFixed(3)} ETH</div><div class="s">5% créateur</div></div><div class="ca-nft-kpi"><div class="k">Trésorerie</div><div class="v">${treasury.toFixed(3)} ETH</div><div class="s">1,5% events</div></div></div></section><div class="ca-nft-grid"><section class="ca-nft-panel"><div class="ca-nft-panel-title">Carnet de listings <span class="ca-nft-chip">achat/vente démo</span></div><div class="ca-nft-panel-sub">Prix dynamiques selon rareté, niveau, winrate, fatigue, blessures, Genèse et historique de vente.</div>${listingRows()}</section><div class="ca-nft-two"><section class="ca-nft-panel"><div class="ca-nft-panel-title">Floor par rareté</div><div class="ca-nft-panel-sub">Repères pour comprendre immédiatement la hiérarchie économique.</div>${floorRows()}</section><section class="ca-nft-panel"><div class="ca-nft-panel-title">Order book</div><div class="ca-nft-panel-sub">Meilleures offres et meilleurs prix vendeurs simulés.</div>${orderBook()}</section></div><section class="ca-nft-panel"><div class="ca-nft-panel-title">Ventes récentes</div><div class="ca-nft-panel-sub">Historique crédible pour investisseurs : venue, buyer/seller, fees et royalties.</div>${salesRows()}</section><section class="ca-nft-panel"><div class="ca-nft-panel-title">Preuves & conformité prototype</div><div class="ca-nft-panel-sub">Séparation stricte entre UX Web3 simulée et transactions réelles.</div>${proofPanel()}<div class="ca-nft-warning" style="margin-top:10px"><b>Démo uniquement :</b> aucun mint, wallet, prix ETH/USDC ou achat réel. En production : KYC/AML si nécessaire, smart contracts audités, indexeur, oracle de prix, anti-wash trading et signature EIP-712.</div></section></div>`;
+  }
+  function ensureNftRoot(){
+    const marketTab=$id('tab-market');
+    if(!marketTab)return;
+    const inner=marketTab.querySelector('.market-inner');
+    if(!inner||$id('ca-nft-economy-root'))return;
+    const root=document.createElement('div');
+    root.id='ca-nft-economy-root';
+    root.className='ca-nft-economy';
+    const note=inner.querySelector('.nft-note');
+    if(note) inner.insertBefore(root,note); else inner.appendChild(root);
+  }
+  window.caNftToggleListing=function(cardId){
+    const card=typeof cardById==='function'?cardById(cardId):null;
+    if(!card)return;
+    const m=market();
+    if(m.listings[cardId]){delete m.listings[cardId]; if(typeof notify==='function')notify(`${card.name} retirée du marché NFT simulé`,'#8b2020');}
+    else {m.listings[cardId]={eth:+(cardEth(card)*1.12).toFixed(4),seller:walletShort(),listedAt:new Date().toISOString()}; if(typeof notify==='function')notify(`${card.name} listée à ${m.listings[cardId].eth.toFixed(4)} ETH`,'#9a7010');}
+    persist(); renderNftEconomy(); try{typeof renderGrid==='function'&&renderGrid();}catch(e){}
+  };
+  window.caNftBuy=function(cardId){
+    const card=typeof cardById==='function'?cardById(cardId):null;
+    if(!card)return;
+    const eth=(market().listings[cardId]?.eth)||cardEth(card);
+    market().sales.unshift({id:`sale-${cardId}-${Date.now()}`,cardId,eth,buyer:walletShort(),seller:market().listings[cardId]?.seller||'0xSELL…DEMO',date:new Date().toISOString(),venue:'Codex Market demo'});
+    delete market().listings[cardId];
+    persist();
+    if(typeof notify==='function')notify(`Achat simulé : ${card.name} · ${eth.toFixed(4)} ETH`,'#2d7a30');
+    renderNftEconomy();
+  };
+  const oldRenderMarket=window.renderMarket;
+  window.renderMarket=function(){const r=oldRenderMarket?oldRenderMarket.apply(this,arguments):undefined;ensureNftRoot();renderNftEconomy();return r;};
+  const oldConnect=window.connectWallet;
+  window.connectWallet=function(){const r=oldConnect?oldConnect.apply(this,arguments):undefined;setTimeout(()=>{ensureNftRoot();renderNftEconomy();},20);return r;};
+  document.addEventListener('DOMContentLoaded',()=>{ensureNftRoot();renderNftEconomy();});
+  setTimeout(()=>{ensureNftRoot();renderNftEconomy();},120);
+})();
+</script>
+
 </body>
 </html>
