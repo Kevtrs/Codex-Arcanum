@@ -2737,6 +2737,85 @@ body.ca-combat-open #ca-more-sheet{opacity:0!important;pointer-events:none!impor
   .ca-bottom-item .ca-bottom-label{font-size:8px;}
   .ca-more-grid{grid-template-columns:repeat(3,1fr);}
 }
+
+/* PATCH MOBILE INVESTOR HOME — iPhone Safari */
+.home-dream-strip{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px;}
+.home-dream-strip span{padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(200,160,48,.28);box-shadow:0 2px 10px rgba(26,56,100,.06);font-family:var(--T);font-size:10px;font-weight:700;letter-spacing:.7px;color:var(--navy);text-transform:uppercase;}
+.home-prototype-note{margin-top:9px;font-family:var(--B);font-size:11px;font-style:italic;color:var(--muted);}
+.hero-relic-meta{position:relative;z-index:1;font-family:var(--B);font-size:11px;font-style:italic;color:var(--muted);}
+.investor-pitch-overlay{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px));background:rgba(12,28,54,.48);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.investor-pitch-overlay.open{display:flex;}
+.investor-pitch-modal{width:min(720px,100%);max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 28px);overflow:auto;border:1px solid rgba(200,160,48,.38);border-radius:24px;background:linear-gradient(155deg,rgba(255,255,255,.98),rgba(235,246,255,.95));box-shadow:0 28px 80px rgba(10,24,48,.34),inset 0 1px 0 rgba(255,255,255,.9);padding:20px;animation:modalIn .18s ease;}
+.investor-pitch-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.investor-pitch-kicker{font-family:var(--T);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.investor-pitch-title{font-family:var(--T);font-size:26px;line-height:1.05;color:var(--navy);letter-spacing:1.8px;margin-top:4px;}
+.investor-pitch-close{width:38px;height:38px;border-radius:13px;border:1px solid var(--border);background:rgba(255,255,255,.78);color:var(--navy);font-size:18px;flex:0 0 auto;}
+.investor-pitch-lead{font-family:var(--B);font-size:14px;line-height:1.55;color:var(--muted);font-style:italic;margin-bottom:14px;}
+.investor-pitch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.investor-pitch-card{border:1px solid rgba(180,210,240,.78);border-radius:16px;background:rgba(255,255,255,.72);padding:12px;box-shadow:0 4px 16px rgba(26,56,100,.08);}
+.investor-pitch-card b{display:block;font-family:var(--T);font-size:13px;color:var(--navy);margin-bottom:4px;}
+.investor-pitch-card span{display:block;font-family:var(--B);font-size:12px;line-height:1.45;color:var(--muted);font-style:italic;}
+.investor-pitch-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+.investor-pitch-actions button{flex:1 1 170px;min-height:42px;border-radius:14px;border:1px solid transparent;font-family:var(--T);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.investor-pitch-actions .gold{background:linear-gradient(135deg,#a77910,#d0a72a);color:white;box-shadow:0 8px 22px rgba(154,112,16,.22);}
+.investor-pitch-actions .navy{background:linear-gradient(135deg,var(--navy),var(--navy-l));color:white;box-shadow:0 8px 22px rgba(26,56,100,.22);}
+@media (max-width:760px){
+  html,body{height:100%;min-height:100%;overflow:hidden;}
+  #app{height:100svh;height:100dvh;min-height:100svh;min-height:100dvh;padding-top:env(safe-area-inset-top,0px);}
+  #body{height:calc(100svh - 58px - env(safe-area-inset-top,0px));height:calc(100dvh - 58px - env(safe-area-inset-top,0px));min-height:0!important;overflow:hidden!important;padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))!important;}
+  #tab-home{height:100%!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain;background:transparent!important;}
+  #tab-home .hub-inner{min-height:100%;padding:clamp(8px,2.4svh,14px) 12px calc(12px + env(safe-area-inset-bottom,0px))!important;display:flex;flex-direction:column;gap:9px;}
+  #tab-home .hero-card{margin:0!important;padding:clamp(14px,3.2svh,20px) 14px!important;border-radius:22px;box-shadow:0 12px 34px rgba(26,56,100,.16);flex:0 0 auto;}
+  #tab-home .hero-content{display:grid;grid-template-columns:1fr minmax(78px,28vw);gap:10px;align-items:center;}
+  #tab-home .wallet-pill{font-size:10px;margin-bottom:7px;padding:4px 8px;max-width:100%;}
+  #tab-home .hero-kicker{font-size:9px;letter-spacing:2.2px;margin-bottom:5px;}
+  #tab-home .hero-title{font-size:clamp(27px,9.2vw,38px);letter-spacing:2.7px;margin-bottom:6px;}
+  #tab-home .hero-sub{font-size:clamp(13px,3.8vw,15px);line-height:1.34;margin-bottom:9px;}
+  #tab-home .home-dream-strip{gap:5px;margin-bottom:10px;}
+  #tab-home .home-dream-strip span{font-size:8.5px;letter-spacing:.45px;padding:5px 7px;}
+  #tab-home .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  #tab-home .primary-action,#tab-home .secondary-action{min-height:42px;padding:10px 9px;border-radius:14px;font-size:10px;letter-spacing:.75px;}
+  #tab-home .primary-action{grid-column:1 / -1;box-shadow:0 10px 24px rgba(26,56,100,.28);}
+  #tab-home .home-wallet-action{display:none;}
+  #tab-home .home-prototype-note{font-size:10px;line-height:1.25;margin-top:7px;}
+  #tab-home .hero-relic{width:100%;min-width:78px;border-radius:18px;gap:7px;box-shadow:0 10px 26px rgba(26,56,100,.14);}
+  #tab-home .hero-relic::after{inset:8px;border-radius:13px;}
+  #tab-home .hero-sigil{font-size:clamp(34px,12vw,46px);}
+  #tab-home .hero-relic-label{font-size:8.5px;letter-spacing:1.2px;text-align:center;}
+  #tab-home .hero-relic-meta{font-size:9px;text-align:center;padding:0 6px;}
+  #tab-home .status-grid{grid-template-columns:repeat(3,1fr);gap:6px;margin:0;flex:0 0 auto;}
+  #tab-home .status-card{padding:8px 6px;border-radius:13px;}
+  #tab-home .status-value{font-size:15px!important;line-height:1.05;}
+  #tab-home .status-label{font-size:9px;line-height:1.1;}
+  #tab-home .hub-grid{grid-template-columns:repeat(2,1fr);gap:7px;margin:0;}
+  #tab-home .hub-tile{min-height:74px;padding:10px;border-radius:14px;}
+  #tab-home .hub-tile-icon{font-size:18px;margin-bottom:4px;}
+  #tab-home .hub-tile-title{font-size:12px;}
+  #tab-home .hub-tile-text{font-size:9.5px;line-height:1.25;}
+  #tab-home .live-card-box,#tab-home .ca-onboarding-banner,#tab-home .ca-product-panel,#tab-home .ca-pole-hub,#tab-home .ca-demo-panel{margin:0;border-radius:14px;padding:11px;}
+  #tab-home .ca-pole-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
+  #tab-home .ca-pole-card{min-height:76px;padding:9px;}
+  .investor-pitch-overlay{align-items:flex-end;padding:calc(10px + env(safe-area-inset-top,0px)) 10px calc(86px + env(safe-area-inset-bottom,0px));}
+  .investor-pitch-modal{border-radius:22px;max-height:calc(100dvh - 112px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));padding:16px;}
+  .investor-pitch-title{font-size:22px;}
+  .investor-pitch-lead{font-size:13px;}
+  .investor-pitch-grid{grid-template-columns:1fr;gap:8px;}
+  .investor-pitch-card{padding:10px;}
+}
+@media (max-width:380px){
+  #tab-home .hub-inner{padding-left:9px!important;padding-right:9px!important;gap:7px;}
+  #tab-home .hero-card{padding:12px 11px!important;}
+  #tab-home .hero-content{grid-template-columns:1fr 74px;gap:8px;}
+  #tab-home .hero-sub{font-size:12.5px;}
+  #tab-home .home-dream-strip span:nth-child(4){display:none;}
+  #tab-home .primary-action,#tab-home .secondary-action{min-height:40px;font-size:9.5px;}
+  #tab-home .status-card:nth-child(n+4){display:none;}
+  #tab-home .hub-tile{min-height:68px;}
+}
+@supports (height:100dvh){
+  @media (max-width:760px){#tab-home .hub-inner{min-height:calc(100dvh - 58px - 78px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));}}
+}
+
 </style>
 
 </head>
@@ -2790,19 +2869,28 @@ body.ca-combat-open #ca-more-sheet{opacity:0!important;pointer-events:none!impor
   <div class="hub-inner">
     <section class="hero-card">
       <div class="hero-content">
-        <div>
+        <div class="hero-copy">
           <div class="wallet-pill" id="home-wallet-pill">Wallet simulé · non connecté</div>
-          <div class="hero-kicker">Reliques vivantes · TCG fantasy</div>
+          <div class="hero-kicker">TCG digital Play-to-Own · prototype investisseur</div>
           <h1 class="hero-title">CODEX ARCANUM</h1>
-          <div class="hero-sub">Cartes vivantes. Actifs numériques. Duels d’arcanistes avec enjeu.</div>
-          <div class="hero-actions">
-            <button class="primary-action" onclick="switchTab('collection')">Entrer dans le Codex</button>
-            <button class="secondary-action" onclick="connectWallet()" id="wallet-btn">Connecter le portefeuille</button>
+          <div class="hero-sub">120 cartes, 5 factions, coffres à rareté transparente et cartes vivantes qui gagnent XP, niveau, fatigue et historique.</div>
+          <div class="home-dream-strip" aria-label="Points clés Codex Arcanum">
+            <span>Coffres rares</span>
+            <span>Cartes Genèse</span>
+            <span>Marketplace 5%</span>
+            <span>Duels simulés</span>
           </div>
+          <div class="hero-actions">
+            <button class="primary-action" onclick="caLaunchInvestorDemo()">Lancer la démo</button>
+            <button class="secondary-action" onclick="openInvestorPitch()">Pitch investisseur</button>
+            <button class="secondary-action home-wallet-action" onclick="connectWallet()" id="wallet-btn">Wallet simulé</button>
+          </div>
+          <div class="home-prototype-note">Prototype non commercial · données, mises et transactions simulées.</div>
         </div>
-        <div class="hero-relic">
+        <div class="hero-relic" aria-label="Carte vivante Codex Arcanum">
           <div class="hero-sigil">✦</div>
           <div class="hero-relic-label">Carte Vivante</div>
+          <div class="hero-relic-meta">XP · Niveau · Historique</div>
         </div>
       </div>
     </section>
@@ -3046,6 +3134,32 @@ body.ca-combat-open #ca-more-sheet{opacity:0!important;pointer-events:none!impor
     <button id="modal-close" onclick="closeModal()">✕</button>
     <div id="modal-card-render"></div>
     <div id="modal-info"></div>
+  </div>
+</div>
+
+<!-- PITCH INVESTISSEUR -->
+<div id="investor-pitch-overlay" class="investor-pitch-overlay" onclick="closeInvestorPitch(event)" aria-hidden="true">
+  <div class="investor-pitch-modal" role="dialog" aria-modal="true" aria-labelledby="investor-pitch-title">
+    <div class="investor-pitch-head">
+      <div>
+        <div class="investor-pitch-kicker">Pitch investisseur</div>
+        <div class="investor-pitch-title" id="investor-pitch-title">Codex Arcanum en 60 secondes</div>
+      </div>
+      <button class="investor-pitch-close" onclick="closeInvestorPitch()" aria-label="Fermer le pitch investisseur">✕</button>
+    </div>
+    <div class="investor-pitch-lead">Un TCG digital Play-to-Own fantasy où la collection, le combat et l’économie simulée racontent déjà la boucle produit complète — sans transaction réelle dans ce prototype.</div>
+    <div class="investor-pitch-grid">
+      <div class="investor-pitch-card"><b>Concept</b><span>120 cartes réparties en 5 factions, pensées pour une collection premium et des sessions mobiles rapides.</span></div>
+      <div class="investor-pitch-card"><b>Cartes vivantes</b><span>XP, niveau, fatigue, blessures et historique créent une identité évolutive pour chaque relique.</span></div>
+      <div class="investor-pitch-card"><b>Packs & coffres</b><span>Coffres rares, garanties, raretés transparentes et cartes Genèse pour soutenir la désirabilité de collection.</span></div>
+      <div class="investor-pitch-card"><b>Marketplace</b><span>Marché simulé, valeur estimée et commission cible de 5% sur les échanges entre joueurs.</span></div>
+      <div class="investor-pitch-card"><b>Arène jouable</b><span>Duels à enjeu simulé, récompenses, progression et fatigue pour prouver la boucle jeu → valeur.</span></div>
+      <div class="investor-pitch-card"><b>Business model</b><span>Packs, marketplace, duels, éditions Genèse, cosmétiques et événements — actuellement en données simulées.</span></div>
+    </div>
+    <div class="investor-pitch-actions">
+      <button class="gold" onclick="caLaunchInvestorDemo();closeInvestorPitch()">Lancer la démo</button>
+      <button class="navy" onclick="closeInvestorPitch();switchTab('vision')">Voir la vision</button>
+    </div>
   </div>
 </div>
 
@@ -7011,6 +7125,81 @@ body.ca-v3-lock #ca-bottom-nav,body.ca-v3-lock .nav-pill-group,body.ca-v3-lock #
   function complete(){try{state.tutorialDone=true;state.or=(state.or||0)+250;state.dust=(state.dust||0)+40;if(typeof saveGame==='function')saveGame();if(typeof updateOrDisplay==='function')updateOrDisplay();}catch(e){}flash();setTimeout(()=>{const d=document.createElement('div');d.className='ca-tutorial-complete';d.innerHTML=`<div class="ca-complete-box"><div class="ca-complete-seal">✦</div><div class="ca-complete-title">Initiation terminée</div><div class="ca-complete-text">Cette version pose les bases du vrai combat : plein écran, plateau lisible, unités compactes, énergie, attaques et tutoriel intégré.</div><div class="ca-complete-rewards"><div class="ca-complete-reward"><b>+250 ₲</b><span>Or</span></div><div class="ca-complete-reward"><b>+40</b><span>Poussière</span></div></div><div class="ca-complete-actions"><button class="ca-complete-secondary" onclick="this.closest('.ca-tutorial-complete').remove();caV3Close();switchTab('arena')">Retour arène</button><button class="ca-complete-primary" onclick="this.closest('.ca-tutorial-complete').remove();caV3Close();switchTab('deck')">Voir grimoire</button></div></div>`;document.body.appendChild(d);},300)}
   window.caV3Close=function(){const o=$('ca-v3-combat'); if(o)o.classList.remove('open'); document.body.classList.remove('ca-v3-lock');};
   window.caStartTutorialCombat=function(){G=make();ensure();render();};
+})();
+</script>
+
+
+<script>
+/* PATCH MOBILE INVESTOR HOME — behavior */
+(function(){
+  function normalizeInvestorHomeDOM(){
+    const home=document.getElementById('tab-home');
+    const inner=home?.querySelector('.hub-inner');
+    if(!home||!inner)return;
+    ['ca-onboarding-home','ca-home-business-depth','ca-pole-hub','ca-demo-panel'].forEach(id=>{
+      const node=document.getElementById(id);
+      if(node && node.parentElement!==inner) inner.appendChild(node);
+    });
+  }
+  function applyInvestorHomeCopy(){
+    const home=document.getElementById('tab-home');
+    if(!home)return;
+    const kicker=home.querySelector('.hero-kicker');
+    const sub=home.querySelector('.hero-sub');
+    const title=home.querySelector('.hero-title');
+    if(kicker)kicker.textContent='TCG digital Play-to-Own · prototype investisseur';
+    if(title)title.textContent='CODEX ARCANUM';
+    if(sub)sub.textContent='120 cartes, 5 factions, coffres à rareté transparente et cartes vivantes qui gagnent XP, niveau, fatigue et historique.';
+    const grid=document.getElementById('home-status-grid');
+    if(grid){
+      const owned=typeof ownedCount==='function'?ownedCount():0;
+      const packs=(window.state&&state.packsOpened)||0;
+      grid.innerHTML=[
+        ['120','Cartes'],
+        ['5','Factions'],
+        [String(owned),'Possédées'],
+        [`${packs}`,'Coffres ouverts'],
+        ['5%','Marketplace'],
+        ['Genèse','Cartes rares']
+      ].map(([value,label])=>`<div class="status-card"><div class="status-value">${value}</div><div class="status-label">${label}</div></div>`).join('');
+    }
+    normalizeInvestorHomeDOM();
+  }
+  window.openInvestorPitch=function(){
+    const overlay=document.getElementById('investor-pitch-overlay');
+    if(!overlay)return;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('ca-pitch-open');
+  };
+  window.closeInvestorPitch=function(e){
+    const overlay=document.getElementById('investor-pitch-overlay');
+    if(e && e.target!==overlay && !e.target.classList.contains('investor-pitch-close'))return;
+    if(!overlay)return;
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.classList.remove('ca-pitch-open');
+  };
+  window.caLaunchInvestorDemo=function(){
+    try{ if(typeof caSeedInvestorDemo==='function') caSeedInvestorDemo(); }
+    catch(e){ console.warn('Démo investisseur non initialisée',e); }
+    setTimeout(()=>{ try{ switchTab('collection'); }catch(e){} },140);
+  };
+  const previousRenderHome=window.renderHome;
+  if(!window.__caInvestorHomePatchWrapped){
+    window.__caInvestorHomePatchWrapped=true;
+    window.renderHome=function(){
+      const r=previousRenderHome?previousRenderHome.apply(this,arguments):undefined;
+      applyInvestorHomeCopy();
+      return r;
+    };
+  }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeInvestorPitch(); });
+  document.addEventListener('DOMContentLoaded',()=>{
+    applyInvestorHomeCopy();
+    [120,450,900,1500].forEach(t=>setTimeout(()=>{applyInvestorHomeCopy();normalizeInvestorHomeDOM();},t));
+  });
+  setTimeout(()=>{applyInvestorHomeCopy();normalizeInvestorHomeDOM();},80);
 })();
 </script>
 
