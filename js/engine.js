@@ -47,7 +47,9 @@
   const log = (g, text) => { g.log.push(text); if (g.log.length > 80) g.log.shift(); };
   const foeOf = (i) => 1 - i;
   // Événements pour l'interface (animations, sons) : l'interface les vide après lecture.
-  const emit = (g, ev) => { if (g.fx) g.fx.push(ev); };
+  // g.src = faction de la source de l'effet en cours (pour colorer les animations).
+  const emit = (g, ev) => { if (g.fx) { if (g.src) ev.src = g.src; g.fx.push(ev); } };
+  function withSrc(g, f, fn) { const prev = g.src; g.src = f; try { return fn(); } finally { g.src = prev || null; } }
   const lineOf = (g, u) => g.p[u.owner].board.indexOf(u);
   const has = (u, kw) => u.kw.indexOf(kw) >= 0;
 
@@ -148,7 +150,7 @@
           });
           break;
         case "buff":
-          targets(g, e.to, ctx).forEach((t) => { if (t.u) { t.u.atk = Math.max(0, t.u.atk + e.a); t.u.max += e.h; t.u.hp += e.h; } });
+          targets(g, e.to, ctx).forEach((t) => { if (t.u) { t.u.atk = Math.max(0, t.u.atk + e.a); t.u.max += e.h; t.u.hp += e.h; emit(g, { k: "buff", side: t.side, line: g.p[t.side].board.indexOf(t.u) }); } });
           break;
         case "draw": for (let i = 0; i < e.n; i++) drawCard(g, ctx.owner); break;
         case "kill": targets(g, e.to, ctx).forEach((t) => { if (t.u) t.u.hp = 0; }); break;
@@ -175,6 +177,7 @@
             if (e.kw === "egide") t.u.shield = true;
             else if (!has(t.u, e.kw)) t.u.kw.push(e.kw);
             if (e.kw === "charge") t.u.fresh = false;
+            emit(g, { k: "buff", side: t.side, line: g.p[t.side].board.indexOf(t.u) });
           });
           break;
         case "raise": {
@@ -198,7 +201,7 @@
     const c = card(u.id);
     const fx = c.on && c.on[when];
     if (!fx) return;
-    applyFx(g, fx, { owner: u.owner, unit: u, line });
+    withSrc(g, c.f, () => applyFx(g, fx, { owner: u.owner, unit: u, line }));
   }
 
   // Retire les unités mortes (PV ≤ 0), déclenche leurs « Dernier souffle », recommence jusqu'à stabilité.
@@ -221,7 +224,7 @@
       });
       dead.forEach((d) => {
         const c = card(d.u.id);
-        if (c.on && c.on.last && !g.over) applyFx(g, c.on.last, { owner: d.side, unit: d.u, line: d.i });
+        if (c.on && c.on.last && !g.over) withSrc(g, c.f, () => applyFx(g, c.on.last, { owner: d.side, unit: d.u, line: d.i }));
       });
     }
   }
@@ -277,9 +280,9 @@
       p.hand.splice(handIdx, 1);
       log(g, `${p.name} lance ${c.name}.`);
       noteCard(p, c);
-      emit(g, { k: "spell", side, id });
+      emit(g, { k: "spell", side, id, pick });
       p.grave.push({ spell: id });
-      applyFx(g, c.fx, { owner: side, pick });
+      withSrc(g, c.f, () => applyFx(g, c.fx, { owner: side, pick }));
     }
     checkOver(g);
     return { ok: true };
@@ -320,7 +323,7 @@
     const d = P[foe].board[i];
     emit(g, { k: "swing", side: me, line: i });
     if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); hitCit(g, foe, a.atk); return true; }
-    duel(g, a, d, me, foe);
+    withSrc(g, card(a.id).f, () => duel(g, a, d, me, foe));
     sweep(g);
     return true;
   }

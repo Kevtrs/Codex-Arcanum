@@ -24,6 +24,9 @@
   const KW_ICON = { charge: "»", vif: "✧", garde: "▣", percee: "➶", rage: "♨", soutien: "✚" };
   UI.KW_ICON = KW_ICON;
 
+  // Illustration : art/<id>.webp si le fichier existe, sinon l'emoji reste affiché.
+  const artImg = (c) => (c.token || !(CA.ART && CA.ART[c.id]) ? "" : `<img class="c-img" src="art/${c.id}.webp" alt="" loading="lazy" onerror="this.remove()">`);
+  UI.artImg = artImg;
   function cardHTML(c, o) {
     o = o || {};
     const unit = c.type === "unit", fac = F[c.f];
@@ -32,7 +35,7 @@
     const atk = o.atk != null ? o.atk : c.atk, hp = o.hp != null ? o.hp : c.hp;
     return `<div class="card f-${c.f} r-${c.r || "C"} ${unit ? "unit" : "spell"} ${o.mini ? "mini" : ""} ${o.dim ? "dim" : ""} ${o.locked ? "locked" : ""}" style="--rc:${CA.RARITIES[c.r || "C"].color}">
       <div class="c-cost">${c.c}</div>
-      <div class="c-art"><span class="c-emoji">${c.e}</span><span class="c-sym">${fac.sym}</span><span class="c-rar"></span></div>
+      <div class="c-art"><span class="c-sym">${fac.sym}</span><span class="c-emoji">${c.e}</span>${artImg(c)}<span class="c-rar"></span></div>
       <div class="c-name">${esc(c.name)}</div>
       <div class="c-type">${unit ? "Unité" : "Sort"} · ${fac.short}</div>
       <div class="c-text">${kws ? `<div class="c-kws">${kws}</div>` : ""}${lines}</div>
@@ -115,7 +118,7 @@
     if (!offer) { closeSheet(); render(); return; }
     Au.play("reward");
     openSheet(`<div class="pick-offer"><h2>🎁 Choisissez une carte</h2><p class="muted">Elle rejoint votre collection pour de bon. Il vous reste ${P.picks} choix.</p>
-      <div class="offer-grid">${offer.map((id) => `<button class="offer" data-act="take" data-id="${id}">${cardHTML(card(id))}</button>`).join("")}</div>
+      <div class="offer-grid">${offer.map((id, i) => `<button class="offer animate__animated animate__flipInY" style="animation-delay:${i * 0.15}s" data-act="take" data-id="${id}">${cardHTML(card(id))}</button>`).join("")}</div>
       <div class="sheet-actions"><button class="btn ghost" data-act="close">Plus tard</button></div></div>`, "wide");
   }
   UI.openPick = openPick;

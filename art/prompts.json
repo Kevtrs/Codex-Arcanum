@@ -1,0 +1,902 @@
+[
+  {
+    "id": "A01",
+    "file": "A01.webp",
+    "name": "Écuyer du Lys",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Écuyer du Lys\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Il garde le seuil avant même de savoir pourquoi. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A02",
+    "file": "A02.webp",
+    "name": "Lancier Royal",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Lancier Royal\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Toute lame qui fonce droit se brise sur la sienne. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A03",
+    "file": "A03.webp",
+    "name": "Prêtresse des Aubes",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Prêtresse des Aubes\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: L'aube revient. Elle s'en assure. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A04",
+    "file": "A04.webp",
+    "name": "Archer de Clairval",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Archer de Clairval\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Clairval ne tombe pas. Ses archers voient trop loin. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A05",
+    "file": "A05.webp",
+    "name": "Garde-Bouclier",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Garde-Bouclier\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Il ne recule pas. Ce n'est pas dans ses ordres. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A06",
+    "file": "A06.webp",
+    "name": "Griffon Jeune",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Griffon Jeune\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Ses serres n'ont pas encore vu la guerre. Ses yeux, si. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A07",
+    "file": "A07.webp",
+    "name": "Chevalier du Lys",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Chevalier du Lys\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Chaque cicatrice est un serment tenu. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A08",
+    "file": "A08.webp",
+    "name": "Paladine Séraphine",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Paladine Séraphine\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Elle frappe et guérit dans le même souffle. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A09",
+    "file": "A09.webp",
+    "name": "Héraut du Rempart",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Héraut du Rempart\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Sa présence renforce les murs autant que les hommes. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A10",
+    "file": "A10.webp",
+    "name": "Gryphus, Aile Royale",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Gryphus, Aile Royale\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Monture des rois depuis la première ère. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A11",
+    "file": "A11.webp",
+    "name": "Champion de l'Aurore",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Champion de l'Aurore\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Il se lève plus fort quand le royaume vacille. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A12",
+    "file": "A12.webp",
+    "name": "Gardienne du Sanctuaire",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Gardienne du Sanctuaire\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Elle ne mourra pas. Le sanctuaire non plus. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A13",
+    "file": "A13.webp",
+    "name": "Cavalier du Serment",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Cavalier du Serment\", a fantasy character or creature of Royaume d'Aurélia. Inspiration: Son serment l'appelle quand tout le reste s'effondre. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A14",
+    "file": "A14.webp",
+    "name": "Kaelion, Lys d'Or",
+    "faction": "AURELIA",
+    "type": "unit",
+    "rarity": "L",
+    "prompt": "Portrait or dynamic pose of \"Kaelion, Lys d'Or\", a legendary fantasy character or creature of Royaume d'Aurélia. Inspiration: Le Lys ne plie pas. Kaelion non plus. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A15",
+    "file": "A15.webp",
+    "name": "Prière du Rempart",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Prière du Rempart\": L'unité choisie gagne Égide.. Inspiration: La lumière répond à qui la demande.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A16",
+    "file": "A16.webp",
+    "name": "Soin de Campagne",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Soin de Campagne\": Rend 4 PV à l'unité choisie. Piochez 1 carte.. Inspiration: Les remparts tiennent grâce aux mains derrière eux.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A17",
+    "file": "A17.webp",
+    "name": "Formation Serrée",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Formation Serrée\": Toutes vos unités gagnent 0/+2.. Inspiration: Serrés. Aucune lame ne passe entre eux.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A18",
+    "file": "A18.webp",
+    "name": "Bannière Sacrée",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Bannière Sacrée\": Rend 3 PV à toutes vos unités. Rend 3 PV à votre Citadelle.. Inspiration: Là où elle flotte, les bras ne fléchissent pas.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A19",
+    "file": "A19.webp",
+    "name": "Serment de Lumière",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "E",
+    "prompt": "Magical effect scene for the spell \"Serment de Lumière\": L'unité choisie gagne +3/+2. L'unité choisie gagne Égide.. Inspiration: Certains serments changent la nature de celui qui les prononce.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "A20",
+    "file": "A20.webp",
+    "name": "Jugement du Haut-Roi",
+    "faction": "AURELIA",
+    "type": "spell",
+    "rarity": "L",
+    "prompt": "Magical effect scene for the spell \"Jugement du Haut-Roi\": Inflige 4 dégâts à toutes les unités ennemies. Rend 4 PV à toutes vos unités.. Inspiration: Il ne juge qu'une fois. Une fois suffit.. Show the spell being unleashed, not a character portrait. Setting: radiant golden kingdom of knights, ivory and gold plate armor, lily (fleur-de-lis) heraldry, warm dawn light, white marble, gold and ivory palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D01",
+    "file": "D01.webp",
+    "name": "Écailleux de Braise",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Écailleux de Braise\", a fantasy character or creature of Clan Draconis. Inspiration: Petit. Rapide. Déjà en feu. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D02",
+    "file": "D02.webp",
+    "name": "Pillard Cendré",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Pillard Cendré\", a fantasy character or creature of Clan Draconis. Inspiration: Il n'attend pas d'avoir faim pour chasser. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D03",
+    "file": "D03.webp",
+    "name": "Chien de Forge",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Chien de Forge\", a fantasy character or creature of Clan Draconis. Inspiration: La forge lui a appris que le métal rend fort. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D04",
+    "file": "D04.webp",
+    "name": "Guerrier Écaille-Rouge",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Guerrier Écaille-Rouge\", a fantasy character or creature of Clan Draconis. Inspiration: La douleur allume quelque chose en lui. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D05",
+    "file": "D05.webp",
+    "name": "Pyromancien de Faille",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Pyromancien de Faille\", a fantasy character or creature of Clan Draconis. Inspiration: Il arrive toujours avec de l'avance sur la destruction. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D06",
+    "file": "D06.webp",
+    "name": "Drake Mineur",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Drake Mineur\", a fantasy character or creature of Clan Draconis. Inspiration: Même mineur, un drake reste un dragon. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D07",
+    "file": "D07.webp",
+    "name": "Forgeron Draconique",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Forgeron Draconique\", a fantasy character or creature of Clan Draconis. Inspiration: Il ne forge pas des armes. Il forge des victoires. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D08",
+    "file": "D08.webp",
+    "name": "Berserker du Cratère",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Berserker du Cratère\", a fantasy character or creature of Clan Draconis. Inspiration: Plus il tue, plus il résiste. C'est le problème. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D09",
+    "file": "D09.webp",
+    "name": "Wyverne Rouge",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Wyverne Rouge\", a fantasy character or creature of Clan Draconis. Inspiration: Elle vise ce que les autres ne peuvent pas atteindre. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D10",
+    "file": "D10.webp",
+    "name": "Gardien du Volcan",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Gardien du Volcan\", a fantasy character or creature of Clan Draconis. Inspiration: La lave coule. Lui, il reste. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D11",
+    "file": "D11.webp",
+    "name": "Dragon de Siège",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Dragon de Siège\", a fantasy character or creature of Clan Draconis. Inspiration: Quand il avance, les murs s'interrogent sur leur utilité. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D12",
+    "file": "D12.webp",
+    "name": "Vaelgrim, Maître Forge",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Vaelgrim, Maître Forge\", a fantasy character or creature of Clan Draconis. Inspiration: Chaque pièce qu'il forge porte une promesse de survie. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D13",
+    "file": "D13.webp",
+    "name": "Phénix de Cendre",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Phénix de Cendre\", a fantasy character or creature of Clan Draconis. Inspiration: La cendre n'est pas une fin. C'est un intervalle. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D14",
+    "file": "D14.webp",
+    "name": "Arkanor, Soleil Noir",
+    "faction": "DRACONIS",
+    "type": "unit",
+    "rarity": "L",
+    "prompt": "Portrait or dynamic pose of \"Arkanor, Soleil Noir\", a legendary fantasy character or creature of Clan Draconis. Inspiration: Il n'éclipse pas le soleil. Il le remplace. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D15",
+    "file": "D15.webp",
+    "name": "Jet de Flammes",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Jet de Flammes\": Inflige 3 dégâts à l'unité choisie.. Inspiration: Simple. Efficace. Chaud.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D16",
+    "file": "D16.webp",
+    "name": "Rugissement de Guerre",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Rugissement de Guerre\": Toutes vos unités gagnent +1/0. Toutes vos unités gagnent Charge.. Inspiration: Le cri précède toujours les dégâts.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D17",
+    "file": "D17.webp",
+    "name": "Marque Incandescente",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Marque Incandescente\": Inflige 2 dégâts à l'unité choisie. Étourdit l'unité choisie (elle ne pourra pas attaquer à son prochain assaut).. Inspiration: Marqué par le feu. Suivi par tout le reste.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D18",
+    "file": "D18.webp",
+    "name": "Marteau Volcanique",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Marteau Volcanique\": Inflige 5 dégâts à l'unité choisie.. Inspiration: Conçu pour traverser. Tout.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D19",
+    "file": "D19.webp",
+    "name": "Frénésie de Braise",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "E",
+    "prompt": "Magical effect scene for the spell \"Frénésie de Braise\": L'unité choisie gagne +4/0. L'unité choisie gagne Charge.. Inspiration: La blessure devient carburant.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "D20",
+    "file": "D20.webp",
+    "name": "Éruption Primordiale",
+    "faction": "DRACONIS",
+    "type": "spell",
+    "rarity": "L",
+    "prompt": "Magical effect scene for the spell \"Éruption Primordiale\": Inflige 3 dégâts à toutes les unités ennemies. Inflige 6 dégâts à la Citadelle ennemie.. Inspiration: Avant, il y avait un champ de bataille. Après, il y a de la lave.. Show the spell being unleashed, not a character portrait. Setting: volcanic dragon-blooded warrior clan, red scaled armor, forges and lava, flying embers, molten orange and black palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S01",
+    "file": "S01.webp",
+    "name": "Lutin des Racines",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Lutin des Racines\", a fantasy character or creature of Sylve Éternelle. Inspiration: Il ne combat pas. Il prépare le terrain pour ceux qui combattront. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S02",
+    "file": "S02.webp",
+    "name": "Archer Sylvain",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Archer Sylvain\", a fantasy character or creature of Sylve Éternelle. Inspiration: La forêt lui a appris à viser sans être vu. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S03",
+    "file": "S03.webp",
+    "name": "Louveteau des Brumes",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Louveteau des Brumes\", a fantasy character or creature of Sylve Éternelle. Inspiration: Seul, il hésite. Avec la meute, il fonce. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S04",
+    "file": "S04.webp",
+    "name": "Dryade Guérisseuse",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Dryade Guérisseuse\", a fantasy character or creature of Sylve Éternelle. Inspiration: L'écorce guérit. Les mains savent où poser. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S05",
+    "file": "S05.webp",
+    "name": "Chasseur d'Écorce",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Chasseur d'Écorce\", a fantasy character or creature of Sylve Éternelle. Inspiration: Il traque ce que la corruption a marqué. Il finit le travail. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S06",
+    "file": "S06.webp",
+    "name": "Cerf Runique",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Cerf Runique\", a fantasy character or creature of Sylve Éternelle. Inspiration: Les runes sur ses bois ne sont pas des décorations. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S07",
+    "file": "S07.webp",
+    "name": "Sentinelle des Bois",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Sentinelle des Bois\", a fantasy character or creature of Sylve Éternelle. Inspiration: Elle bouge avant que l'ennemi décide de la regarder. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S08",
+    "file": "S08.webp",
+    "name": "Fenryr, Loup des Brumes",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Fenryr, Loup des Brumes\", a fantasy character or creature of Sylve Éternelle. Inspiration: Il court depuis avant la naissance des royaumes. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S09",
+    "file": "S09.webp",
+    "name": "Gardien Roncier",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Gardien Roncier\", a fantasy character or creature of Sylve Éternelle. Inspiration: Les ronces ne demandent pas permission. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S10",
+    "file": "S10.webp",
+    "name": "Élue des Clairières",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Élue des Clairières\", a fantasy character or creature of Sylve Éternelle. Inspiration: La clairière répond à son appel. Les loups aussi. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S11",
+    "file": "S11.webp",
+    "name": "Elyndra, Voix Sylvestre",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Elyndra, Voix Sylvestre\", a fantasy character or creature of Sylve Éternelle. Inspiration: Quand elle parle, la forêt entière se lève. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S12",
+    "file": "S12.webp",
+    "name": "Maelthorn, Cerf Sacré",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Maelthorn, Cerf Sacré\", a fantasy character or creature of Sylve Éternelle. Inspiration: Le voir est un présage. Le tuer, une malédiction. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S13",
+    "file": "S13.webp",
+    "name": "Griffelune",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Griffelune\", a fantasy character or creature of Sylve Éternelle. Inspiration: Elle sent la peur avant même de voir la cible. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S14",
+    "file": "S14.webp",
+    "name": "Sylvaros, Ancien Chêne",
+    "faction": "SYLVE",
+    "type": "unit",
+    "rarity": "L",
+    "prompt": "Portrait or dynamic pose of \"Sylvaros, Ancien Chêne\", a legendary fantasy character or creature of Sylve Éternelle. Inspiration: Il était là avant le premier roi. Il sera là après le dernier. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S15",
+    "file": "S15.webp",
+    "name": "Flèche Marquante",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Flèche Marquante\": Inflige 1 dégât à l'unité choisie. Étourdit l'unité choisie (elle ne pourra pas attaquer à son prochain assaut).. Inspiration: La marque précède toujours la mort.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S16",
+    "file": "S16.webp",
+    "name": "Pas de Brume",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Pas de Brume\": Gagnez 1 Aether. Piochez 1 carte.. Inspiration: Un pas dans la brume. Deux dans l'autre monde.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S17",
+    "file": "S17.webp",
+    "name": "Crocs de Loup",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Crocs de Loup\": L'unité choisie gagne +2/0. L'unité choisie gagne Vif.. Inspiration: Le loup n'achève pas par cruauté. Par efficacité.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S18",
+    "file": "S18.webp",
+    "name": "Ronces Vives",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Ronces Vives\": Inflige 1 dégât à toutes les unités ennemies. Étourdit toutes les unités ennemies (elle ne pourra pas attaquer à son prochain assaut).. Inspiration: La ronce ne demande pas si le moment est opportun.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S19",
+    "file": "S19.webp",
+    "name": "Appel de la Meute",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "E",
+    "prompt": "Magical effect scene for the spell \"Appel de la Meute\": Invoque 3 Rejetons (1/1). Toutes vos unités gagnent Charge.. Inspiration: Un hurlement. Puis deux. Puis le silence des proies.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "S20",
+    "file": "S20.webp",
+    "name": "Colère de la Forêt",
+    "faction": "SYLVE",
+    "type": "spell",
+    "rarity": "L",
+    "prompt": "Magical effect scene for the spell \"Colère de la Forêt\": Toutes vos unités gagnent +2/+2. Toutes vos unités gagnent Charge.. Inspiration: La forêt n'est pas en colère souvent. Ceux qui l'ont vu ne l'ont pas dit longtemps.. Show the spell being unleashed, not a character portrait. Setting: ancient living forest, elves, wolves and sacred stags, glowing moss and roots, silver mist, deep green and silver palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R01",
+    "file": "R01.webp",
+    "name": "Apprenti Runique",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Apprenti Runique\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Il apprend encore. Le Réseau, lui, ne pardonne pas. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R02",
+    "file": "R02.webp",
+    "name": "Scribe des Sceaux",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Scribe des Sceaux\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Il copie les sceaux. Parfois, il en comprend un. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R03",
+    "file": "R03.webp",
+    "name": "Mage de Givre",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Mage de Givre\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Le givre ralentit. Ça suffit souvent. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R04",
+    "file": "R04.webp",
+    "name": "Golem d'Argile",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Golem d'Argile\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Façonné pour obéir. Ce qu'on lui demande, c'est de tenir. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R05",
+    "file": "R05.webp",
+    "name": "Élémentaire Bleu",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Élémentaire Bleu\", a fantasy character or creature of Ordre des Arcanes. Inspiration: L'énergie stockée cherche toujours à se libérer. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R06",
+    "file": "R06.webp",
+    "name": "Veilleur Astral",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Veilleur Astral\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Il observe tout. Y compris ce qui pourrait tuer ses alliés. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R07",
+    "file": "R07.webp",
+    "name": "Lyria, Mage des Cristaux",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Lyria, Mage des Cristaux\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Chaque cristal contient une vie ancienne. Elle les écoute. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R08",
+    "file": "R08.webp",
+    "name": "Golem de Cristal",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Golem de Cristal\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Les cristaux le protègent à l'entrée. Après, c'est lui qui protège. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R09",
+    "file": "R09.webp",
+    "name": "Chronomancien",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Chronomancien\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Il ne manipule pas le temps. Il choisit quel moment retenir. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R10",
+    "file": "R10.webp",
+    "name": "Arcaniste du Miroir",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Arcaniste du Miroir\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Le miroir ne ment pas. Il dit la vérité deux fois. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R11",
+    "file": "R11.webp",
+    "name": "Thalor, Gardien des Runes",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Thalor, Gardien des Runes\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Il ne lit pas les runes. Les runes lui obéissent. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R12",
+    "file": "R12.webp",
+    "name": "Oracle de Verre",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Oracle de Verre\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Elle ne prédit pas l'avenir. Elle choisit lequel arriver. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R13",
+    "file": "R13.webp",
+    "name": "Dragon Astral Mineur",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Dragon Astral Mineur\", a fantasy character or creature of Ordre des Arcanes. Inspiration: Invoqué par les sorts, dissous par le silence. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R14",
+    "file": "R14.webp",
+    "name": "Astérion, Archimage",
+    "faction": "ARCANES",
+    "type": "unit",
+    "rarity": "L",
+    "prompt": "Portrait or dynamic pose of \"Astérion, Archimage\", a legendary fantasy character or creature of Ordre des Arcanes. Inspiration: Trois cartes. Le monde change. Il le savait déjà. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R15",
+    "file": "R15.webp",
+    "name": "Éclair Mineur",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Éclair Mineur\": Inflige 2 dégâts à l'unité choisie.. Inspiration: Petit. Suffisant. Parfois.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R16",
+    "file": "R16.webp",
+    "name": "Barrière Runique",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Barrière Runique\": L'unité choisie gagne Égide. Piochez 1 carte.. Inspiration: Les runes protègent ceux qui les comprennent mieux.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R17",
+    "file": "R17.webp",
+    "name": "Téléportation Courte",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Téléportation Courte\": Renvoie l'unité choisie dans la main de son propriétaire.. Inspiration: Court. Ça ne prend qu'un instant. L'ennemi en aura besoin de plusieurs.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R18",
+    "file": "R18.webp",
+    "name": "Anneau de Canalisation",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Anneau de Canalisation\": Gagnez 2 Aether.. Inspiration: La patience est une forme de puissance.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R19",
+    "file": "R19.webp",
+    "name": "Sceau d'Annulation",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "E",
+    "prompt": "Magical effect scene for the spell \"Sceau d'Annulation\": Détruit l'unité choisie.. Inspiration: Non.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "R20",
+    "file": "R20.webp",
+    "name": "Tempête Arcanique",
+    "faction": "ARCANES",
+    "type": "spell",
+    "rarity": "L",
+    "prompt": "Magical effect scene for the spell \"Tempête Arcanique\": Inflige 4 dégâts à toutes les unités ennemies. Inflige 4 dégâts à la Citadelle ennemie.. Inspiration: La tour déverse tout ce qu'elle a retenu. Les ennemis reçoivent tout.. Show the spell being unleashed, not a character portrait. Setting: arcane academy of mages, floating runes and crystals, starry night, electric blue and violet palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M01",
+    "file": "M01.webp",
+    "name": "Squelette Fissuré",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Squelette Fissuré\", a fantasy character or creature of Abysses Maudites. Inspiration: Il se brise. C'est son utilité. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M02",
+    "file": "M02.webp",
+    "name": "Corbeau Funeste",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Corbeau Funeste\", a fantasy character or creature of Abysses Maudites. Inspiration: Il précède toujours les mauvaises nouvelles. Parfois, il les cause. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M03",
+    "file": "M03.webp",
+    "name": "Acolyte Blême",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Acolyte Blême\", a fantasy character or creature of Abysses Maudites. Inspiration: Il sourit en arrivant. Les ennemis blessés comprennent pourquoi. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M04",
+    "file": "M04.webp",
+    "name": "Goule de Crypte",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Goule de Crypte\", a fantasy character or creature of Abysses Maudites. Inspiration: La faim de la crypte ne s'éteint jamais. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M05",
+    "file": "M05.webp",
+    "name": "Porte-Peste",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Porte-Peste\", a fantasy character or creature of Abysses Maudites. Inspiration: Il touche. Il part. Le reste vient après. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M06",
+    "file": "M06.webp",
+    "name": "Gardien Gargouille",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "C",
+    "prompt": "Portrait or dynamic pose of \"Gardien Gargouille\", a fantasy character or creature of Abysses Maudites. Inspiration: La pierre ne guérit pas. Elle endure. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M07",
+    "file": "M07.webp",
+    "name": "Nécromancien Mineur",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Nécromancien Mineur\", a fantasy character or creature of Abysses Maudites. Inspiration: La mort n'est qu'un matériau de construction. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M08",
+    "file": "M08.webp",
+    "name": "Spectre des Douves",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Spectre des Douves\", a fantasy character or creature of Abysses Maudites. Inspiration: Il attend que la corruption fasse son travail. Puis il finit le sien. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M09",
+    "file": "M09.webp",
+    "name": "Chevalier Déchu",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Chevalier Déchu\", a fantasy character or creature of Abysses Maudites. Inspiration: Il se souvient de son serment. Il l'a brisé quand même. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M10",
+    "file": "M10.webp",
+    "name": "Dévoreur d'Âmes",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "R",
+    "prompt": "Portrait or dynamic pose of \"Dévoreur d'Âmes\", a fantasy character or creature of Abysses Maudites. Inspiration: Plus il y a de morts, plus il se porte bien. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M11",
+    "file": "M11.webp",
+    "name": "Nocthar, Liche Couronnée",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Nocthar, Liche Couronnée\", a fantasy character or creature of Abysses Maudites. Inspiration: Sa couronne fut forgée dans les os de ses prédécesseurs. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M12",
+    "file": "M12.webp",
+    "name": "Morvath, Seigneur des Fosses",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Morvath, Seigneur des Fosses\", a fantasy character or creature of Abysses Maudites. Inspiration: Il nourrit les fosses. Les fosses le nourrissent en retour. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M13",
+    "file": "M13.webp",
+    "name": "Banshee Voilée",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "E",
+    "prompt": "Portrait or dynamic pose of \"Banshee Voilée\", a fantasy character or creature of Abysses Maudites. Inspiration: Son cri n'est pas une plainte. C'est un avertissement. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M14",
+    "file": "M14.webp",
+    "name": "Vorak, Dragon Charognard",
+    "faction": "ABYSSES",
+    "type": "unit",
+    "rarity": "L",
+    "prompt": "Portrait or dynamic pose of \"Vorak, Dragon Charognard\", a legendary fantasy character or creature of Abysses Maudites. Inspiration: Il se nourrit des corrompus. Plus il y en a, plus il grandit. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M15",
+    "file": "M15.webp",
+    "name": "Toucher Flétrissant",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Toucher Flétrissant\": Inflige 3 dégâts à l'unité choisie. Rend 3 PV à votre Citadelle.. Inspiration: Un frôlement. Une vie qui se dégrade.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M16",
+    "file": "M16.webp",
+    "name": "Sacrifice Noir",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "C",
+    "prompt": "Magical effect scene for the spell \"Sacrifice Noir\": Détruit l'unité choisie. Piochez 2 cartes.. Inspiration: La mort d'un soldat acheté deux décisions. Ça vaut le prix.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M17",
+    "file": "M17.webp",
+    "name": "Cri des Cryptes",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Cri des Cryptes\": Inflige 1 dégât à toutes les unités ennemies. Ramène en jeu votre dernière unité détruite.. Inspiration: Les cryptes se souviennent de tout le monde. Même de toi.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M18",
+    "file": "M18.webp",
+    "name": "Chaînes Funéraires",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "R",
+    "prompt": "Magical effect scene for the spell \"Chaînes Funéraires\": Étourdit l'unité choisie (elle ne pourra pas attaquer à son prochain assaut). Inflige 3 dégâts à la Citadelle ennemie.. Inspiration: Les morts n'ont nulle part où aller. Elles non plus maintenant.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M19",
+    "file": "M19.webp",
+    "name": "Pacte Interdit",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "E",
+    "prompt": "Magical effect scene for the spell \"Pacte Interdit\": Piochez 3 cartes. Gagnez 2 Aether. Inflige 4 dégâts à votre Citadelle.. Inspiration: Le pouvoir est immédiat. La dette, elle, prend son temps.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  },
+  {
+    "id": "M20",
+    "file": "M20.webp",
+    "name": "Nuit des Défunts",
+    "faction": "ABYSSES",
+    "type": "spell",
+    "rarity": "L",
+    "prompt": "Magical effect scene for the spell \"Nuit des Défunts\": Ramène en jeu vos 3 dernières unités détruites.. Inspiration: Cette nuit, ils reviennent tous. Une seule fois.. Show the spell being unleashed, not a character portrait. Setting: cursed crypts and necromancy, bones, pale ghost light, cold fog, desaturated teal, slate grey and sickly purple palette. Painterly digital fantasy card-game illustration, dramatic rim lighting, strong silhouette readable at small size, one clear focal subject centered, rich colors, soft atmospheric depth. No text, no letters, no logo, no border, no frame, no watermark. Wide crop, aspect ratio 1.8:1 (for example 1440x800), subject kept in the central 60% of the width."
+  }
+]

@@ -63,7 +63,7 @@
     const c = card(u.id);
     const ic = u.kw.filter((k) => UI.KW_ICON[k]).map((k) => `<span title="${KW[k].name}">${UI.KW_ICON[k]}</span>`).join("") + (u.shield ? "<span>◉</span>" : "");
     return `<div class="tile f-${c.f} ${u.shield ? "shield" : ""} ${u.fresh ? "fresh" : ""} ${u.stun ? "stun" : ""} ${u.hold ? "hold" : ""}">
-      <div class="ic">${ic}</div><div class="em">${c.e}</div><div class="nm">${esc(c.name.split(",")[0])}</div>
+      <div class="ic">${ic}</div><div class="em">${c.e}</div>${c.token || !(CA.ART && CA.ART[c.id]) ? "" : `<img class="t-img" src="art/${c.id}.webp" alt="" onerror="this.remove()">`}<div class="nm">${esc(c.name.split(",")[0])}</div>
       <div class="st"><b class="a ${u.atk > c.atk ? "up" : ""}">${u.atk}</b><b class="h ${u.hp < u.max ? "hurt" : ""} ${u.max > c.hp ? "up" : ""}">${u.hp}</b></div>
       ${u.stun ? '<div class="flag">💤</div>' : u.hold ? '<div class="flag">⏸</div>' : ""}</div>`;
   }
@@ -175,30 +175,62 @@
   }
   function banner(text, cls) {
     const b = document.createElement("div");
-    b.className = "big-banner " + (cls || ""); b.textContent = text;
-    layer().appendChild(b); setTimeout(() => b.remove(), 1300);
+    b.className = "big-banner animate__animated animate__bounceIn " + (cls || ""); b.textContent = text;
+    layer().appendChild(b); setTimeout(() => (b.style.opacity = 0), 950); setTimeout(() => b.remove(), 1250);
   }
   const slotRect = (side, line) => rectOf(`.slot[data-side="${side}"][data-line="${line}"]`);
   const citRect = (side) => rectOf(`.cit[data-cit="${side}"]`);
+  const tileEl = (side, line) => $(`.slot[data-side="${side}"][data-line="${line}"] .tile`, $("#b-main"));
+  const VFX = CA.VFX;
+  function shake() { const x = $("#battle"); x.classList.remove("shake"); void x.offsetWidth; x.classList.add("shake"); }
+  function vignette() { const x = $("#battle"); x.classList.remove("vig"); void x.offsetWidth; x.classList.add("vig"); }
+  function ringAt(r) {
+    if (!r) return;
+    const d = document.createElement("i"); d.className = "ring";
+    d.style.left = r.left + r.width / 2 + "px"; d.style.top = r.top + r.height / 2 + "px";
+    layer().appendChild(d); setTimeout(() => d.remove(), 600);
+  }
+
+  // Un événement du moteur → son + animation. Ne renvoie une promesse que pour les sorts (le projectile doit arriver avant les impacts).
   function fxOne(ev) {
     if (!A.g) return;
+    const src = ev.src || null;
     switch (ev.k) {
-      case "hit": floater(slotRect(ev.side, ev.line), "−" + ev.n, "dmg"); Au.play("hit"); break;
-      case "heal": floater(slotRect(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); break;
-      case "shield": floater(slotRect(ev.side, ev.line), "🛡", "info"); Au.play("shield"); break;
-      case "cit": floater(citRect(ev.side), "−" + ev.n, "dmg big"); Au.play("cit"); if (ev.n >= 5) shake(); break;
-      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); break;
-      case "die": floater(slotRect(ev.side, ev.line), "💥", "info"); Au.play("die"); break;
-      case "place": Au.play("play"); { const t = $(`.slot[data-side="${ev.side}"][data-line="${ev.line}"] .tile`, $("#b-main")); if (t) t.classList.add("pop"); } break;
-      case "spell": banner(card(ev.id).name, "spell"); Au.play("spell"); break;
-      case "swing": Au.play("swing"); break;
+      case "swing": Au.play("swing"); { const foeTile = tileEl(1 - ev.side, ev.line); ringAt(slotRect(1 - ev.side, ev.line)); if (foeTile) { foeTile.classList.add("recoil"); } } break;
+      case "hit": {
+        floater(slotRect(ev.side, ev.line), "−" + ev.n, "dmg dmgB"); Au.play("hit");
+        const t = tileEl(ev.side, ev.line); if (t) { t.classList.remove("hurt"); void t.offsetWidth; t.classList.add("hurt"); }
+        VFX.impact(slotRect(ev.side, ev.line), src || "DRACONIS", ev.n);
+        break;
+      }
+      case "heal": floater(slotRect(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); VFX.heal(slotRect(ev.side, ev.line)); break;
+      case "buff": VFX.buff(slotRect(ev.side, ev.line), src || "AURELIA"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); Au.play("heal"); break;
+      case "shield": floater(slotRect(ev.side, ev.line), "🛡", "info"); Au.play("shield"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); break;
+      case "cit": floater(citRect(ev.side), "−" + ev.n, "dmg big"); Au.play("cit"); vignette(); VFX.impact(citRect(ev.side), src || "DRACONIS", ev.n); if (ev.n >= 4) shake(); break;
+      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); VFX.heal(citRect(ev.side)); break;
+      case "die": floater(slotRect(ev.side, ev.line), "💥", "info"); Au.play("die"); VFX.death(slotRect(ev.side, ev.line), src); break;
+      case "place": Au.play("play"); VFX.anim(tileEl(ev.side, ev.line), "bounceIn"); if (src) VFX.summon(slotRect(ev.side, ev.line), src); break;
+      case "spell": return castSpell(ev);
     }
   }
-  function shake() { const b = $("#battle"); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
-  // Rejoue les événements du moteur (floaters, sons) avec un léger décalage
+  // Lancer de sort : la boule d'énergie part de la Citadelle du lanceur vers la cible, puis les impacts se déclenchent.
+  function castSpell(ev) {
+    const c = card(ev.id), f = c.f, from = citRect(ev.side);
+    Au.play("spell");
+    const tag = document.createElement("div"); tag.className = "spell-tag animate__animated animate__fadeInUp"; tag.textContent = c.name;
+    tag.style.cssText = `--g:${VFX.look(f).glow}`; layer().appendChild(tag); setTimeout(() => tag.remove(), 1500);
+    const wide = c.r === "L" || c.fx.some((x) => x.to === "foes" || x.to === "allies");
+    if (wide) { VFX.flash(f); if (c.r === "L") shake(); }
+    if (ev.pick) return VFX.projectile(from, slotRect(ev.pick.side, ev.pick.line), f);
+    VFX.buff(from, f);
+    return sleep(wide ? 260 : 160);
+  }
+  // Rejoue les événements dans l'ordre. Les impacts d'un même sort partent ensemble, un sort attend son projectile.
   function drainFx() {
-    const evs = A.g.fx.splice(0);
-    evs.forEach((ev, i) => setTimeout(() => fxOne(ev), Math.min(i, 8) * 90 * P.settings.speed));
+    const evs = A.g.fx.splice(0); if (!evs.length) return Promise.resolve();
+    let chain = Promise.resolve();
+    evs.forEach((ev, i) => { chain = chain.then(() => fxOne(ev)).then(() => (ev.k === "spell" ? null : sleep(Math.min(i, 5) * 22 * P.settings.speed))); });
+    return chain;
   }
 
   /* ───────── Déroulement ───────── */
@@ -216,10 +248,15 @@
     for (let i = 0; i < E.LINES && !g.over; i++) {
       if (A.g !== g) return;
       const u = g.p[side].board[i], will = u && E.canAttack(u);
-      if (will) { const t = $(`.slot[data-side="${side}"][data-line="${i}"] .tile`, $("#b-main")); if (t) t.classList.add("atk"); await wait(230); }
-      E.assaultLine(g, i);
-      render(); drainFx();
-      if (will) await wait(420);
+      if (!will) { E.assaultLine(g, i); if (g.fx.length) { render(); drainFx(); } continue; }     // étourdie, en retrait, ou rien : pas de charge
+      const t = tileEl(side, i);
+      if (t) t.classList.add("atk");
+      await wait(330);                           // la charge atteint la cible ici
+      E.assaultLine(g, i);                       // règles appliquées maintenant ; l'affichage suit
+      const fx = drainFx();
+      await wait(330);
+      await fx;
+      render();
     }
     E.assaultEnd(g);
   }
@@ -269,6 +306,7 @@
     A.result = { win, events, lvl0 };
     Au.play(win ? "win" : "lose");
     if (events.some((e) => e.t === "level")) setTimeout(() => Au.play("level"), 900);
+    if (win) setTimeout(() => { const s = $("#b-main .seal"); if (s) VFX.win(s.getBoundingClientRect()); }, 1150);
     UI.updateHeader();
     setTimeout(() => { if (A.g === g) { render(); } }, 700);
   }
@@ -277,7 +315,7 @@
     const xp = r.events.find((e) => e.t === "xp").n;
     const lines = [`<div class="r-line xp">+${xp} XP</div>`];
     r.events.forEach((e) => {
-      if (e.t === "level") lines.push(`<div class="r-line gold">⬆ Niveau ${e.lvl} · une carte à choisir</div>`);
+      if (e.t === "level") lines.push(`<div class="r-line gold animate__animated animate__tada">⬆ Niveau ${e.lvl} · une carte à choisir</div>`);
       if (e.t === "node") lines.push(`<div class="r-line gold">🗺 Duel terminé · une carte à choisir</div>`);
       if (e.t === "chapter") lines.push(`<div class="r-line gold">✦ ${esc(e.seal)} obtenu !</div><div class="r-story">${esc(M.CHAPTERS[e.chapter].outro)}</div>`);
       if (e.t === "daily") lines.push(`<div class="r-line gold">⚡ Défi du jour relevé · une carte à choisir</div>`);
@@ -286,8 +324,7 @@
       if (e.t === "ach") lines.push(`<div class="r-line">🏆 ${esc(M.ACH.find((a) => a.id === e.id).name)}</div>`);
     });
     const nextNode = r.win && node ? Pr.nextNode(P) : null;
-    const confetti = r.win ? Array.from({ length: 28 }, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-delay:${(i % 7) * 0.12}s;background:${["#e0b840", "#4d97d6", "#c0392b", "#2f7a36", "#5a3ccf"][i % 5]}"></i>`).join("") : "";
-    return `<div class="over ${r.win ? "win" : "lose"}"><div class="confetti">${confetti}</div><div class="panel"><h1>${r.win ? "Victoire !" : "Défaite"}</h1>
+    return `<div class="over ${r.win ? "win" : "lose"}"><div class="panel ${r.win ? "stamp" : "animate__animated animate__fadeIn"}">${r.win ? '<div class="seal">✦</div>' : ""}<h1>${r.win ? "Victoire !" : "Défaite"}</h1>
       <p class="muted">${r.win ? "La Citadelle adverse est tombée." : "Votre Citadelle est tombée. On apprend plus d'une défaite que d'une victoire."}</p>
       ${node && r.win ? `<p class="r-story">${esc(node.title)} est derrière vous.</p>` : ""}
       <div class="r-lines">${lines.join("")}</div>

@@ -1,6 +1,6 @@
 /* Codex Arcanum — fonctionnement hors-ligne. Réseau d'abord (les mises à jour arrivent tout de suite), cache en secours. */
-const CACHE = "codex-arcanum-v2";
-const SHELL = ["./", "index.html", "css/style.css", "js/cards.js", "js/engine.js", "js/ai.js", "js/meta.js", "js/profile.js", "js/audio.js", "js/ui.js", "js/battle.js", "manifest.webmanifest", "icon.svg"];
+const CACHE = "codex-arcanum-v3";
+const SHELL = ["./", "index.html", "css/style.css", "js/cards.js", "js/engine.js", "js/ai.js", "js/meta.js", "js/profile.js", "js/audio.js", "js/vfx.js", "art/manifest.js", "vendor/tsparticles.bundle.min.js", "vendor/animate.min.css", "js/ui.js", "js/battle.js", "manifest.webmanifest", "icon.svg"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", (e) => {
