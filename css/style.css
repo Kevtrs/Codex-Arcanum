@@ -304,3 +304,10 @@ p + p { margin-top: 8px; }
 .over.win h1 { animation: rise2 .6s .5s both; } @keyframes rise2 { from { opacity: 0; transform: translateY(8px); } }
 .tile .t-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .95; } .tile .t-img ~ .nm, .tile .t-img ~ .st { position: relative; z-index: 1; }
 .tile .em, .tile .ic, .tile .nm, .tile .st { position: relative; z-index: 1; } .tile .ic { position: absolute; }
+
+/* ═════════ Gemmes de rareté et dos de carte (Mechanized Magic, Dumivid, CC0) ═════════ */
+.c-rar { right: 2.5cqw; bottom: 2.5cqw; width: 10cqw; height: 10cqw; border-radius: 0; box-shadow: none; background: center / contain no-repeat; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .55)); }
+.r-C .c-rar { background-image: url(../ui/gem_C.png); } .r-R .c-rar { background-image: url(../ui/gem_R.png); }
+.r-E .c-rar { background-image: url(../ui/gem_E.png); } .r-L .c-rar { background-image: url(../ui/gem_L.png); width: 11.5cqw; height: 11.5cqw; }
+.card.mini .c-rar { width: 13cqw; height: 13cqw; }
+.opp-hand i { width: 14px; height: 19px; border: 0; border-radius: 2px; background: url(../ui/back.png) center / contain no-repeat; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .4)); margin-right: -4px; }
