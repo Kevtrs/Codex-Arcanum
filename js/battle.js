@@ -224,15 +224,11 @@
 
   // Lancer de sort : la boule d'énergie part de la Citadelle du lanceur vers la cible, puis les impacts se déclenchent.
   function castSpell(ev) {
-    const c = card(ev.id), f = c.f, from = citRect(ev.side);
+    const c = card(ev.id);
     Au.play("spell");
-    const tag = document.createElement("div"); tag.className = "spell-tag animate__animated animate__fadeInUp"; tag.textContent = c.name;
-    tag.style.cssText = `--g:${VFX.look(f).glow}`; layer().appendChild(tag); setTimeout(() => tag.remove(), 1500);
-    const wide = c.r === "L" || c.fx.some((x) => x.to === "foes" || x.to === "allies");
-    if (wide) { VFX.flash(f); if (c.r === "L") shake(); }
-    if (ev.pick) return VFX.projectile(from, slotRect(ev.pick.side, ev.pick.line), f);
-    VFX.buff(from, f);
-    return sleep(wide ? 260 : 160);
+    const tag = document.createElement("div"); tag.className = "spell-tag"; tag.textContent = c.name;
+    tag.style.cssText = `--g:${VFX.look(c.f).glow}`; layer().appendChild(tag); setTimeout(() => tag.remove(), 1200);
+    return sleep(c.r === "L" ? 450 : 250);
   }
   // Rejoue les événements dans l'ordre. Les impacts d'un même sort partent ensemble, un sort attend son projectile.
   function drainFx() {

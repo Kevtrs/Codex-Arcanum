@@ -1,6 +1,6 @@
 # Crédits
 
-Codex Arcanum utilise des ressources libres. Merci à leurs auteurs.
+Codex Arcanum utilise des ressources libres. Merci à leurs auteurs. Les effets de sorts (Spell FX Free, Cethiel) et tsParticles sont dans le dépôt mais **désactivés** pour l'instant (voir ANIMATIONS.md) ; leurs crédits restent ici tant que les fichiers sont distribués.
 
 | Ressource | Auteur | Licence | Où |
 |---|---|---|---|

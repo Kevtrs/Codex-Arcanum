@@ -5,6 +5,9 @@
   "use strict";
   const CA = root.CA;
   const VFX = {};
+  // Interrupteur : false = aucun effet de sort ni de particules (décision du patron). Remettre true pour les réactiver
+  // (il faut alors charger vendor/tsparticles.bundle.min.js et fx/effects.js dans index.html).
+  VFX.enabled = false;
   let n = 0, ready = null;
   // Le bundle tsParticles doit charger ses modules (formes, émetteurs…) une seule fois avant le premier usage.
   const init = () => ready || (ready = root.loadFull ? Promise.resolve(root.loadFull(root.tsParticles)) : Promise.resolve());
@@ -115,7 +118,7 @@
     return Promise.all(files.map((k) => new Promise((ok) => { const im = new Image(); im.onload = () => { loaded[k] = true; ok(); }; im.onerror = ok; im.src = base + k + ".png"; })))
       .then(() => { VFX.spritesReady = files.length > 0 && files.every((k) => loaded[k]); });
   };
-  if (typeof Image !== "undefined") VFX.preload();
+  if (VFX.enabled && typeof Image !== "undefined") VFX.preload();
   const has = (n) => !!(REG()[n] && loaded[file(n)]);
 
   // Couleur de faction pour les effets blancs (tint) et les effets violets (invocation)
@@ -226,6 +229,15 @@
     anim.onfinish = finish;
     setTimeout(finish, ms + 250);                // le sort ne doit jamais bloquer la partie
   });
+
+  // Désactivé : toutes les fonctions d'effet ne font rien (et renvoient false, pour que l'appelant n'attende rien).
+  // VFX.anim (mouvements d'interface animate.css) reste actif.
+  if (!VFX.enabled) {
+    Object.keys(VFX).forEach((k) => {
+      if (typeof VFX[k] !== "function" || k === "anim" || k === "look" || k === "preload") return;
+      VFX[k] = k === "projectile" || k === "orbe" ? () => Promise.resolve() : () => false;
+    });
+  }
 
   CA.VFX = VFX;
 })(typeof window !== "undefined" ? window : globalThis);

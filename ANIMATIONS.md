@@ -1,5 +1,11 @@
 # Ajouter des animations
 
+> **État actuel : les effets de sorts et de particules sont désactivés** (décision du 27/10/2026 : le rendu ne convainquait pas).
+> Le jeu garde l'attaque en charge, le choc rouge des dégâts, les chiffres flottants et le sceau de victoire.
+> Pour réactiver les effets : mettre `VFX.enabled = true` dans `js/vfx.js` et remettre dans `index.html`, avant `js/vfx.js`,
+> `<script src="vendor/tsparticles.bundle.min.js">` et `<script src="fx/effects.js">`. Les feuilles d'animation (`fx/`) et les bibliothèques (`vendor/`) restent dans le dépôt.
+
+
 Le jeu utilise des **feuilles d'animation** (une image PNG qui contient toutes les images d'un effet, fond transparent). Chaque événement du jeu cherche l'animation qui lui convient **par mot-clé** ; s'il n'en trouve pas, il utilise des particules.
 
 ## Brancher un nouveau pack
