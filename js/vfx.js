@@ -101,49 +101,57 @@
     el.addEventListener("animationend", () => el.classList.remove("animate__animated", "animate__" + name), { once: true });
   };
 
-  /* ───────── Animations image par image (packs « FX Free » de heyheythere, voir CREDITS.md) ─────────
-     Le registre CA.FX (fx/effects.js) liste chaque feuille d'animation : grille, nombre d'images, cadence, point d'ancrage.
-     Pour ajouter un pack : node tools/fx-import.js <dossier-du-pack>. Rien d'autre à modifier : les événements du jeu
-     cherchent l'animation par mot-clé (« heal », « shield », « stun »…) et retombent sur les particules si elle manque. */
+  /* ───────── Animations image par image ─────────
+     Le registre CA.FX (fx/effects.js) décrit chaque feuille : grille, nombre d'images, cadence, point d'ancrage, filtre de couleur.
+     Sources : Spell FX Free (heyheythere, CC BY 4.0) et la série de Cethiel (CC0) : voir CREDITS.md.
+     Chaque fonction ci-dessous prend la faction pour choisir couleur et variante, et retombe sur les particules si l'animation manque. */
   const REG = () => CA.FX || {};
-  // Éléments natifs préférés par faction ; à défaut, on teinte un élément existant.
-  const NATIVE = { AURELIA: ["holy"], DRACONIS: ["fire"], SYLVE: ["nature", "poison"], ARCANES: ["arcane", "storm"], ABYSSES: ["shadow"] };
-  const TINT = {
-    DRACONIS: ["fire", ""], ARCANES: ["arcane", ""],
-    AURELIA: ["fire", "hue-rotate(38deg) saturate(.8) brightness(1.35)"],
-    SYLVE: ["ice", "hue-rotate(-62deg) saturate(1.35)"],
-    ABYSSES: ["arcane", "saturate(.45) brightness(.62) contrast(1.35)"]
-  };
-  const skin = (f, shape) => {
-    for (const el of NATIVE[f] || []) if (REG()[el + "_" + shape]) return [el, ""];
-    const t = TINT[f] || TINT.DRACONIS;
-    return REG()[t[0] + "_" + shape] ? t : null;
-  };
   const loaded = {};
   const base = CA.FX_BASE || "fx/";   // le laboratoire (tools/) change ce chemin
+  const file = (n) => (REG()[n] && REG()[n].file) || n;
   VFX.spritesReady = false;
   VFX.preload = () => {
-    const names = Object.keys(REG());
-    return Promise.all(names.map((k) => new Promise((ok) => { const im = new Image(); im.onload = () => { loaded[k] = true; ok(); }; im.onerror = ok; im.src = base + k + ".png"; })))
-      .then(() => { VFX.spritesReady = names.length > 0 && names.every((k) => loaded[k]); });
+    const files = Array.from(new Set(Object.keys(REG()).map(file)));
+    return Promise.all(files.map((k) => new Promise((ok) => { const im = new Image(); im.onload = () => { loaded[k] = true; ok(); }; im.onerror = ok; im.src = base + k + ".png"; })))
+      .then(() => { VFX.spritesReady = files.length > 0 && files.every((k) => loaded[k]); });
   };
   if (typeof Image !== "undefined") VFX.preload();
-  // Premier effet chargé dont le nom contient l'un des mots-clés (les effets à lecture unique d'abord)
-  VFX.find = (keys) => {
-    const names = Object.keys(REG()).filter((n) => loaded[n]);
-    const hit = (pool) => { for (const k of keys) { const r = pool.find((n) => n.includes(k)); if (r) return r; } return null; };
-    return hit(names.filter((n) => !REG()[n].loop)) || hit(names);
+  const has = (n) => !!(REG()[n] && loaded[file(n)]);
+
+  // Couleur de faction pour les effets blancs (tint) et les effets violets (invocation)
+  const TINTW = {
+    AURELIA:  "sepia(1) saturate(3.2) hue-rotate(-8deg) brightness(1.25)",
+    DRACONIS: "sepia(1) saturate(5) hue-rotate(-38deg) brightness(1.05)",
+    SYLVE:    "sepia(1) saturate(3) hue-rotate(62deg) brightness(1.1)",
+    ARCANES:  "sepia(1) saturate(4) hue-rotate(228deg) brightness(1.1)",
+    ABYSSES:  "sepia(1) saturate(1.6) hue-rotate(232deg) brightness(.6)"
+  };
+  const SHIFT = { AURELIA: "hue-rotate(145deg) saturate(1.3) brightness(1.3)", DRACONIS: "hue-rotate(100deg) saturate(1.3)", SYLVE: "hue-rotate(-140deg) saturate(1.2)", ARCANES: "", ABYSSES: "saturate(.5) brightness(.7)" };
+  const SLASH = { AURELIA: "gold", DRACONIS: "fire", SYLVE: "green", ARCANES: "purple", ABYSSES: "dark" };
+  const HEAL = { AURELIA: "heal_gold", DRACONIS: "heal_red", SYLVE: "heal_nature", ARCANES: "heal_purple", ABYSSES: "heal_blue" };
+  // Éléments natifs préférés par faction ; à défaut, on teinte un élément existant.
+  const NATIVE = { AURELIA: ["holy"], DRACONIS: ["fire"], SYLVE: ["nature"], ARCANES: ["arcane"], ABYSSES: ["shadow"] };
+  const FALLBACK = { AURELIA: ["fire", "hue-rotate(38deg) saturate(.8) brightness(1.35)"], SYLVE: ["ice", "hue-rotate(-62deg) saturate(1.35)"], ABYSSES: ["arcane", "saturate(.45) brightness(.62) contrast(1.35)"], DRACONIS: ["fire", ""], ARCANES: ["arcane", ""] };
+  const skin = (f, shape) => {
+    for (const el of NATIVE[f] || []) if (has(el + "_" + shape)) return [el, ""];
+    const t = FALLBACK[f] || FALLBACK.DRACONIS;
+    return has(t[0] + "_" + shape) ? t : null;
   };
 
   // Crée l'élément animé ; son point d'ancrage (tête de la boule, centre de l'impact) est placé sur (x, y).
   function sprite(name, x, y, scale, filter, angle) {
     const d = REG()[name], W = d.w * scale, H = d.h * scale, el = document.createElement("div");
+    const flt = [d.filter, filter].filter(Boolean).join(" ");
     el.className = "spr";
     el.style.cssText = `position:absolute;left:${x - d.ax * W}px;top:${y - d.ay * H}px;width:${W}px;height:${H}px;pointer-events:none;` +
-      `background:url(${base}${name}.png) 0 0 / ${d.cols * W}px ${d.rows * H}px no-repeat;` + (filter ? `filter:${filter};` : "") +
+      `background:url(${base}${file(name)}.png) 0 0 / ${d.cols * W}px ${d.rows * H}px no-repeat;` + (flt ? `filter:${flt};` : "") +
       (angle ? `transform:rotate(${angle}rad);transform-origin:${d.ax * W}px ${d.ay * H}px;` : "");
     let t0 = null, stopped = false, last = -1;
     const done = new Promise((resolve) => {
+      if (d.anim === "pop") {                       // image fixe : elle apparaît, grossit un peu, puis s'efface
+        if (el.animate) el.animate([{ opacity: 0, transform: "scale(.5)" }, { opacity: 1, transform: "scale(1.12)", offset: 0.3 }, { opacity: 1, transform: "scale(1)", offset: 0.7 }, { opacity: 0, transform: "scale(1.05)" }], { duration: d.ms || 900, easing: "ease-out" });
+        return setTimeout(() => { el.remove(); resolve(); }, d.ms || 900);
+      }
       const tick = (t) => {
         if (stopped) { el.remove(); return resolve(); }
         if (t0 == null) t0 = t;
@@ -156,25 +164,44 @@
       requestAnimationFrame(tick);
     });
     // Filet de sécurité : si le navigateur gèle les animations (onglet en arrière-plan), un effet disparaît quand même.
-    if (!d.loop) setTimeout(() => { stopped = true; el.remove(); }, (d.frames / d.fps) * 1000 + 350);
+    if (!d.loop) setTimeout(() => { stopped = true; el.remove(); }, d.anim === "pop" ? (d.ms || 900) + 100 : (d.frames / d.fps) * 1000 + 350);
     return { el, done, stop: () => { stopped = true; } };
   }
 
-  // Joue une animation trouvée par mot-clé, centrée sur un rectangle. Renvoie false si aucune ne convient (le jeu utilise alors les particules).
-  // o : { scale, filter, ms (durée max pour les animations en boucle), fit ("w"|"h") }
-  VFX.fx = (keys, rect, o) => {
+  // Joue l'animation `name` centrée sur un rectangle d'écran. Renvoie false si elle n'est pas disponible (le jeu utilise alors les particules).
+  // o : { scale, filter, dx, dy, k, ms }  — scale par défaut : proportionnel à la largeur du rectangle
+  function play1(name, rect, o) {
     o = o || {};
-    const name = rect && VFX.find(keys);
-    if (!name) return false;
+    if (!rect || !has(name)) return false;
     const d = REG()[name], c = center(rect);
-    const scale = o.scale || Math.max(0.6, Math.min(1.5, (o.fit === "h" ? rect.height : rect.width) / (o.fit === "h" ? d.h : d.w) * 1.15));
-    const sp = sprite(name, c.x, c.y, scale, o.filter || "");
+    const scale = o.scale || Math.max(0.6, Math.min(1.7, rect.width / d.w * (o.k || 1.1)));
+    const sp = sprite(name, c.x + (o.dx || 0), c.y + (o.dy || 0), scale, o.filter || "");
     layer().appendChild(sp.el);
     if (d.loop) setTimeout(sp.stop, o.ms || 900);
     return true;
+  }
+  VFX.fx = (keys, rect, o) => {                         // recherche par mot-clé (packs ajoutés plus tard avec tools/fx-import.js)
+    const names = Object.keys(REG()).filter(has);
+    for (const k of keys) { const n = names.find((x) => x.includes(k)); if (n) return play1(n, rect, o); }
+    return false;
   };
 
-  // Impact de sort ou de coup : l'explosion de l'élément de la faction, jouée une fois sur la cible
+  // Entaille de mêlée, couleur de la faction attaquante ; big ajoute l'étoile de coup critique
+  VFX.slash = (rect, f, big) => {
+    const ok = play1("slash_" + (SLASH[f] || "gold"), rect, { k: big ? 1.35 : 1.0 });
+    if (big) play1("crit_star", rect, { filter: TINTW[f] || TINTW.AURELIA, k: 1.0 });
+    return ok;
+  };
+  VFX.critStar = (rect, f) => play1("crit_star", rect, { filter: TINTW[f] || TINTW.AURELIA, k: 1.1 });
+  VFX.hitSpark = (rect, f) => play1("hit_spark", rect, { filter: TINTW[f] || "", k: 0.9 });
+  VFX.healFx = (rect, f) => play1(HEAL[f] || "heal_white", rect, { dy: -(rect ? rect.height * 0.1 : 0), k: f === "SYLVE" ? 1.2 : 1.1 }) || play1("heal_white", rect, {});
+  VFX.buffFx = (rect, f) => play1(f === "SYLVE" ? "nature_impact" : HEAL[f] || "heal_white", rect, { dy: -(rect ? rect.height * 0.12 : 0), k: 1.3 });
+  VFX.shieldFx = (rect) => play1("shield_pop", rect, { k: 0.95 });
+  VFX.stunFx = (rect) => play1("stun_rune", rect, { k: 1.0 });
+  VFX.deathFx = (rect, f) => play1("death_burst", rect, { filter: TINTW[f] || TINTW.ABYSSES, k: 1.0 });
+  VFX.summonFx = (rect, f) => play1("summon_vortex", rect, { filter: SHIFT[f] || "", k: 1.1 });
+
+  // Impact de sort : l'explosion de l'élément de la faction, jouée une fois sur la cible
   VFX.impact = (rect, f, power) => {
     const sk = skin(f, "impact");
     if (!VFX.spritesReady || !rect || !sk) return VFX.sparks(rect, f, power);

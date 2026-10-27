@@ -240,7 +240,7 @@
     if (g.turn > 1) for (let i = 0; i < p.dpt; i++) drawCard(g, side);   // le tout premier tour se joue sans pioche
     p.board.forEach((u) => { if (u) { u.fresh = false; u.hold = false; } });
     log(g, `— Tour ${p.turns} · ${p.name} —`);
-    p.board.forEach((u, i) => { if (u && has(u, "soutien") && !g.over) applyFx(g, [{ k: "heal", n: 1, to: "adj" }], { owner: side, unit: u, line: i }); });
+    p.board.forEach((u, i) => { if (u && has(u, "soutien") && !g.over) withSrc(g, card(u.id).f, () => applyFx(g, [{ k: "heal", n: 1, to: "adj" }], { owner: side, unit: u, line: i })); });
     sweep(g);
   }
 
@@ -322,7 +322,7 @@
     if (a.fresh || a.hold) return false;
     const d = P[foe].board[i];
     emit(g, { k: "swing", side: me, line: i });
-    if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); hitCit(g, foe, a.atk); return true; }
+    if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); withSrc(g, card(a.id).f, () => hitCit(g, foe, a.atk)); return true; }
     g.cb = true;                                   // les événements du duel sont marqués « combat » (animations de coups)
     withSrc(g, card(a.id).f, () => duel(g, a, d, me, foe));
     g.cb = false;

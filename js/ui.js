@@ -299,6 +299,7 @@
       </div>
       <h2>Crédits</h2>
       <div class="panel small credits-box"><p>Effets de sorts : <a href="https://heyheythere.itch.io/spell-fx-free" target="_blank" rel="noopener">Spell FX Free</a> par heyheythere, licence CC BY 4.0.</p>
+      <p>Entailles, soins, runes, vortex, boucliers et sorts de lumière, d'ombre et de nature : <a href="https://opengameart.org/users/cethiel" target="_blank" rel="noopener">Cethiel</a> (CC0).</p>
       <p>Particules : tsParticles (MIT). Mouvements d'interface : animate.css (MIT).</p></div>`;
   }
 

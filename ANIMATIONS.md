@@ -43,3 +43,21 @@ L'importeur lit le fichier `sheets/effects.json` des packs « FX Free » de heyh
 - **Spell FX** (version complète, payante) : ajoute lumière, ombre, tempête et poison, plus portails, téléportations, cercles magiques, auras, murs et météores.
 
 Vérifier la licence sur la page de chaque pack avant de l'importer.
+
+## Animations actuellement dans le jeu
+
+| Usage | Pack | Licence |
+|---|---|---|
+| Boules d'énergie et explosions de sorts (feu, glace, arcane) | Spell FX Free, heyheythere | CC BY 4.0 (crédit dans le jeu) |
+| Entailles de mêlée (or, feu, violet, bleu, vert et sombre par teinte) | Weapon Slash, Cethiel | CC0 |
+| Sorts de lumière (Aurélia), d'ombre (Abysses) et de nature (Sylve) | Light, Blood, Projectile, Nature, Cethiel | CC0 |
+| Soins et renforts (ailes en 6 couleurs, vignes pour Sylve) | Wings, Nature, Cethiel | CC0 |
+| Égide, étourdissement, invocation, mort, coups critiques | Angel Shield, Cosmic, Projectile, Light, Cethiel | CC0 |
+
+Les feuilles de Cethiel arrivent en images séparées. `tools/fx-build.py` les assemble en feuilles et remplit le registre :
+
+```bash
+python tools/fx-build.py "<dossier des téléchargements>"
+```
+
+Les packs sont sur [OpenGameArt, page de Cethiel](https://opengameart.org/users/cethiel) : Weapon Slash, Light Magic, Blood Magic, Nature Magic, Pure Projectile, Wings, Cosmic Time, Angel Shield. Cethiel publie aussi des versions plus haute résolution sur Patreon.

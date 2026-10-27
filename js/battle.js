@@ -204,23 +204,24 @@
       case "hit": {
         floater(R(ev.side, ev.line), "−" + ev.n, "dmg dmgB"); Au.play("hit");
         const t = tileEl(ev.side, ev.line); if (t) { t.classList.remove("hurt"); void t.offsetWidth; t.classList.add("hurt"); }
-        // coup de mêlée : animation de coup (entaille, étincelle, critique) ; sort ou effet : explosion de l'élément de la faction
-        if (ev.cb) { if (!VFX.fx(ev.n >= 5 ? ["crit", "slash", "hit"] : ["slash", "hit", "spark"], R(ev.side, ev.line), { scale: ev.n >= 5 ? 1.1 : 0.85 })) VFX.impact(R(ev.side, ev.line), src || "DRACONIS", ev.n); }
+        // mêlée : entaille de la couleur de la faction attaquante (+ étoile si gros coup) ; sort : explosion de l'élément
+        if (ev.cb) { if (!VFX.slash(R(ev.side, ev.line), src || "AURELIA", ev.n >= 5)) VFX.impact(R(ev.side, ev.line), src || "DRACONIS", ev.n); }
         else VFX.impact(R(ev.side, ev.line), src || "DRACONIS", ev.n);
         break;
       }
-      case "heal": floater(R(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); if (!VFX.fx(["heal"], R(ev.side, ev.line), { ms: 900 })) VFX.heal(R(ev.side, ev.line)); break;
-      case "buff": Au.play("heal"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); if (!VFX.fx(["buff", "power", "aura"], R(ev.side, ev.line), { ms: 900 })) VFX.buff(R(ev.side, ev.line), src || "AURELIA"); break;
-      case "shield": floater(R(ev.side, ev.line), "🛡", "info"); Au.play("shield"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); VFX.fx(["shield", "ward"], R(ev.side, ev.line), { ms: 800 }); break;
-      case "stun": Au.play("shield"); floater(R(ev.side, ev.line), "💤", "info"); VFX.fx(["stun"], R(ev.side, ev.line), { ms: 900 }); break;
+      case "heal": floater(R(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); if (!VFX.healFx(R(ev.side, ev.line), src)) VFX.heal(R(ev.side, ev.line)); break;
+      case "buff": Au.play("heal"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); if (!VFX.buffFx(R(ev.side, ev.line), src)) VFX.buff(R(ev.side, ev.line), src || "AURELIA"); break;
+      case "shield": floater(R(ev.side, ev.line), "🛡", "info"); Au.play("shield"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); VFX.shieldFx(R(ev.side, ev.line)); break;
+      case "stun": Au.play("shield"); if (!VFX.stunFx(R(ev.side, ev.line))) floater(R(ev.side, ev.line), "💤", "info"); break;
       case "cit": floater(citRect(ev.side), "−" + ev.n, "dmg big"); Au.play("cit"); vignette(); if (ev.n >= 4) shake();
-        if (!(ev.n >= 4 && VFX.fx(["crit"], citRect(ev.side), { scale: 1 }))) VFX.impact(citRect(ev.side), src || "DRACONIS", ev.n); break;
-      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); if (!VFX.fx(["heal"], citRect(ev.side), { ms: 900, scale: 0.9 })) VFX.heal(citRect(ev.side)); break;
-      case "die": floater(R(ev.side, ev.line), "💥", "info"); Au.play("die"); if (!VFX.fx(["splat", "explosion", "death"], R(ev.side, ev.line))) VFX.death(R(ev.side, ev.line), src); break;
-      case "place": Au.play("play"); VFX.anim(tileEl(ev.side, ev.line), "bounceIn"); if (src) VFX.summon(R(ev.side, ev.line), src); break;
+        if (!(ev.n >= 4 && VFX.critStar(citRect(ev.side), src || "DRACONIS"))) VFX.impact(citRect(ev.side), src || "DRACONIS", ev.n); break;
+      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); if (!VFX.healFx(citRect(ev.side), src)) VFX.heal(citRect(ev.side)); break;
+      case "die": floater(R(ev.side, ev.line), "💥", "info"); Au.play("die"); if (!VFX.deathFx(R(ev.side, ev.line), src || "ABYSSES")) VFX.death(R(ev.side, ev.line), src); break;
+      case "place": Au.play("play"); VFX.anim(tileEl(ev.side, ev.line), "bounceIn"); if (src && !VFX.summonFx(R(ev.side, ev.line), src)) VFX.summon(R(ev.side, ev.line), src); break;
       case "spell": return castSpell(ev);
     }
   }
+
   // Lancer de sort : la boule d'énergie part de la Citadelle du lanceur vers la cible, puis les impacts se déclenchent.
   function castSpell(ev) {
     const c = card(ev.id), f = c.f, from = citRect(ev.side);
