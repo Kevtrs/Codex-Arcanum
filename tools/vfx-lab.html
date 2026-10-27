@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratoire d'effets</title>
+<link rel="stylesheet" href="../vendor/animate.min.css"><link rel="stylesheet" href="../css/style.css">
+<style>body{padding:16px;background:#dfe8f5}.grid2{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.target{height:110px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:44px;border:2px solid #aab}#b-fx{position:fixed;inset:0;pointer-events:none;z-index:50}button{margin:2px}</style></head>
+<body><h2>Laboratoire d'effets (tsParticles + animate.css)</h2><p>Chaque colonne : une faction. Boutons : impact, soin, renfort, mort, invocation, projectile, victoire.</p>
+<div class="grid2" id="g"></div><div id="b-fx"></div>
+<script src="../vendor/tsparticles.bundle.min.js"></script><script src="../js/cards.js"></script><script>CA.FX_BASE = "../fx/";</script><script src="../fx/effects.js"></script><script src="../js/vfx.js"></script>
+<script>
+const F=["AURELIA","DRACONIS","SYLVE","ARCANES","ABYSSES"],E=["⚔️","🔥","🌿","🔮","💀"];
+const g=document.getElementById("g");
+F.forEach((f,i)=>{const c=document.createElement("div");c.innerHTML=`<div class="target" id="t-${f}">${E[i]}</div><div class="src" id="s-${f}" style="height:40px"></div>`+["impact","slash","crit","heal","buff","shield","stun","death","summon","projectile","win"].map(k=>`<button class="btn small" data-f="${f}" data-k="${k}">${k}</button>`).join("");g.appendChild(c)});
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const f=b.dataset.f,k=b.dataset.k,t=document.getElementById("t-"+f).getBoundingClientRect(),s=document.getElementById("s-"+f).getBoundingClientRect(),V=CA.VFX;
+if(k==="projectile")V.projectile(s,t,f).then(()=>V.impact(t,f,5));else if(k==="win")V.win(t);else if(k==="slash")V.slash(t,f,false);else if(k==="crit")V.slash(t,f,true);else if(k==="heal")V.healFx(t,f);else if(k==="buff")V.buffFx(t,f);else if(k==="shield")V.shieldFx(t);else if(k==="stun")V.stunFx(t);else if(k==="death")V.deathFx(t,f);else if(k==="summon")V.summonFx(t,f);else V[k](t,f);});
+</script></body></html>

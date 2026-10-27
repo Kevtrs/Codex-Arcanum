@@ -5,6 +5,7 @@
 
   /* ───────── Univers ───────── */
   const LORE = {
+    tagline: "Cinq puissances. Cinq Sceaux. Un livre qui réécrit le monde.",
     world:
       "Le Codex Arcanum est le livre où le monde est écrit. Qui tient ses cinq Sceaux peut en réécrire une ligne — et le monde avec. " +
       "Cinq puissances s'affrontent donc pour la Citadelle d'Encre, chacune convaincue que le monde doit être écrit à sa manière."
@@ -222,7 +223,7 @@
       case "draw":   return `Piochez ${e.n} ${plur(e.n, "carte")}.`;
       case "kill":   return `Détruit ${t[0]}.`;
       case "bounce": return `Renvoie ${t[0]} dans la main de son propriétaire.`;
-      case "stun":   return `Étourdit ${t[0]} (elle ne pourra pas attaquer à son prochain assaut).`;
+      case "stun":   return `Étourdit ${t[0]}.`;
       case "aether": return `Gagnez ${e.n} Aether.`;
       case "summon": return `Invoque ${e.n} ${plur(e.n, TOKENS[e.tok].name)} (${TOKENS[e.tok].atk}/${TOKENS[e.tok].hp}${TOKENS[e.tok].kw.length ? ", " + TOKENS[e.tok].kw.map((k) => KEYWORDS[k].name).join(", ") : ""}).`;
       case "grant":  return `${up(t[0])} gagne${t[2] ? "nt" : ""} ${KEYWORDS[e.kw].name}.`;

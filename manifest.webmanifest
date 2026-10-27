@@ -1,0 +1,12 @@
+{
+  "name": "Codex Arcanum",
+  "short_name": "Codex",
+  "description": "Jeu de cartes fantasy : 5 factions, campagne et défis quotidiens.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#dbe9f7",
+  "theme_color": "#1a3864",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
