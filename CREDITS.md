@@ -12,4 +12,6 @@ Ligne de crédit exigée par la licence CC BY 4.0 :
 
 > Spell FX Free by heyheythere - https://heyheythere.itch.io/spell-fx-free - CC BY 4.0
 
+Les animations ajoutées plus tard avec `tools/fx-import.js` doivent aussi être listées ici avec leur ligne de crédit (voir [ANIMATIONS.md](ANIMATIONS.md)).
+
 Cette ligne apparaît aussi dans le jeu (Profil, en bas de page). Le pack complet de l'auteur propose en plus les éléments lumière, ombre, tempête et poison.

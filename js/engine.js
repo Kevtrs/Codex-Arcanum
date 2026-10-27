@@ -48,7 +48,7 @@
   const foeOf = (i) => 1 - i;
   // Événements pour l'interface (animations, sons) : l'interface les vide après lecture.
   // g.src = faction de la source de l'effet en cours (pour colorer les animations).
-  const emit = (g, ev) => { if (g.fx) { if (g.src) ev.src = g.src; g.fx.push(ev); } };
+  const emit = (g, ev) => { if (g.fx) { if (g.src) ev.src = g.src; if (g.cb) ev.cb = 1; g.fx.push(ev); } };
   function withSrc(g, f, fn) { const prev = g.src; g.src = f; try { return fn(); } finally { g.src = prev || null; } }
   const lineOf = (g, u) => g.p[u.owner].board.indexOf(u);
   const has = (u, kw) => u.kw.indexOf(kw) >= 0;
@@ -164,7 +164,7 @@
             if (p.hand.length < HAND_MAX) p.hand.push(t.u.id); else p.grave.push({ burned: t.u.id });
           });
           break;
-        case "stun": targets(g, e.to, ctx).forEach((t) => { if (t.u) t.u.stun = true; }); break;
+        case "stun": targets(g, e.to, ctx).forEach((t) => { if (t.u) { t.u.stun = true; emit(g, { k: "stun", side: t.side, line: g.p[t.side].board.indexOf(t.u) }); } }); break;
         case "aether": g.p[ctx.owner].aether += e.n; break;
         case "summon": {
           const free = freeLines(g, ctx.owner);
@@ -323,7 +323,9 @@
     const d = P[foe].board[i];
     emit(g, { k: "swing", side: me, line: i });
     if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); hitCit(g, foe, a.atk); return true; }
+    g.cb = true;                                   // les événements du duel sont marqués « combat » (animations de coups)
     withSrc(g, card(a.id).f, () => duel(g, a, d, me, foe));
+    g.cb = false;
     sweep(g);
     return true;
   }

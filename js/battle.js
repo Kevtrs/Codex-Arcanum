@@ -194,22 +194,30 @@
   // Un événement du moteur → son + animation. Ne renvoie une promesse que pour les sorts (le projectile doit arriver avant les impacts).
   function fxOne(ev) {
     if (!A.g) return;
-    const src = ev.src || null;
+    const src = ev.src || null, R = (side, line) => slotRect(side, line);
     switch (ev.k) {
-      case "swing": Au.play("swing"); { const foeTile = tileEl(1 - ev.side, ev.line); ringAt(slotRect(1 - ev.side, ev.line)); if (foeTile) { foeTile.classList.add("recoil"); } } break;
-      case "hit": {
-        floater(slotRect(ev.side, ev.line), "−" + ev.n, "dmg dmgB"); Au.play("hit");
-        const t = tileEl(ev.side, ev.line); if (t) { t.classList.remove("hurt"); void t.offsetWidth; t.classList.add("hurt"); }
-        VFX.impact(slotRect(ev.side, ev.line), src || "DRACONIS", ev.n);
+      case "swing": {
+        Au.play("swing"); ringAt(R(1 - ev.side, ev.line));
+        const foeTile = tileEl(1 - ev.side, ev.line); if (foeTile) foeTile.classList.add("recoil");
         break;
       }
-      case "heal": floater(slotRect(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); VFX.heal(slotRect(ev.side, ev.line)); break;
-      case "buff": VFX.buff(slotRect(ev.side, ev.line), src || "AURELIA"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); Au.play("heal"); break;
-      case "shield": floater(slotRect(ev.side, ev.line), "🛡", "info"); Au.play("shield"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); break;
-      case "cit": floater(citRect(ev.side), "−" + ev.n, "dmg big"); Au.play("cit"); vignette(); VFX.impact(citRect(ev.side), src || "DRACONIS", ev.n); if (ev.n >= 4) shake(); break;
-      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); VFX.heal(citRect(ev.side)); break;
-      case "die": floater(slotRect(ev.side, ev.line), "💥", "info"); Au.play("die"); VFX.death(slotRect(ev.side, ev.line), src); break;
-      case "place": Au.play("play"); VFX.anim(tileEl(ev.side, ev.line), "bounceIn"); if (src) VFX.summon(slotRect(ev.side, ev.line), src); break;
+      case "hit": {
+        floater(R(ev.side, ev.line), "−" + ev.n, "dmg dmgB"); Au.play("hit");
+        const t = tileEl(ev.side, ev.line); if (t) { t.classList.remove("hurt"); void t.offsetWidth; t.classList.add("hurt"); }
+        // coup de mêlée : animation de coup (entaille, étincelle, critique) ; sort ou effet : explosion de l'élément de la faction
+        if (ev.cb) { if (!VFX.fx(ev.n >= 5 ? ["crit", "slash", "hit"] : ["slash", "hit", "spark"], R(ev.side, ev.line), { scale: ev.n >= 5 ? 1.1 : 0.85 })) VFX.impact(R(ev.side, ev.line), src || "DRACONIS", ev.n); }
+        else VFX.impact(R(ev.side, ev.line), src || "DRACONIS", ev.n);
+        break;
+      }
+      case "heal": floater(R(ev.side, ev.line), "+" + ev.n, "heal"); Au.play("heal"); if (!VFX.fx(["heal"], R(ev.side, ev.line), { ms: 900 })) VFX.heal(R(ev.side, ev.line)); break;
+      case "buff": Au.play("heal"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); if (!VFX.fx(["buff", "power", "aura"], R(ev.side, ev.line), { ms: 900 })) VFX.buff(R(ev.side, ev.line), src || "AURELIA"); break;
+      case "shield": floater(R(ev.side, ev.line), "🛡", "info"); Au.play("shield"); VFX.anim(tileEl(ev.side, ev.line), "pulse"); VFX.fx(["shield", "ward"], R(ev.side, ev.line), { ms: 800 }); break;
+      case "stun": Au.play("shield"); floater(R(ev.side, ev.line), "💤", "info"); VFX.fx(["stun"], R(ev.side, ev.line), { ms: 900 }); break;
+      case "cit": floater(citRect(ev.side), "−" + ev.n, "dmg big"); Au.play("cit"); vignette(); if (ev.n >= 4) shake();
+        if (!(ev.n >= 4 && VFX.fx(["crit"], citRect(ev.side), { scale: 1 }))) VFX.impact(citRect(ev.side), src || "DRACONIS", ev.n); break;
+      case "healcit": floater(citRect(ev.side), "+" + ev.n, "heal big"); Au.play("heal"); if (!VFX.fx(["heal"], citRect(ev.side), { ms: 900, scale: 0.9 })) VFX.heal(citRect(ev.side)); break;
+      case "die": floater(R(ev.side, ev.line), "💥", "info"); Au.play("die"); if (!VFX.fx(["splat", "explosion", "death"], R(ev.side, ev.line))) VFX.death(R(ev.side, ev.line), src); break;
+      case "place": Au.play("play"); VFX.anim(tileEl(ev.side, ev.line), "bounceIn"); if (src) VFX.summon(R(ev.side, ev.line), src); break;
       case "spell": return castSpell(ev);
     }
   }

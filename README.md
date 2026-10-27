@@ -33,6 +33,7 @@ art/              illustrations des cartes (voir art/PROMPTS.md)
 vendor/           tsParticles et animate.css (licence MIT), copiés pour le hors-ligne
 fx/               feuilles d'animation des sorts (Spell FX Free, CC BY 4.0)
 tools/test.js     tests du moteur, du profil et de la difficulté de la campagne
+tools/fx-import.js importe un pack d'animations dans fx/
 tools/check.js    audit du budget des cartes + tournois IA contre IA
 ```
 
@@ -53,6 +54,10 @@ Une carte est une ligne dans `js/cards.js` (voir les exemples en tête de fichie
 ## Illustrations
 
 Chaque carte affiche son illustration si le fichier `art/<ID>.webp` existe, sinon son emoji. [art/PROMPTS.md](art/PROMPTS.md) contient les 100 prompts prêts à l'emploi et le format attendu. Après avoir ajouté des images : `node tools/art-manifest.js`.
+
+## Animations
+
+Voir [ANIMATIONS.md](ANIMATIONS.md) : comment brancher un pack d'animations en une commande.
 
 ## Crédits
 
