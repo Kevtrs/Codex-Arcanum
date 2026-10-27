@@ -223,7 +223,7 @@
       case "draw":   return `Piochez ${e.n} ${plur(e.n, "carte")}.`;
       case "kill":   return `Détruit ${t[0]}.`;
       case "bounce": return `Renvoie ${t[0]} dans la main de son propriétaire.`;
-      case "stun":   return `Étourdit ${t[0]} (elle ne pourra pas attaquer à son prochain assaut).`;
+      case "stun":   return `Étourdit ${t[0]}.`;
       case "aether": return `Gagnez ${e.n} Aether.`;
       case "summon": return `Invoque ${e.n} ${plur(e.n, TOKENS[e.tok].name)} (${TOKENS[e.tok].atk}/${TOKENS[e.tok].hp}${TOKENS[e.tok].kw.length ? ", " + TOKENS[e.tok].kw.map((k) => KEYWORDS[k].name).join(", ") : ""}).`;
       case "grant":  return `${up(t[0])} gagne${t[2] ? "nt" : ""} ${KEYWORDS[e.kw].name}.`;

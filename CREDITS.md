@@ -6,7 +6,7 @@ Codex Arcanum utilise des ressources libres. Merci à leurs auteurs. Les effets 
 |---|---|---|---|
 | **Spell FX Free** : boules d'énergie et impacts de sorts (feuilles d'animation) | [heyheythere](https://heyheythere.itch.io/spell-fx-free) | CC BY 4.0 | `fx/` |
 | **Slash, Light, Blood, Nature, Projectile, Wings, Cosmic, Angel Shield Effects** : entailles, soins, sorts de lumière, d'ombre et de nature, runes, vortex, bouclier | [Cethiel](https://opengameart.org/users/cethiel) | CC0 (aucun crédit exigé, remerciement recommandé) | `fx/` |
-| **Gemmes de rareté et dos de carte** (Mechanized Magic) | [Dumivid](https://dumivid.itch.io/) | CC0 | `ui/` |
+| **Cartes : plaque, ruban, bannière, panneau, anneau, hexagones, gemmes de rareté, dos de carte** (Mechanized Magic, recolorés selon les factions) | [Dumivid](https://dumivid.itch.io/) | CC0 | `card/`, `ui/` |
 | **tsParticles** : particules (soins, renforts, victoire) | Matteo Bruni | MIT | `vendor/` |
 | **animate.css** : mouvements d'interface | Daniel Eden | MIT | `vendor/` |
 

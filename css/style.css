@@ -40,40 +40,6 @@ p + p { margin-top: 8px; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .muted { color: var(--muted); }
 
-/* ───────── Cartes (style Vitrail) ───────── */
-.card { --fc: #888; --fd: #444; --ft: #eee; position: relative; width: 100%; aspect-ratio: 5 / 7; container-type: inline-size; display: flex; flex-direction: column;
-  border-radius: 9px; border: 2px solid rgba(255, 255, 255, .55); background: linear-gradient(165deg, var(--fc), var(--fd)); color: #fff;
-  box-shadow: 0 4px 14px rgba(10, 20, 40, .35); overflow: hidden; user-select: none; text-align: left; }
-.card.f-AURELIA { --fc: #c89a2c; --fd: #6e520e; --ft: #fbf3da; } .card.f-DRACONIS { --fc: #c8402a; --fd: #601a10; --ft: #fbe6e1; }
-.card.f-SYLVE { --fc: #34903c; --fd: #16401a; --ft: #e4f3e2; } .card.f-ARCANES { --fc: #6a48e0; --fd: #2c1a78; --ft: #ece7fb; } .card.f-ABYSSES { --fc: #587888; --fd: #1c2c36; --ft: #e6edf1; }
-.card.r-R { border-color: #9fd0ff; box-shadow: 0 0 0 1.5px #3f7cb8, 0 4px 14px rgba(10, 20, 40, .35); }
-.card.r-E { border-color: #d3b8ff; box-shadow: 0 0 0 1.5px #7a4cc8, 0 4px 16px rgba(90, 60, 200, .45); }
-.card.r-L { border-color: #ffe08a; box-shadow: 0 0 0 1.5px #c99a22, 0 4px 20px rgba(224, 180, 74, .65); }
-.card.r-L::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, .42) 48%, transparent 64%); background-size: 260% 100%; animation: foil 3s linear infinite; }
-.card.r-E::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(160deg, rgba(255, 255, 255, .22), transparent 38%); }
-@keyframes foil { from { background-position: 160% 0; } to { background-position: -110% 0; } }
-.c-cost { position: absolute; top: 2.5cqw; left: 2.5cqw; z-index: 3; width: 15cqw; height: 15cqw; border-radius: 50%; display: grid; place-items: center; font-family: var(--T); font-weight: 700; font-size: 9.5cqw; color: var(--fd);
-  background: #fff; border: .8cqw solid var(--fc); box-shadow: 0 1px 5px rgba(0, 0, 0, .45); }
-.c-art { position: relative; flex: 0 0 42%; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .42), transparent 62%); }
-.c-sym { position: absolute; inset: 0; display: grid; place-items: center; font-size: 62cqw; color: #fff; opacity: .14; }
-.c-emoji { position: relative; z-index: 1; font-size: 28cqw; line-height: 1; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .5)); }
-.c-img { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; object-fit: cover; }
-.c-rar { position: absolute; z-index: 3; right: 3cqw; bottom: 3cqw; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--rc, #8a98a2); box-shadow: 0 0 0 .8cqw #fff; }
-.c-name { padding: 2cqw 3cqw 0; text-align: center; font-family: var(--T); font-weight: 700; font-size: 8.4cqw; line-height: 1.05; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .55); min-height: 18cqw; display: flex; align-items: center; justify-content: center; }
-.c-type { text-align: center; font-size: 5.4cqw; letter-spacing: .3cqw; text-transform: uppercase; color: #ffe9a8; font-weight: 600; margin-bottom: 1.2cqw; }
-.c-text { flex: 1; margin: 0 4cqw; padding: 2.2cqw 3cqw; border-radius: 3cqw; background: rgba(0, 0, 0, .3); font-size: 6.6cqw; line-height: 1.14; color: #fff; overflow: hidden; }
-.c-text p { margin: 0 0 1.2cqw; } .c-text i { font-style: normal; font-weight: 700; color: #ffe9a8; }
-.c-kws { display: flex; flex-wrap: wrap; gap: 1cqw; margin-bottom: 1.5cqw; }
-.kw { font-weight: 700; font-size: 6cqw; padding: .2cqw 2cqw; border-radius: 99px; background: #fff; color: var(--fd); }
-.c-stats { display: flex; justify-content: space-between; padding: 2cqw 3cqw 2.8cqw; min-height: 6cqw; }
-.c-stats b { min-width: 15cqw; height: 15cqw; padding: 0 2cqw; border-radius: 8cqw; display: grid; place-items: center; font-family: var(--T); font-size: 9.5cqw; color: #fff; border: .8cqw solid #fff; box-shadow: 0 1px 5px rgba(0, 0, 0, .45); }
-.c-stats .atk { background: linear-gradient(160deg, #e0702e, #a02a10); } .c-stats .hp { background: linear-gradient(160deg, #3fa04a, #1d6a26); }
-.card.mini .c-text, .card.mini .c-type { display: none; } .card.mini .c-art { flex-basis: 54%; } .card.mini .c-name { font-size: 10.5cqw; min-height: 26cqw; }
-.card.dim { filter: grayscale(.65) opacity(.6); }
-.card.spell .c-art { background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .5), transparent 58%); }
-.count-badge { position: absolute; right: 3cqw; top: 3cqw; z-index: 5; min-width: 13cqw; height: 13cqw; border-radius: 99px; background: #fff; color: var(--fd); display: grid; place-items: center; font-family: var(--T); font-size: 8.5cqw; border: .7cqw solid var(--fc); }
-@media (prefers-reduced-motion: reduce) { .card.r-L::after { animation: none; } }
-
 
 .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .grid > button { display: block; width: 100%; position: relative; border-radius: 10px; transition: transform .12s; }
@@ -305,9 +271,23 @@ p + p { margin-top: 8px; }
 .tile .t-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .95; } .tile .t-img ~ .nm, .tile .t-img ~ .st { position: relative; z-index: 1; }
 .tile .em, .tile .ic, .tile .nm, .tile .st { position: relative; z-index: 1; } .tile .ic { position: absolute; }
 
-/* ═════════ Gemmes de rareté et dos de carte (Mechanized Magic, Dumivid, CC0) ═════════ */
-.c-rar { right: 2.5cqw; bottom: 2.5cqw; width: 10cqw; height: 10cqw; border-radius: 0; box-shadow: none; background: center / contain no-repeat; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .55)); }
-.r-C .c-rar { background-image: url(../ui/gem_C.png); } .r-R .c-rar { background-image: url(../ui/gem_R.png); }
-.r-E .c-rar { background-image: url(../ui/gem_E.png); } .r-L .c-rar { background-image: url(../ui/gem_L.png); width: 11.5cqw; height: 11.5cqw; }
-.card.mini .c-rar { width: 13cqw; height: 13cqw; }
+/* ═════════ Dos de carte (Mechanized Magic, Dumivid, CC0) ═════════ */
 .opp-hand i { width: 14px; height: 19px; border: 0; border-radius: 2px; background: url(../ui/back.png) center / contain no-repeat; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .4)); margin-right: -4px; }
+
+/* ═════════ Unités du plateau : même plaque que les cartes (Mechanized Magic, CC0) ═════════ */
+.tile { background: none; border: 0; border-radius: 0; overflow: visible; filter: drop-shadow(0 3px 4px rgba(10, 20, 40, .4)); }
+.tile::before { content: ""; position: absolute; inset: 0 1% 2%; background: url(../card/back.png) center / 100% 100% no-repeat; }
+.tile.f-AURELIA::before { filter: saturate(1.05); } .tile.f-DRACONIS::before { filter: hue-rotate(-44deg) saturate(1.35) brightness(.95); }
+.tile.f-SYLVE::before { filter: hue-rotate(78deg) saturate(.95) brightness(.92); } .tile.f-ARCANES::before { filter: hue-rotate(212deg) saturate(1.05) brightness(.95); }
+.tile.f-ABYSSES::before { filter: hue-rotate(160deg) saturate(.5) brightness(.78); }
+.tile .em { position: relative; z-index: 1; width: 64%; aspect-ratio: 1; margin-top: 8cqw; border-radius: 50%; display: grid; place-items: center; font-size: 30cqw;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--fc) 55%, #fff), var(--fc) 50%, var(--fd)); box-shadow: 0 0 0 1.5cqw #dfe6ee, 0 0 0 2.4cqw rgba(0, 0, 0, .3); }
+.tile .t-img { inset: 12% 18% auto; width: 64%; height: auto; aspect-ratio: 1; border-radius: 50%; }
+.tile .nm { position: relative; z-index: 1; font-size: 12.5cqw; margin-top: 2cqw; padding: 1.2cqw 4cqw; background: rgba(20, 30, 50, .55); border-radius: 99px; max-width: 94%; color: #fff; }
+.tile .st { position: relative; z-index: 2; padding: 0; margin-bottom: -4cqw; }
+.tile .st b { min-width: 28cqw; height: 25cqw; display: grid; place-items: center; border-radius: 0; padding: 0; font-size: 17cqw; line-height: 1; color: #fff;
+  clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); text-shadow: 0 .6cqw 0 rgba(0, 0, 0, .5); }
+.tile .st .a { background: linear-gradient(160deg, #ff3b5c, #a3002a); } .tile .st .h { background: linear-gradient(160deg, #3fd06f, #137a3c); } .tile .st .h.hurt { background: linear-gradient(160deg, #e65a5a, #8f1d1d); }
+.tile .st .up { box-shadow: none; filter: brightness(1.25) drop-shadow(0 0 3px #ffd54a); }
+.tile .ic { top: 2cqw; left: 6cqw; right: 6cqw; z-index: 3; } .tile .flag { z-index: 4; }
+.tile.shield { box-shadow: none; filter: drop-shadow(0 0 6px #5ab4f0) drop-shadow(0 0 2px #fff) drop-shadow(0 3px 4px rgba(10, 20, 40, .4)); }

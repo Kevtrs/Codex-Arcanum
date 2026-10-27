@@ -19,7 +19,10 @@ Jeu de cartes à collectionner fantasy, jouable dans le navigateur contre une IA
 
 ```
 index.html        page unique (installable, fonctionne hors-ligne)
-css/style.css     styles (cartes Vitrail, plateau, effets)
+css/style.css     styles (écrans, plateau)
+css/cards.css     cartes (généré par tools/card-css.js à partir de card/parts.json)
+card/             pièces de la carte extraites du PSD Mechanized Magic (CC0), recolorées par faction
+ui/               gemmes de rareté et dos de carte
 js/cards.js       données : factions, mots-clés, 100 cartes, génération du texte
 js/engine.js      TOUTES les règles (sans interface, testable)
 js/ai.js          adversaire automatique (3 niveaux)
@@ -33,6 +36,8 @@ art/              illustrations des cartes (voir art/PROMPTS.md)
 vendor/           tsParticles et animate.css (licence MIT), copiés pour le hors-ligne
 fx/               feuilles d'animation des sorts (Spell FX Free, CC BY 4.0)
 tools/test.js     tests du moteur, du profil et de la difficulté de la campagne
+tools/card-parts.py extrait les pièces de carte du PSD du pack
+tools/card-css.js génère css/cards.css
 tools/fx-import.js importe un pack d'animations dans fx/
 tools/check.js    audit du budget des cartes + tournois IA contre IA
 ```
