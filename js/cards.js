@@ -5,6 +5,7 @@
 
   /* ───────── Univers ───────── */
   const LORE = {
+    tagline: "Cinq puissances. Cinq Sceaux. Un livre qui réécrit le monde.",
     world:
       "Le Codex Arcanum est le livre où le monde est écrit. Qui tient ses cinq Sceaux peut en réécrire une ligne — et le monde avec. " +
       "Cinq puissances s'affrontent donc pour la Citadelle d'Encre, chacune convaincue que le monde doit être écrit à sa manière."

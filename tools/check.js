@@ -7,6 +7,7 @@ global.CA = {};
 require(path.join(__dirname, "../js/cards.js"));
 require(path.join(__dirname, "../js/engine.js"));
 require(path.join(__dirname, "../js/ai.js"));
+require(path.join(__dirname, "../js/meta.js"));
 const CA = global.CA, E = CA.Engine;
 
 /* ───── 1. Budget de puissance ─────
@@ -72,41 +73,37 @@ CA.FACTION_ORDER.forEach((f) => {
 
 /* ───── 3. Tournoi ───── */
 const N = parseInt(process.argv[2] || "20", 10);
-console.log(`\n== TOURNOI IA vs IA (${N} parties par face-à-face et par ordre) ==`);
 function play(deckA, deckB, first, seed) {
   const g = E.newGame({ decks: [deckA, deckB], names: ["A", "B"], first, seed });
   let guard = 0;
-  while (!g.over && guard++ < 80) {
-    CA.AI.playTurn(g, g.active);
-    E.endTurn(g);
-  }
-  return { winner: g.over ? g.winner : -1, turns: g.turn, g };
+  while (!g.over && guard++ < 80) { CA.AI.playTurn(g, g.active, 1); E.endTurn(g); }
+  return { winner: g.over ? g.winner : -1, turns: g.turn };
 }
-const wins = {}, games = {}, firstWins = [0, 0];
-let turnsTotal = 0, nGames = 0, draws = 0, seed = 1;
-CA.FACTION_ORDER.forEach((f) => { wins[f] = 0; games[f] = 0; });
-const matrix = {};
-const t0 = Date.now();
-for (const fa of CA.FACTION_ORDER) for (const fb of CA.FACTION_ORDER) {
-  if (fa === fb) continue;
-  matrix[fa + ">" + fb] = 0;
-  for (let k = 0; k < N; k++) {
-    const first = k % 2;
-    const r = play(decks[fa], decks[fb], first, seed++);
-    nGames++; turnsTotal += r.turns;
-    games[fa]++; games[fb]++;
-    if (r.winner < 0) { draws++; continue; }
-    const wf = r.winner === 0 ? fa : fb;
-    wins[wf]++;
-    if (wf === fa) matrix[fa + ">" + fb]++;
-    firstWins[r.winner === first ? 0 : 1]++;
+function tournament(label, deckSet) {
+  console.log(`
+== TOURNOI IA vs IA — ${label} (${N} parties par face-à-face et par ordre) ==`);
+  const wins = {}, games = {}, firstWins = [0, 0], matrix = {};
+  let turnsTotal = 0, nGames = 0, draws = 0, seed = 1;
+  CA.FACTION_ORDER.forEach((f) => { wins[f] = 0; games[f] = 0; });
+  const t0 = Date.now();
+  for (const fa of CA.FACTION_ORDER) for (const fb of CA.FACTION_ORDER) {
+    if (fa === fb) continue;
+    matrix[fa + ">" + fb] = 0;
+    for (let k = 0; k < N; k++) {
+      const first = k % 2, r = play(deckSet[fa], deckSet[fb], first, seed++);
+      nGames++; turnsTotal += r.turns; games[fa]++; games[fb]++;
+      if (r.winner < 0) { draws++; continue; }
+      const wf = r.winner === 0 ? fa : fb;
+      wins[wf]++;
+      if (wf === fa) matrix[fa + ">" + fb]++;
+      firstWins[r.winner === first ? 0 : 1]++;
+    }
   }
+  console.log("Taux de victoire par faction :");
+  CA.FACTION_ORDER.forEach((f) => console.log("  " + f.padEnd(9), (100 * wins[f] / games[f]).toFixed(1) + " %"));
+  console.log(`Durée moyenne : ${(turnsTotal / nGames / 2).toFixed(1)} tours par joueur · avantage du premier joueur : ${(100 * firstWins[0] / (firstWins[0] + firstWins[1])).toFixed(1)} % · parties sans vainqueur : ${draws}/${nGames} (${((Date.now() - t0) / 1000).toFixed(1)} s)`);
 }
-console.log("Taux de victoire par faction :");
-CA.FACTION_ORDER.forEach((f) => console.log("  " + f.padEnd(9), (100 * wins[f] / games[f]).toFixed(1) + " %"));
-console.log("Face-à-face (victoires de la ligne sur la colonne, sur " + N + " parties) :");
-console.log("            " + CA.FACTION_ORDER.map((f) => f.slice(0, 5).padStart(6)).join(""));
-CA.FACTION_ORDER.forEach((fa) => console.log(fa.padEnd(11) + CA.FACTION_ORDER.map((fb) => (fa === fb ? "   -  " : String(matrix[fa + ">" + fb]).padStart(6))).join("")));
-console.log(`Durée moyenne : ${(turnsTotal / nGames / 2).toFixed(1)} tours par joueur`);
-console.log(`Avantage du premier joueur : ${(100 * firstWins[0] / (firstWins[0] + firstWins[1])).toFixed(1)} %`);
-console.log(`Parties sans vainqueur : ${draws}/${nGames}   (${((Date.now() - t0) / 1000).toFixed(1)} s)`);
+tournament("decks complets (toutes les cartes)", decks);
+const starters = {};
+CA.FACTION_ORDER.forEach((f) => (starters[f] = E.autoDeck(f, CA.Meta.STARTER)));
+tournament("decks de départ (75 cartes)", starters);

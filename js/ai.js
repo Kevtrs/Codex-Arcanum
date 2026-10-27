@@ -51,16 +51,23 @@
   }
 
   // Le meilleur coup à jouer maintenant (ou null si rien n'apporte de gain net).
-  function chooseMove(g, side) {
+  // skill : 0 = Novice (se trompe souvent, ne garde jamais d'unité en retrait), 1+ = joue le meilleur coup.
+  function chooseMove(g, side, skill) {
     const opts = options(g, side);
     if (!opts.length) return null;
     const base = evaluate(g, side);
     let best = null, bestScore = 0.4;                      // il faut un gain net pour jouer
+    const good = [];
     for (const o of opts) {
       const t = E.clone(g);
       E.playCard(t, side, o.h, o.opts);
       const sc = evaluate(t, side) - base + o.c.c * 0.45 + (o.c.type === "unit" ? 0.5 : 0);
+      if (sc > 0.4) good.push(o);
       if (sc > bestScore) { bestScore = sc; best = o; }
+    }
+    if (skill === 0 && good.length) {
+      if (E.rnd(g) < 0.18) return null;                                 // oublie de jouer
+      if (E.rnd(g) < 0.45) return good[Math.floor(E.rnd(g) * good.length)];   // coup au hasard parmi les coups corrects
     }
     return best;
   }
@@ -81,13 +88,13 @@
     });
   }
 
-  function playTurn(g, side) {
+  function playTurn(g, side, skill) {
     for (let guard = 0; !g.over && guard < 20; guard++) {
-      const m = chooseMove(g, side);
+      const m = chooseMove(g, side, skill);
       if (!m) break;
       E.playCard(g, side, m.h, m.opts);
     }
-    if (!g.over) applyHolds(g, side);
+    if (!g.over && skill !== 0) applyHolds(g, side);
   }
 
   CA.AI = { playTurn, chooseMove, applyHolds, evaluate, options };

@@ -22,17 +22,22 @@
   }
 
   /* ───────── Création ───────── */
-  function newPlayer(name, deckIds) {
-    return { name, cit: CITADEL, deck: deckIds.slice(), hand: [], board: new Array(LINES).fill(null),
-             grave: [], aether: 0, max: 0, turns: 0, fatigue: 0 };
+  function newPlayer(name, deckIds, cit, dpt) {
+    return { name, cit: cit || CITADEL, citMax: cit || CITADEL, dpt: dpt || 1, deck: deckIds.slice(), hand: [], board: new Array(LINES).fill(null),
+             grave: [], aether: 0, max: 0, turns: 0, fatigue: 0,
+             st: { cit: 0, units: 0, spells: 0, kills: 0, legend: 0, fac: {} } };
   }
+  // opts : decks[2], names[2], first, seed, et options facultatives par joueur :
+  //   cit[2] (PV de Citadelle), extraHand[2] (cartes de départ en plus), drawPerTurn[2]
   function newGame(opts) {
+    const o2 = (k, d) => opts[k] || [d, d];
     const g = { seed: (opts.seed == null ? Date.now() : opts.seed) | 0, uid: 1, turn: 0, active: opts.first || 0,
-                over: false, winner: null, log: [], p: [newPlayer(opts.names[0], opts.decks[0]), newPlayer(opts.names[1], opts.decks[1])] };
+                over: false, winner: null, log: [], fx: [],
+                p: [0, 1].map((i) => newPlayer(opts.names[i], opts.decks[i], o2("cit", CITADEL)[i], o2("drawPerTurn", 1)[i])) };
     g.p.forEach((p) => shuffle(g, p.deck));
-    const f = g.active, s = 1 - f;
-    for (let i = 0; i < 4; i++) drawCard(g, f, true);
-    for (let i = 0; i < 5; i++) drawCard(g, s, true);
+    const f = g.active, s = 1 - f, xh = o2("extraHand", 0);
+    for (let i = 0; i < 4 + xh[f]; i++) drawCard(g, f, true);
+    for (let i = 0; i < 5 + xh[s]; i++) drawCard(g, s, true);
     startTurn(g, true);
     return g;
   }
@@ -41,6 +46,9 @@
   const card = (id) => CA.BY_ID[id];
   const log = (g, text) => { g.log.push(text); if (g.log.length > 80) g.log.shift(); };
   const foeOf = (i) => 1 - i;
+  // Événements pour l'interface (animations, sons) : l'interface les vide après lecture.
+  const emit = (g, ev) => { if (g.fx) g.fx.push(ev); };
+  const lineOf = (g, u) => g.p[u.owner].board.indexOf(u);
   const has = (u, kw) => u.kw.indexOf(kw) >= 0;
 
   function makeUnit(g, id, owner) {
@@ -58,18 +66,26 @@
     if (g.over) log(g, `${g.p[g.winner].name} remporte la partie !`);
   }
 
-  function hitCit(g, side, n) {
+  // self = true : dégâts que le joueur s'inflige (Pacte, épuisement) → ne comptent pas comme dégâts infligés
+  function hitCit(g, side, n, self) {
     if (n <= 0) return;
     g.p[side].cit -= n;
+    if (!self) g.p[foeOf(side)].st.cit += n;
+    emit(g, { k: "cit", side, n });
     checkOver(g);
   }
-  function healCit(g, side, n) { g.p[side].cit = Math.min(CITADEL, g.p[side].cit + n); }
+  function healCit(g, side, n) {
+    const p = g.p[side], before = p.cit;
+    p.cit = Math.min(p.citMax, p.cit + n);
+    if (p.cit > before) emit(g, { k: "healcit", side, n: p.cit - before });
+  }
 
   // Dégâts à une unité. Égide : annule la source et disparaît. Renvoie les PV réellement perdus.
   function hurt(g, u, n) {
     if (n <= 0) return 0;
-    if (u.shield) { u.shield = false; log(g, `${card(u.id).name} : l'Égide absorbe les dégâts.`); return 0; }
+    if (u.shield) { u.shield = false; log(g, `${card(u.id).name} : l'Égide absorbe les dégâts.`); emit(g, { k: "shield", side: u.owner, line: lineOf(g, u) }); return 0; }
     u.hp -= n;
+    emit(g, { k: "hit", side: u.owner, line: lineOf(g, u), n });
     return n;
   }
 
@@ -78,7 +94,7 @@
     const p = g.p[side];
     if (!p.deck.length) {                    // épuisement
       p.fatigue++;
-      hitCit(g, side, FATIGUE);
+      hitCit(g, side, FATIGUE, true);
       if (!silent) log(g, `${p.name} n'a plus de cartes : ${FATIGUE} dégâts à sa Citadelle.`);
       return;
     }
@@ -112,6 +128,7 @@
   function placeUnit(g, side, id, line, fromRaise) {
     const u = makeUnit(g, id, side);
     g.p[side].board[line] = u;
+    emit(g, { k: "place", side, line });
     if (!card(id).token) runTriggers(g, u, line, "arrive");
     return u;
   }
@@ -121,10 +138,14 @@
       if (g.over) return;
       switch (e.k) {
         case "dmg":
-          targets(g, e.to, ctx).forEach((t) => { if (t.cit) hitCit(g, t.side, e.n); else hurt(g, t.u, e.n); });
+          targets(g, e.to, ctx).forEach((t) => { if (t.cit) hitCit(g, t.side, e.n, t.side === ctx.owner); else hurt(g, t.u, e.n); });
           break;
         case "heal":
-          targets(g, e.to, ctx).forEach((t) => { if (t.cit) healCit(g, t.side, e.n); else t.u.hp = Math.min(t.u.max, t.u.hp + e.n); });
+          targets(g, e.to, ctx).forEach((t) => {
+            if (t.cit) return healCit(g, t.side, e.n);
+            const before = t.u.hp; t.u.hp = Math.min(t.u.max, t.u.hp + e.n);
+            if (t.u.hp > before) emit(g, { k: "heal", side: t.side, line: g.p[t.side].board.indexOf(t.u), n: t.u.hp - before });
+          });
           break;
         case "buff":
           targets(g, e.to, ctx).forEach((t) => { if (t.u) { t.u.atk = Math.max(0, t.u.atk + e.a); t.u.max += e.h; t.u.hp += e.h; } });
@@ -193,6 +214,8 @@
       again = true;
       dead.forEach((d) => {
         g.p[d.side].board[d.i] = null;
+        g.p[foeOf(d.side)].st.kills++;
+        emit(g, { k: "die", side: d.side, line: d.i, id: d.u.id });
         if (!card(d.u.id).token) g.p[d.side].grave.push(d.u.id);
         log(g, `${card(d.u.id).name} est détruite.`);
       });
@@ -211,7 +234,7 @@
     p.turns++;
     p.max = Math.min(MAX_AETHER, p.turns);
     p.aether = p.max + (p.turns === 1 && g.turn === 2 ? 1 : 0);   // le second joueur démarre avec 1 Aether de plus
-    if (!(first && p.turns === 1 && g.turn === 1)) drawCard(g, side);   // le tout premier joueur ne pioche pas
+    if (g.turn > 1) for (let i = 0; i < p.dpt; i++) drawCard(g, side);   // le tout premier tour se joue sans pioche
     p.board.forEach((u) => { if (u) { u.fresh = false; u.hold = false; } });
     log(g, `— Tour ${p.turns} · ${p.name} —`);
     p.board.forEach((u, i) => { if (u && has(u, "soutien") && !g.over) applyFx(g, [{ k: "heal", n: 1, to: "adj" }], { owner: side, unit: u, line: i }); });
@@ -240,6 +263,7 @@
       p.aether -= c.c;
       p.hand.splice(handIdx, 1);
       log(g, `${p.name} joue ${c.name}.`);
+      noteCard(p, c);
       placeUnit(g, side, id, opts.line);
       sweep(g);
     } else {
@@ -252,11 +276,28 @@
       p.aether -= c.c;
       p.hand.splice(handIdx, 1);
       log(g, `${p.name} lance ${c.name}.`);
+      noteCard(p, c);
+      emit(g, { k: "spell", side, id });
       p.grave.push({ spell: id });
       applyFx(g, c.fx, { owner: side, pick });
     }
     checkOver(g);
     return { ok: true };
+  }
+
+  function noteCard(p, c) {
+    if (c.type === "unit") p.st.units++; else p.st.spells++;
+    if (c.r === "L") p.st.legend++;
+    p.st.fac[c.f] = (p.st.fac[c.f] || 0) + 1;
+  }
+
+  // Mulligan : remet les cartes choisies (indices de la main) dans le deck, mélange, repioche autant. À faire avant la première action.
+  function mulligan(g, side, idxs) {
+    const p = g.p[side], set = Array.from(new Set(idxs)).filter((i) => i >= 0 && i < p.hand.length).sort((a, b) => b - a);
+    set.forEach((i) => p.deck.push(p.hand.splice(i, 1)[0]));
+    shuffle(g, p.deck);
+    for (let i = 0; i < set.length; i++) p.hand.push(p.deck.pop());
+    return set.length;
   }
 
   function toggleHold(g, side, line) {
@@ -269,20 +310,27 @@
   // Une unité peut-elle attaquer à l'assaut ?
   function canAttack(u) { return !u.fresh && !u.stun && !u.hold; }
 
-  function assault(g) {
-    const me = g.active, foe = foeOf(me), P = g.p;
-    for (let i = 0; i < LINES && !g.over; i++) {
-      const a = P[me].board[i];
-      if (!a) continue;
-      if (a.stun) { a.stun = false; log(g, `${card(a.id).name} est étourdie : elle n'attaque pas.`); continue; }
-      if (a.fresh || a.hold) continue;
-      const d = P[foe].board[i];
-      if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); hitCit(g, foe, a.atk); continue; }
-      duel(g, a, d, me, foe);
-      sweep(g);
-    }
+  // Une ligne de l'assaut. Renvoie true si l'unité a réellement attaqué.
+  function assaultLine(g, i) {
+    if (g.over) return false;
+    const me = g.active, foe = foeOf(me), P = g.p, a = P[me].board[i];
+    if (!a) return false;
+    if (a.stun) { a.stun = false; log(g, `${card(a.id).name} est étourdie : elle n'attaque pas.`); return false; }
+    if (a.fresh || a.hold) return false;
+    const d = P[foe].board[i];
+    emit(g, { k: "swing", side: me, line: i });
+    if (!d) { log(g, `${card(a.id).name} frappe la Citadelle (${a.atk}).`); hitCit(g, foe, a.atk); return true; }
+    duel(g, a, d, me, foe);
+    sweep(g);
+    return true;
+  }
+  function assaultEnd(g) {
     // les étourdissements des unités qui n'ont pas pu agir (nouvelles / en retrait) sont aussi consommés
-    P[me].board.forEach((u) => { if (u && u.stun) u.stun = false; });
+    g.p[g.active].board.forEach((u) => { if (u && u.stun) u.stun = false; });
+  }
+  function assault(g) {
+    for (let i = 0; i < LINES && !g.over; i++) assaultLine(g, i);
+    assaultEnd(g);
   }
 
   function duel(g, a, d, me, foe) {
@@ -309,12 +357,16 @@
     if (a.hp > 0 && has(a, "rage")) a.atk += 1;
   }
 
-  function endTurn(g) {
-    if (g.over) return;
-    assault(g);
+  // Passe la main à l'adversaire (après l'assaut).
+  function passTurn(g) {
     if (g.over) return;
     g.active = foeOf(g.active);
     startTurn(g, false);
+  }
+  function endTurn(g) {
+    if (g.over) return;
+    assault(g);
+    passTurn(g);
   }
 
   /* ───────── Decks ───────── */
@@ -335,10 +387,11 @@
     return errs;
   }
 
-  // Deck de 30 cartes suivant une courbe cible (utilisé pour les decks prêts à jouer)
-  function autoDeck(factions) {
+  // Deck de 30 cartes suivant une courbe cible (decks prêts à jouer, decks de l'IA).
+  // owned (facultatif) : ne piocher que parmi les cartes possédées { id: true }.
+  function autoDeck(factions, owned) {
     const fs = Array.isArray(factions) ? factions : [factions];
-    const pool = CA.CARDS.filter((c) => fs.indexOf(c.f) >= 0);
+    const pool = CA.CARDS.filter((c) => fs.indexOf(c.f) >= 0 && (!owned || owned[c.id]));
     const curve = { 1: 4, 2: 7, 3: 6, 4: 5, 5: 3, 6: 2, 7: 3 };       // 7 = « 7 et plus » → 30
     const picked = [], left = {};
     Object.keys(curve).forEach((k) => (left[k] = curve[k]));
@@ -363,8 +416,8 @@
 
   const Engine = {
     LINES, CITADEL, MAX_AETHER, HAND_MAX, DECK_SIZE, FATIGUE,
-    newGame, canPlay, playCard, toggleHold, canAttack, endTurn, assault,
-    freeLines, deckProblems, autoDeck, rnd, shuffle, card, has, foeOf, clone: (g) => JSON.parse(JSON.stringify(g)),
+    newGame, canPlay, playCard, toggleHold, canAttack, endTurn, passTurn, assault, assaultLine, assaultEnd, mulligan, duel,
+    freeLines, makeUnit, deckProblems, autoDeck, rnd, shuffle, card, has, foeOf, clone: (g) => { const c = JSON.parse(JSON.stringify(g)); c.fx = []; return c; },
     startTurn
   };
   CA.Engine = Engine;

@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a3864">
+<meta name="description" content="Codex Arcanum : jeu de cartes fantasy, 5 factions, campagne, défis quotidiens. Gratuit, sans compte.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 <title>Codex Arcanum</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,28 +18,42 @@
 
 <header id="top">
   <div class="brand"><span class="brand-mark">✦</span><span class="brand-name">CODEX ARCANUM</span></div>
-  <nav id="nav">
-    <button data-nav="play" class="on">Jouer</button>
-    <button data-nav="cards">Cartes</button>
-    <button data-nav="decks">Decks</button>
-    <button data-nav="rules">Règles</button>
-  </nav>
+  <div class="hd-right">
+    <button class="hd-chip" data-nav="profile" aria-label="Profil"><span>Niv <b id="hd-lvl">1</b></span><span>🔥<b id="hd-streak">0</b></span></button>
+    <button class="hd-chip gold" id="hd-picks" data-act="open-pick" hidden></button>
+    <button class="hd-icon" id="hd-sound" data-act="hd-sound" aria-label="Son">🔊</button>
+    <button class="hd-icon" data-act="rules" aria-label="Règles du jeu">?</button>
+  </div>
 </header>
 
 <main id="screens">
   <section id="screen-play" class="screen on"></section>
+  <section id="screen-campaign" class="screen"></section>
   <section id="screen-cards" class="screen"></section>
   <section id="screen-decks" class="screen"></section>
+  <section id="screen-profile" class="screen"></section>
   <section id="screen-rules" class="screen"></section>
 </main>
 
-<div id="battle" hidden></div>
+<nav id="nav" aria-label="Navigation">
+  <button data-nav="play" class="on"><span class="ic">⚔</span>Jouer</button>
+  <button data-nav="campaign"><span class="ic">🗺</span>Voie</button>
+  <button data-nav="cards"><span class="ic">🃏</span>Cartes</button>
+  <button data-nav="decks"><span class="ic">📚</span>Decks</button>
+  <button data-nav="profile"><span class="ic">👤</span>Profil</button>
+</nav>
+
+<div id="battle" hidden><div id="b-main"></div><div id="b-fx"></div></div>
 <div id="sheet" hidden></div>
 <div id="toast" hidden></div>
 
 <script src="js/cards.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/ai.js"></script>
+<script src="js/meta.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/audio.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/battle.js"></script>
 </body>
 </html>
