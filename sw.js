@@ -1,6 +1,6 @@
 /* Codex Arcanum — fonctionnement hors-ligne. Réseau d'abord (les mises à jour arrivent tout de suite), cache en secours. */
-const CACHE = "codex-arcanum-v9";
-const SHELL = ["./", "index.html", "css/style.css", "css/cards.css", "card/back.png", "card/downmark.png", "card/stats.png", "card/ring_back.png", "card/ring_front.png", "card/desc.png", "card/name.png", "card/cost.png", "js/cards.js", "js/engine.js", "js/ai.js", "js/meta.js", "js/profile.js", "js/audio.js", "js/vfx.js", "art/manifest.js", "vendor/animate.min.css", "js/ui.js", "js/battle.js", "manifest.webmanifest", "ui/gem_C.png", "ui/gem_R.png", "ui/gem_E.png", "ui/gem_L.png", "ui/back.png", "icon.svg"];
+const CACHE = "codex-arcanum-v10";
+const SHELL = ["./", "index.html", "css/style.css", "css/cards.css", "js/cards.js", "js/engine.js", "js/ai.js", "js/meta.js", "js/profile.js", "js/audio.js", "js/vfx.js", "art/manifest.js", "vendor/animate.min.css", "js/ui.js", "js/battle.js", "manifest.webmanifest", "icon.svg"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", (e) => {

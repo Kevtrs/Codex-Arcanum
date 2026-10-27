@@ -27,25 +27,26 @@
   // Illustration : art/<id>.webp si le fichier existe, sinon l'emoji reste affiché.
   const artImg = (c) => (c.token || !(CA.ART && CA.ART[c.id]) ? "" : `<img class="c-img" src="art/${c.id}.webp" alt="" loading="lazy" onerror="this.remove()">`);
   UI.artImg = artImg;
+  const SHORT = { charge: "Attaque dès son arrivée.", vif: "Frappe en premier.", garde: "Subit 1 dégât de moins en combat.", egide: "Annule la prochaine source de dégâts.", percee: "Les dégâts en trop touchent la Citadelle.", rage: "+1 Attaque à chaque attaque survivante.", soutien: "Soigne 1 PV aux alliés adjacents chaque tour." };
+  const TIER = { C: 1, R: 2, E: 3, L: 4 };
   function cardHTML(c, o) {
     o = o || {};
     const unit = c.type === "unit", fac = F[c.f], r = c.r || "C";
-    const kws = (c.kw || []).map((k) => `<span class="kw">${KW[k].name}</span>`).join("");
-    const lines = CA.cardLines(c).map((l) => `<p>${l.label ? `<i>${l.label} :</i> ` : ""}${esc(l.text)}</p>`).join("");
+    const kws = (c.kw || []).map((k) => `<span>${KW[k].name}</span>`).join("");
+    const written = CA.cardLines(c);
+    let lines = written.map((l) => `<p>${l.label ? `<i>${l.label} :</i> ` : ""}${esc(l.text)}</p>`).join("");
+    if (!lines && unit) lines = (c.kw || []).map((k) => `<p><i>${KW[k].name}.</i> ${SHORT[k]}</p>`).join("");   // sans effet écrit : on explique les mots-clés
     const atk = o.atk != null ? o.atk : c.atk, hp = o.hp != null ? o.hp : c.hp;
-    const KIND = { dmg: "Dégâts", heal: "Soin", buff: "Renfort", draw: "Pioche", kill: "Destruction", bounce: "Renvoi", stun: "Étourdit", aether: "Aether", summon: "Invocation", grant: "Don", raise: "Résurrection" };
-    const tags = o.mini ? (unit ? (c.kw || []).map((k) => KW[k].name).concat(c.on && c.on.arrive ? ["Arrivée"] : [], c.on && c.on.last ? ["Dernier souffle"] : [])
-      : Array.from(new Set(c.fx.map((e) => KIND[e.k]).filter(Boolean)))).slice(0, 3) : null;
-    // Calques dans l'ordre : plaque, étiquette de type, hexagones, anneau, illustration, verre, panneau de texte, ruban du nom, bannière de coût
-    return `<div class="card f-${c.f} r-${r} ${unit ? "unit" : "spell"} ${o.mini ? "mini" : ""} ${o.dim ? "dim" : ""} ${o.locked ? "locked" : ""}">
-      <i class="p back"></i><i class="p downmark"></i>${unit ? '<i class="p stats"></i>' : ""}<i class="p ringb"></i>
-      <div class="c-win"><span class="c-sym">${fac.sym}</span><span class="c-emoji">${c.e}</span>${artImg(c)}</div>
-      <i class="p ringf"></i><i class="p descb"></i><i class="p nameb"></i><i class="p costb"></i><i class="c-gem"></i>
-      <div class="c-cost">${c.c}</div>
-      <div class="c-name"><span>${esc(c.name)}</span></div>
-      <div class="c-text">${tags ? `<div class="c-kws">${tags.map((t) => `<span class="kw">${t}</span>`).join("")}</div>` : `${kws ? `<div class="c-kws">${kws}</div>` : ""}${lines}`}</div>
-      <div class="c-type">${unit ? "Unité" : "Sort"} · ${fac.short}</div>
-      ${unit ? `<b class="atk">${atk}</b><b class="hp">${hp}</b>` : ""}
+    return `<div class="card cd f-${c.f} r-${r} ${unit ? "unit" : "spell"} ${o.mini ? "mini" : ""} ${o.dim ? "dim" : ""} ${o.locked ? "locked" : ""}">
+      <div class="cd-metal"></div><div class="cd-paper"><span class="foil"></span></div>
+      <i class="cd-ribbon-edge l"></i><i class="cd-ribbon-edge r"></i>
+      <div class="cd-ribbon"><div class="cd-name">${esc(c.name)}</div></div>
+      <div class="cd-cost"><b>${c.c}</b></div><div class="cd-sigil">${fac.sym}</div>
+      <div class="cd-art"><span class="cd-sym">${fac.sym}</span><span class="cd-emoji">${c.e}</span>${artImg(c).replace('class="c-img"', 'class="cd-img"')}</div>
+      <div class="cd-gems">${[1, 2, 3, 4].map((n) => `<i class="${n <= TIER[r] ? "on" : ""}"></i>`).join("")}</div>
+      <div class="cd-type">${unit ? "Unité" : "Sort"} · ${fac.short}</div>
+      <div class="cd-body">${kws && written.length ? `<div class="cd-kws">${kws}</div>` : ""}${lines}</div>
+      ${unit ? `<div class="cd-stat atk"><small>⚔</small><span>${atk}</span></div><div class="cd-stat hp"><small>♥</small><span>${hp}</span></div>` : ""}
       ${o.count ? `<div class="count-badge">×${o.count}</div>` : ""}
       ${o.locked ? '<div class="lock">🔒</div>' : ""}
     </div>`;

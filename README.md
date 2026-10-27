@@ -20,9 +20,8 @@ Jeu de cartes à collectionner fantasy, jouable dans le navigateur contre une IA
 ```
 index.html        page unique (installable, fonctionne hors-ligne)
 css/style.css     styles (écrans, plateau)
-css/cards.css     cartes (généré par tools/card-css.js à partir de card/parts.json)
-card/             pièces de la carte extraites du PSD Mechanized Magic (CC0), recolorées par faction
-ui/               gemmes de rareté et dos de carte
+css/cards.css     les cartes (direction artistique « Codex » : parchemin, or, encre, couleur de faction)
+tools/card-design.html  planche d'essai des cartes (ouvrir avec tools/serve.js)
 js/cards.js       données : factions, mots-clés, 100 cartes, génération du texte
 js/engine.js      TOUTES les règles (sans interface, testable)
 js/ai.js          adversaire automatique (3 niveaux)
@@ -36,8 +35,7 @@ art/              illustrations des cartes (voir art/PROMPTS.md)
 vendor/           tsParticles et animate.css (licence MIT), copiés pour le hors-ligne
 fx/               feuilles d'animation des sorts (Spell FX Free, CC BY 4.0)
 tools/test.js     tests du moteur, du profil et de la difficulté de la campagne
-tools/card-parts.py extrait les pièces de carte du PSD du pack
-tools/card-css.js génère css/cards.css
+tools/art-import.py importe vos illustrations
 tools/fx-import.js importe un pack d'animations dans fx/
 tools/check.js    audit du budget des cartes + tournois IA contre IA
 ```
@@ -58,7 +56,13 @@ Une carte est une ligne dans `js/cards.js` (voir les exemples en tête de fichie
 
 ## Illustrations
 
-Chaque carte affiche son illustration si le fichier `art/<ID>.webp` existe, sinon son emoji. [art/PROMPTS.md](art/PROMPTS.md) contient les 100 prompts prêts à l'emploi et le format attendu. Après avoir ajouté des images : `node tools/art-manifest.js`.
+Chaque carte affiche son illustration si le fichier `art/<ID>.webp` existe, sinon son emoji. [art/PROMPTS.md](art/PROMPTS.md) contient les 100 prompts prêts à l'emploi (format 1,6:1). Pour importer vos images, quels que soient leurs noms (identifiant ou nom de la carte) :
+
+```bash
+python tools/art-import.py "C:\chemin\vers\vos-images"
+```
+
+L'outil recadre, convertit en WebP, range dans `art/` et met à jour la liste.
 
 ## Animations
 
