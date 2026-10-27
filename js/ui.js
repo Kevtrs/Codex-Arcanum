@@ -296,7 +296,10 @@
         <button class="set" data-act="set" data-key="speed"><span>Vitesse des animations</span><b>${P.settings.speed === 1 ? "Normale" : "Rapide"}</b></button>
         <button class="set" data-act="reset-tips"><span>Revoir les conseils de combat</span><b>Réactiver</b></button>
         <button class="set danger" data-act="reset-all"><span>Effacer toute la progression</span><b>Effacer…</b></button>
-      </div>`;
+      </div>
+      <h2>Crédits</h2>
+      <div class="panel small credits-box"><p>Effets de sorts : <a href="https://heyheythere.itch.io/spell-fx-free" target="_blank" rel="noopener">Spell FX Free</a> par heyheythere, licence CC BY 4.0.</p>
+      <p>Particules : tsParticles (MIT). Mouvements d'interface : animate.css (MIT).</p></div>`;
   }
 
   /* ───────── Écran : Règles ───────── */

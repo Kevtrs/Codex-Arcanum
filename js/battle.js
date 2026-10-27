@@ -252,9 +252,12 @@
       const t = tileEl(side, i);
       if (t) t.classList.add("atk");
       await wait(330);                           // la charge atteint la cible ici
+      if (t) t.style.animationPlayState = "paused";   // hit-stop : le temps se fige une fraction de seconde au moment du choc
       E.assaultLine(g, i);                       // règles appliquées maintenant ; l'affichage suit
       const fx = drainFx();
-      await wait(330);
+      await wait(95);
+      if (t) t.style.animationPlayState = "";
+      await wait(260);
       await fx;
       render();
     }

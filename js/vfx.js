@@ -53,7 +53,7 @@
   }
 
   /* ───────── Effets ───────── */
-  VFX.impact = (rect, f, power) => {
+  VFX.sparks = (rect, f, power) => {
     const L = LOOK[f] || LOOK.ARCANES, big = (power || 1) >= 5;
     if (f === "DRACONIS") return play(rect, { cols: L.cols, shape: "circle", count: big ? 26 : 16, speed: { min: 4, max: 11 }, dir: "top", grav: -4, size: { min: 4, max: 11 }, shrink: 9, life: 0.8 });
     if (f === "ABYSSES")  return play(rect, { cols: L.cols, shape: "circle", count: big ? 22 : 14, speed: { min: 1, max: 4 }, dir: "top", size: { min: 8, max: 18 }, shrink: 4, fade: 1, life: 1.1 });
@@ -71,7 +71,7 @@
   };
 
   /* Projectile : une orbe qui traverse le plateau, puis le rappel (callback) déclenche l'impact. */
-  VFX.projectile = (from, to, f) => new Promise((resolve) => {
+  VFX.orbe = (from, to, f) => new Promise((resolve) => {
     if (!from || !to || !document.body.animate) return resolve();
     const L = LOOK[f] || LOOK.ARCANES, a = center(from), b = center(to), orb = document.createElement("i");
     orb.className = "orb"; orb.style.cssText = `left:${a.x}px;top:${a.y}px;--g:${L.glow}`;
@@ -80,7 +80,10 @@
     const anim = orb.animate([{ transform: "translate(-50%,-50%) scale(.5)", opacity: 0.2 }, { transform: "translate(-50%,-50%) scale(1)", opacity: 1, offset: 0.15 },
       { transform: `translate(calc(-50% + ${b.x - a.x}px), calc(-50% + ${b.y - a.y}px)) scale(1.15)`, opacity: 1 }], { duration: 420, easing: "cubic-bezier(.45,.05,.85,.5)" });
     let t = setInterval(() => { const r = orb.getBoundingClientRect(); play(r, { cols: L.cols, emoji: L.emoji, shape: L.shape, count: 2, speed: { min: 0.5, max: 2 }, size: { min: 3, max: 6 }, shrink: 5, life: 0.5, area: 60 }, 700); }, 70);
-    anim.onfinish = () => { clearInterval(t); orb.remove(); resolve(); };
+    let over = false;
+    const finish = () => { if (over) return; over = true; clearInterval(t); orb.remove(); resolve(); };
+    anim.onfinish = finish;
+    setTimeout(finish, 650);
   });
 
   /* Éclair plein écran, teinté par la faction (sorts de zone et Légendaires) */
@@ -97,6 +100,76 @@
     el.classList.add("animate__animated", "animate__" + name);
     el.addEventListener("animationend", () => el.classList.remove("animate__animated", "animate__" + name), { once: true });
   };
+
+  /* ───────── Sprites de sorts : « Spell FX Free » par heyheythere (CC BY 4.0, voir CREDITS.md) ─────────
+     Feuilles d'animation image par image (grille 8 colonnes, fond transparent). Les éléments absents du pack gratuit
+     (lumière, ombre, nature) sont teintés à partir des trois fournis ; le pack complet les offre en natif. */
+  const SH = (frames, fps, loop, rows, w, h, ax, ay) => ({ frames, fps, loop, cols: 8, rows, w, h, ax, ay });
+  const SHEETS = {};
+  ["fire", "ice", "arcane"].forEach((el) => { SHEETS[el + "_bolt"] = SH(16, 24, true, 2, 256, 128, 0.78, 0.5); SHEETS[el + "_impact"] = SH(24, 30, false, 3, 256, 256, 0.5, 0.5); });
+  const SKIN = {
+    DRACONIS: ["fire", ""],
+    AURELIA:  ["fire", "hue-rotate(38deg) saturate(.8) brightness(1.35)"],
+    SYLVE:    ["ice", "hue-rotate(-62deg) saturate(1.35)"],
+    ARCANES:  ["arcane", ""],
+    ABYSSES:  ["arcane", "saturate(.45) brightness(.62) contrast(1.35)"]
+  };
+  const loaded = {};
+  const base = CA.FX_BASE || "fx/";   // le laboratoire (tools/) change ce chemin
+  VFX.spritesReady = false;
+  VFX.preload = () => Promise.all(Object.keys(SHEETS).map((k) => new Promise((ok) => { const im = new Image(); im.onload = () => { loaded[k] = true; ok(); }; im.onerror = ok; im.src = base + k + ".png"; })))
+    .then(() => { VFX.spritesReady = Object.keys(loaded).length === Object.keys(SHEETS).length; });
+  if (typeof Image !== "undefined") VFX.preload();
+
+  // Crée l'élément animé ; son point d'ancrage (tête de la boule, centre de l'impact) est placé sur (x, y).
+  function sprite(name, x, y, scale, filter, angle) {
+    const d = SHEETS[name], W = d.w * scale, H = d.h * scale, el = document.createElement("div");
+    el.className = "spr";
+    el.style.cssText = `position:absolute;left:${x - d.ax * W}px;top:${y - d.ay * H}px;width:${W}px;height:${H}px;pointer-events:none;` +
+      `background:url(${base}${name}.png) 0 0 / ${d.cols * W}px ${d.rows * H}px no-repeat;` + (filter ? `filter:${filter};` : "") +
+      (angle ? `transform:rotate(${angle}rad);transform-origin:${d.ax * W}px ${d.ay * H}px;` : "");
+    let t0 = null, stopped = false, last = -1;
+    const done = new Promise((resolve) => {
+      const tick = (t) => {
+        if (stopped) { el.remove(); return resolve(); }
+        if (t0 == null) t0 = t;
+        const i = Math.floor(((t - t0) / 1000) * d.fps);
+        if (!d.loop && i >= d.frames) { el.remove(); return resolve(); }
+        const f = d.loop ? i % d.frames : i;
+        if (f !== last) { last = f; el.style.backgroundPosition = `-${(f % d.cols) * W}px -${Math.floor(f / d.cols) * H}px`; }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+    // Filet de sécurité : si le navigateur gèle les animations (onglet en arrière-plan), un effet à lecture unique disparaît quand même.
+    if (!d.loop) setTimeout(() => { stopped = true; el.remove(); }, (d.frames / d.fps) * 1000 + 350);
+    return { el, done, stop: () => { stopped = true; } };
+  }
+
+  // Impact : la feuille d'explosion jouée une fois, centrée sur la cible
+  VFX.impact = (rect, f, power) => {
+    if (!VFX.spritesReady || !rect) return VFX.sparks(rect, f, power);
+    const [el, filter] = SKIN[f] || SKIN.DRACONIS, c = center(rect);
+    const scale = Math.max(0.7, Math.min(1.5, rect.width / 130)) * ((power || 1) >= 5 ? 1.3 : 1) * ((power || 1) <= 1 ? 0.8 : 1);
+    layer().appendChild(sprite(el + "_impact", c.x, c.y, scale, filter).el);
+  };
+
+  // Projectile : la boule animée traverse le plateau, tournée dans le sens du trajet, puis la promesse se résout à l'arrivée.
+  VFX.projectile = (from, to, f) => new Promise((resolve) => {
+    if (!VFX.spritesReady || !from || !to || !document.body.animate) return VFX.orbe(from, to, f).then(resolve);
+    const [el, filter] = SKIN[f] || SKIN.ARCANES, a = center(from), b = center(to);
+    const wrap = document.createElement("div");
+    wrap.style.cssText = `position:fixed;left:${a.x}px;top:${a.y}px;width:0;height:0;z-index:6;pointer-events:none`;
+    const sp = sprite(el + "_bolt", 0, 0, 0.8, filter, Math.atan2(b.y - a.y, b.x - a.x));
+    wrap.appendChild(sp.el); layer().appendChild(wrap);
+    const dist = Math.hypot(b.x - a.x, b.y - a.y), ms = Math.max(280, Math.min(520, dist * 0.9));
+    const anim = wrap.animate([{ transform: "translate(0,0) scale(.6)", opacity: 0 }, { transform: "translate(0,0) scale(1)", opacity: 1, offset: 0.1 },
+      { transform: `translate(${b.x - a.x}px,${b.y - a.y}px) scale(1.05)`, opacity: 1 }], { duration: ms, easing: "cubic-bezier(.5,.05,.9,.55)" });
+    let over = false;
+    const finish = () => { if (over) return; over = true; sp.stop(); wrap.remove(); resolve(); };
+    anim.onfinish = finish;
+    setTimeout(finish, ms + 250);                // idem : le sort ne doit jamais bloquer la partie
+  });
 
   CA.VFX = VFX;
 })(typeof window !== "undefined" ? window : globalThis);

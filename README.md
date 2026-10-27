@@ -31,6 +31,7 @@ js/ui.js          écrans (accueil, campagne, cartes, decks, profil, règles)
 js/battle.js      combat : plateau, animations, mulligan, conseils, résultat
 art/              illustrations des cartes (voir art/PROMPTS.md)
 vendor/           tsParticles et animate.css (licence MIT), copiés pour le hors-ligne
+fx/               feuilles d'animation des sorts (Spell FX Free, CC BY 4.0)
 tools/test.js     tests du moteur, du profil et de la difficulté de la campagne
 tools/check.js    audit du budget des cartes + tournois IA contre IA
 ```
@@ -53,10 +54,9 @@ Une carte est une ligne dans `js/cards.js` (voir les exemples en tête de fichie
 
 Chaque carte affiche son illustration si le fichier `art/<ID>.webp` existe, sinon son emoji. [art/PROMPTS.md](art/PROMPTS.md) contient les 100 prompts prêts à l'emploi et le format attendu. Après avoir ajouté des images : `node tools/art-manifest.js`.
 
-## Crédits des effets
+## Crédits
 
-- [tsParticles](https://github.com/tsparticles/tsparticles) (MIT) pour les particules.
-- [animate.css](https://github.com/animate-css/animate.css) (MIT) pour les mouvements d'interface.
+Voir [CREDITS.md](CREDITS.md) : Spell FX Free (heyheythere, CC BY 4.0) pour les sorts, tsParticles et animate.css (MIT).
 
 ## Tests
 
